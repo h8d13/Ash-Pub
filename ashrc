@@ -1,0 +1,8 @@
+# Prompt that better adapts to terminal size changes
+if [ $(id -u) -eq 0 ]; then
+    # Root user prompt with dynamic adjustment
+    export PS1='\033[0;31m┌──[\033[01;31mroot\033[01;33m@\033[01;96m\h\033[0;31m]─[\033[0;32m\w\033[0;31m]\n\033[0;31m└──╼ \033[01;33m# \033[0m'
+else
+    # Regular user prompt with dynamic adjustment
+    export PS1='\033[0;31m┌──[\033[0;39m\u\033[01;33m@\033[01;96m\h\033[0;31m]─[\033[0;32m\w\033[0;31m]\n\033[0;31m└──╼ \033[01;33m$ \033[0m'
+fi
