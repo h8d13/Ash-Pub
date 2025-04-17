@@ -1,8 +1,7 @@
 #!/bin/sh
-## For optional change shells LATER IN SCRIPT
 username=$(whoami)
-## Should be root :)
 echo "Hi $username"
+## Should be root :)
 TARGET_USER=hill
 ## Change this to the name of the user your created, use different PW!
 DESKTOP=xfce
@@ -18,11 +17,8 @@ setup-desktop $DESKTOP
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
-# Set correct ownership
-chown -R $TARGET_USER:$TARGET_USER "/home/$TARGET_USER/.config"
-
 # remove login default  (Shell already does this.) 
-rc-update del sddm default
+#rc-update del sddm default
 ########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
@@ -98,6 +94,7 @@ chmod +x ~/.local/bin/iapps
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
 # Base aliases
+# Add start/stop de 
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
