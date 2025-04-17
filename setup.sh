@@ -4,11 +4,11 @@
 apk add --no-cache tzdata
 ## Test emoji support
 apk add --no-cache font-noto
-echo "🤍" 
 
 # Set locale and encoding support in profile
 echo 'export LANG=en_US.UTF-8' >> /etc/profile
 echo 'export LC_ALL=en_US.UTF-8' >> /etc/profile
+echo "🤍" 
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists
 cat > /etc/profile.d/profile.sh << 'EOF'
