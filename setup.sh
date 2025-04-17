@@ -3,7 +3,7 @@
 ## Extended ascii support
 apk add --no-cache tzdata
 ## Test emoji support
-apk add --no-cache font-noto
+apk add --no-cache font-noto-emoji fontconfig musl-locales
 
 # Set locale and encoding support in profile
 echo 'export LANG=en_US.UTF-8' >> /etc/profile
