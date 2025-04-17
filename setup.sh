@@ -93,8 +93,7 @@ grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 
 # === Optional: Switch default login shell to zsh globally ===
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
-
-# === Optional: Switch shell for current user only ===
+# === Or: Switch shell for current user only ===
 #sed -i -E "s|^($username:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:).*|\1/bin/zsh|" /etc/passwd
 
 cat > /etc/motd << 'EOF'
@@ -109,7 +108,7 @@ Change shells (zsh installed) /etc/passwd
 Custom with <3 by H8D13. 
 EOF
 
-## using agetty escapes
+## Pre login splash art
 cat > /etc/issue << 'EOF'
 
                                                                                                                                                   
@@ -151,6 +150,8 @@ EOF
 
 cat > /etc/profile.d/welcome.sh << 'EOF'
 echo -e '\e[1;31mWelcome to Alpine K2.\e[0m'
+echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
+echo -e '\e[1;31mPost login scripts can be added to /etc/profile.d\e[0m'
 EOF
 chmod +x /etc/profile.d/welcome.sh
 
