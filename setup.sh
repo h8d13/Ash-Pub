@@ -30,7 +30,6 @@ cat > "$HOME/.config/ash/ashrc" << 'EOF'
 export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
 EOF
 
-
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
 For keyboard layouts: setup-keymap
