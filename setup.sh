@@ -26,6 +26,7 @@ mkdir -p "$HOME/.config/ash"
 # Create ~/.config/ash/profile and add basic style 
 echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
 
+# Custom Ash blue & ALiases
 cat > "$HOME/.config/ash/ashrc" << 'EOF'
 export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
 # Aliases base:
@@ -76,9 +77,10 @@ zle -N history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# === Custom Prompt ===
-export PROMPT='%F{blue}┌──[%F{cyan}%*%F{blue}]─[%F{default}%n%F{blue}@%F{cyan}%m%F{blue}]─[%F{green}%~%F{blue}]
-%F{blue}└──╼ %F{cyan}$ %f'
+# === Custom Zsh Prompt Red ===
+export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
+%F{red}└──╼ %F{cyan}$ %f'
+
 EOF
 
 # === Ensure ~/.zshrc Sources the New Config ===
