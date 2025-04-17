@@ -1,19 +1,16 @@
 #!/bin/sh
-## For optional change shells LATER IN SCRIPT
 username=$(whoami)
-## Should be root :)
 echo "Hi $username"
 
 TARGET_USER=hill
 ## Change this to the name of the user your created, use different PW! # Should be lowercase :)
-
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
 setup-desktop plasma
-apk add micro
+apk add micro # more modern/intuitive editor
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
@@ -77,6 +74,12 @@ mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
 
+########################################## FRIENDLY EDITOR NEEDS EDITING
+cat > "$HOME/.config/micro/settings.json" << 'EOF'
+{
+    "sucmd": "doas"
+}
+EOF
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
@@ -84,7 +87,6 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
-
 ########################################## Example Script: Called "iapps" To search in installed packages. 
 # Create the script file
 cat > ~/.local/bin/iapps << 'EOF'
@@ -240,7 +242,8 @@ Use . ~/.config/aliases if you added something
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
 "startde/stopde" for Desktop Env. 
-To come back to this shell in your DE: Open Konsole > "k2"
+To come back to this shell in your DE: Open Konsole > "su -l"
+Can also use micro or mc for friendly editing.
 
 Custom with <3 by H8D13. 
 EOF
