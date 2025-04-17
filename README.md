@@ -1,14 +1,18 @@
 # Why this project ? 
 
 Everybody hates documention, and even more having to do manual menial tasks. 
-And even more when you have to work with 100 different underlying components that each have their own quirks.
+Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
+
+This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO. 
+
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 It is also versatile, efficient and secure. 
 
 I wanted to see how how much a single setup script can do. 
 
 Do the standard `setup-alpine` 
-> ⚠️ IMPORTANT: You have to create a user (this will be useful for later). Make the pw different from root. 
+> ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
+> Make the pw different from root. lowercase usernames (I used k2 & hill).
 
 ## Desktop Env 
 
@@ -21,7 +25,7 @@ So `apk add git`
 Then `chmod +x` and `./setup.sh` 
 
 > Then only thing you have to do is specify the user you created in the script:
-`TARGET_USER=Hill`
+`TARGET_USER=hill`
 
 ## What exactly: 
 
@@ -42,8 +46,6 @@ This modular approach makes it so that if you create several users down the line
 ### Emoji / UTF8 support
 
 ### Added more helpful motd
-
-### Cool splash screen
 ----
 
 Sets up common aliases for Zsh & Ash 
