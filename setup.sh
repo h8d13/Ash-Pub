@@ -80,6 +80,7 @@ Set up the system with: setup-alpine
 Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
+ZSH & SH Pre-Installed.
 Custom with <3 by H8D13. 
 EOF
 
@@ -124,7 +125,7 @@ Welcome to Alpine K2.
 Kernel \r on \m
 EOF
 
-
+################################################################################################################################################### 
 
 
 
