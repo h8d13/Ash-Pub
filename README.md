@@ -6,7 +6,8 @@ Then it becomes a whole other story when you have to work with 100 different und
 This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO. 
 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
-It is also versatile, efficient and secure. 
+This mini-service philosophy makes it versatile, efficient and secure. 
+But again more difficult to set-up for a beginner?
 
 I wanted to see how how much a single setup script can do. 
 
@@ -21,7 +22,7 @@ Do the standard `setup-alpine`
 
 The only prereq is git to access the script.
 
-So `apk add git`
+So `apk add git` then cd `k2-alpine`
 Then `chmod +x` and `./setup.sh` 
 
 > Then only thing you have to do is specify the user you created in the script:
@@ -63,13 +64,14 @@ With an example script to search through your apps `iapps`: See example above ^^
 ## ⌛ - 10 Minutes Total
 
 Inital `setup-alpine`, reboot to hardisk. 
+
 Then `apk add git`
-Then `https://github.com/h8d13/K2-Alpine`
-`cd K2-Alpine`
+`git clone https://github.com/h8d13/k2-alpine`
+`cd k2-alpine`
 `chmod +x setup.sh`
 run the script `./setup.sh`
 
-Once all is done I recommend to reboot.
+Once all is done, reboot again.
 
 `startde` or `stopde`
 
