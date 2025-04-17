@@ -27,12 +27,11 @@ Create ~/.config/ash/profile with:
 export ENV="$HOME/.config/ash/ashrc"
 ```
 
-^^ Same for zsh
+^^ Same for zsh and BOTH to /.config/aliases
 
 This modular approach makes it so that if you create several users down the line they can all have their own configs. 
-To do: copy aliases to zsh 
 
-### Parralel boot
+### Basic system conf 
 
 ### Auto-add main/community repos
 
