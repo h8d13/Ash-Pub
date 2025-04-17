@@ -30,6 +30,34 @@ cat > "$HOME/.config/ash/ashrc" << 'EOF'
 export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
 EOF
 
+#!/bin/sh
+set -e
+
+# === Install required packages ===
+apk update
+apk add zsh git curl wget unzip
+
+# === Install Zsh plugins: Autosuggestions & Syntax Highlighting ===
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
+
+## Similar style for zsh
+cat > "$HOME/.zshrc" << 'EOF'
+# Only set PS1 and other Zsh-specific settings in Zsh
+if [ -n "$ZSH_VERSION" ]; then
+    # Custom prompt with time display in blue color scheme
+    export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
+    # Enable Zsh plugins: Autosuggestions & Syntax Highlighting
+    source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"
+fi
+EOF
+
+echo "Zsh setup complete with syntax highlighting and autosuggestions."
+echo "Run 'zsh' to start using it."
+
+
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
 For keyboard layouts: setup-keymap
