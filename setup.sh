@@ -6,6 +6,8 @@ echo "Hi $username"
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
+rc-update del sddm default
+
 ## Change login screen language for sddm #### REPLACE FR With desired language.
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
 setxkbmap "fr"
@@ -96,6 +98,7 @@ chmod +x ~/.local/bin/iapps
 
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
+alias startde="rc-service sddm start"
 # Base aliases
 alias clr="clear"
 alias cls="clr"
