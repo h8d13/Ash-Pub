@@ -1,4 +1,11 @@
-# From Alpine Docs
+# Why this project ? 
+
+Everybody hates docs and even more having to do manual menial tasks. 
+While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
+
+It is also versatile, efficient and secure. I wanted to see how for a single setup script can do. 
+
+### From Alpine Docs
 
 Create /etc/profile.d/profile.sh with (Make exec) 
 ```
@@ -11,8 +18,18 @@ Create ~/.config/ash/profile with:
 export ENV="$HOME/.config/ash/ashrc"
 ```
 
-Clone repo and copy style for ashrc file paste it into it. 
-Add aliases here too. 
+### Profiles / Doas
+
+### Parralel boot
+
+### Zsh 
+
+### Emoji / UTF8 support
+
+
+----
+
+
 
 
 
