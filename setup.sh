@@ -1,19 +1,11 @@
 #!/bin/sh
-
-## Extended ascii support
-apk add --no-cache tzdata
-
+# Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 
-## Test emoji support
-apk add --no-cache font-noto-emoji fontconfig musl-locales
-
-# Set locale and encoding support in profile
-echo 'export LANG=en_US.UTF-8' >> /etc/profile
-echo 'export LC_ALL=en_US.UTF-8' >> /etc/profile
-echo "🤍" 
+## Extended ascii support for later :)
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists
 cat > /etc/profile.d/profile.sh << 'EOF'
