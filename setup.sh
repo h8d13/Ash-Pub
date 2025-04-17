@@ -17,21 +17,26 @@ apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
-## Change login-screen language input for SDDM #### REPLACE "fr" With desired language.
+## Change login-screen language input for SDDM #### REPLACE "fr" With desired language. # Tested: OK
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
 setxkbmap "fr"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 
+# Same but for DE 
+mkdir -p "/home/$TARGET_USER/.config"
+# Write the keyboard configuration
 cat > "/home/$TARGET_USER/.config/kxkbrc" << 'EOF'
 [Layout]
 LayoutList=fr
 Use=true
 EOF
 
+# Set correct ownership
+chown -R $TARGET_USER:$TARGET_USER "/home/$TARGET_USER/.config"
+
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
-
 ########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
