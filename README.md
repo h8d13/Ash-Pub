@@ -50,5 +50,8 @@ Sets up common aliases for Zsh & Ash
 
 ![image](https://github.com/user-attachments/assets/f68f8c19-7b45-4af9-9c10-03a321f599c4)
 
+----
+### Custom `.local/bin`
 
+With an example script to search through your apps
 
