@@ -6,7 +6,10 @@ It is also versatile, efficient and secure.
 
 I wanted to see how how much a single setup script can do. 
 
-Th eonly prereq is git to access the script. Then `chmod +x` and `./setup.sh` 
+The only prereq is git to access the script.
+
+So `apk add git`
+Then `chmod +x` and `./setup.sh` 
 
 
 ## What exactly: 
@@ -28,9 +31,13 @@ export ENV="$HOME/.config/ash/ashrc"
 
 ### Parralel boot
 
+### Auto-add main/community repos
+
 ### Emoji / UTF8 support
 
 ### Added more helpful motd
+
+### Cool splash screen
 ----
 
 
