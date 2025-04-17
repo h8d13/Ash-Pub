@@ -53,6 +53,7 @@ sysctl -p
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
+apk upgrade
 
 ## Extended ascii support  (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
