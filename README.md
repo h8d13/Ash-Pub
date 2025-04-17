@@ -25,8 +25,12 @@ Then `chmod +x` and `./setup.sh`
 
 ## What exactly: 
 
-### Make a DE an Option not an obligation. 
+### Make a DE an option not an obligation. 
 
+That's right you terminal nerds. 
+`startde` and `stopde` commands.
+
+### One place for admin configs
 This modular approach makes it so that if you create several users down the line they can all have their own configs. 
 
 ![image](https://github.com/user-attachments/assets/1ae70597-2560-431e-9cdc-1368f1826173)
