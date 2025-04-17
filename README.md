@@ -30,6 +30,7 @@ export ENV="$HOME/.config/ash/ashrc"
 ^^ Same for zsh
 
 This modular approach makes it so that if you create several users down the line they can all have their own configs. 
+To do: copy aliases to zsh 
 
 ### Parralel boot
 
