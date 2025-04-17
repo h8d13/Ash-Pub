@@ -6,10 +6,17 @@ It is also versatile, efficient and secure.
 
 I wanted to see how how much a single setup script can do. 
 
-The only prereq is git to access the script.
-
 Do the standard `setup-alpine` 
 > Make sure to create a user (this will be useful for later). Make the pw different from root. 
+
+## Desktop Env 
+
+- KDE because it's beautiful and reliable.
+> Also has many essentials pre-installed and is still relatievly light (5Gb Total)
+
+So let's go! `setup-desktop` > plasma
+
+The only prereq is git to access the script.
 
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
@@ -56,7 +63,9 @@ Sets up common aliases for Zsh & Ash
 
 With an example script to search through your apps `iapps`: See example above ^^ 
 
-## Desktop Env 
+## ⌛ - 10 Minutes (2 reboots) 
 
-- KDE because it's beautiful and reliable.
-> Also has many essentials pre-installed and is still relatievly light (5Gb Total) 
+One reboot after inital `setup-alpine` and another after `setup-desktop`
+
+
+
