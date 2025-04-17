@@ -13,14 +13,15 @@ Do the standard `setup-alpine`
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable.
-> Also has many essentials pre-installed and is still relatievly light (5Gb Total)
-
-So let's go! `setup-desktop` > plasma
+> Also has many essentials pre-installed and is still relatievly light (2.5GB Total)
 
 The only prereq is git to access the script.
 
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
+
+Then only thing you have to do is specify the user you created in the script:
+`TARGET_USER=Hill`
 
 ## What exactly: 
 
@@ -59,7 +60,6 @@ Then run the script.
 To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
 
 ![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
-
 
 ----
 
