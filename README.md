@@ -56,7 +56,12 @@ With an example script to search through your apps `iapps`: See example above ^^
 One reboot after inital `setup-alpine`,  `setup-desktop`
 Then run the script.
 
-To get to your beautiful shell: `su -l` this tells it to run as root and as a login shell :)
+To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
+
+![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
+
+
+----
 
 
 
