@@ -4,7 +4,7 @@ echo "Hi $username"
 ## Should be root :)
 TARGET_USER=hill
 ## Change this to the name of the user your created, use different PW!
-DESKTOP=xfce
+DESKTOP=mate
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
