@@ -1,4 +1,6 @@
 #!/bin/sh
+username=$(whoami)
+echo "Hi $username"
 
 # System tweaks
 sed -i 's/^rc_parallel="no"/rc_parallel="yes"/' /etc/rc.conf
@@ -35,42 +37,62 @@ alias l='ls -CF'
 EOF
 
 
-# === Install required packages ===
+# === Install Required Packages ===
 apk update
 apk add zsh git curl wget unzip
 
-# === Install Zsh plugins: Autosuggestions, Syntax Highlighting, and Fuzzy History Search ===
+# === Install Zsh Plugins ===
 mkdir -p "$HOME/.zsh/plugins"
+
+# Autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/plugins/zsh-autosuggestions"
+
+# Syntax Highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting "$HOME/.zsh/plugins/zsh-syntax-highlighting"
+
+# History Substring Search
 git clone https://github.com/zsh-users/zsh-history-substring-search "$HOME/.zsh/plugins/zsh-history-substring-search"
+
+# zsh-completions (extra completions)
+git clone https://github.com/zsh-users/zsh-completions "$HOME/.zsh/plugins/zsh-completions"
 
 # === Create ~/.config/zsh directory if it doesn't exist ===
 mkdir -p "$HOME/.config/zsh"
 
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
+# === Load Extra Completions ===
+fpath+=("$HOME/.zsh/plugins/zsh-completions/src")
+
 # === Source Zsh Plugins ===
 source "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 source "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
+
+# === History Substring Search with Arrow Keys ===
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+zle -N history-substring-search-up
+zle -N history-substring-search-down
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 # === Custom Prompt ===
 export PROMPT='%F{blue}┌──[%F{cyan}%*%F{blue}]─[%F{default}%n%F{blue}@%F{cyan}%m%F{blue}]─[%F{green}%~%F{blue}]
 %F{blue}└──╼ %F{cyan}$ %f'
 EOF
 
-# Ensure zsh configuration is sourced
+# === Ensure ~/.zshrc Sources the New Config ===
 echo 'source "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 echo "Configured zsh to source $HOME/.config/zsh/zshrc."
 
-# Check install
-which zsh
-# Add it to login shells
+# === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
-# Change default shells to zsh OPTIONAL BETTER TO DO THIS ON USER (/etc/passwd) 
-# sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 
+# === Optional: Switch default login shell to zsh globally ===
+#sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
+
+# === Optional: Switch shell for current user only ===
+#sed -i -E "s|^($username:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:).*|\1/bin/zsh|" /etc/passwd
 
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
