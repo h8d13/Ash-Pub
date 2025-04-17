@@ -2,17 +2,20 @@
 ## For optional change shells LATER IN SCRIPT
 username=$(whoami)
 echo "Hi $username"
-
-# Create all needed directories first
-mkdir -p "$HOME/.config"
-mkdir -p "$HOME/.config/ash"
-mkdir -p "$HOME/.config/zsh"
-mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.zsh/plugins"
-
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
+
+## Change login screen language for sddm #### REPLACE FR With desired language.
+cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
+setxkbmap "fr"
+EOF
+
+cat > "$HOME/.config/kxkbrc" << 'EOF'
+[Layout]
+LayoutList=fr
+Use=true
+EOF
 
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
@@ -59,6 +62,14 @@ apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 
 # === Install Essentials ===
 apk add zsh git zsh-syntax-highlighting
+
+
+# Create all needed directories first
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.config/ash"
+mkdir -p "$HOME/.config/zsh"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.zsh/plugins"
 
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
