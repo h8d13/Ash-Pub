@@ -106,8 +106,8 @@ alias sudo="doas"
 alias ll='ls -la'
 alias la='ls -a'
 alias l='ls -CF'
-alias wztree="doas du -h / | sort -rh | head -n 30 | less"
-alias wzhere="doas du -h . | sort -rh | head -n 30 | less"
+alias wztree="du -h / | sort -rh | head -n 30 | less"
+alias wzhere="du -h . | sort -rh | head -n 30 | less"
 EOF
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
