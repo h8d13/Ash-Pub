@@ -1,15 +1,18 @@
 #!/bin/sh
 ## For optional change shells LATER IN SCRIPT
 username=$(whoami)
-echo "Hi $username"
 ## Should be root :)
+echo "Hi $username"
 TARGET_USER=Hill
 ## Change this to the name of the user your created, use different PW!
+
+# Community & main ######################### vX.xX/Branch
+echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
+echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
 apk add xorg-server dbus polkit-elogind plasma sddm
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
-
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -64,11 +67,6 @@ EOF
 
 # Apply settings
 sysctl -p
-
-# Community & main ######################### vX.xX/Branch
-echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
-echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
-apk update
 
 ## Extended ascii support  (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
