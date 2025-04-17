@@ -1,17 +1,6 @@
 #!/bin/sh
 set -e
 
-# === CONFIG ===
-# Detect user: fallback to root if unknown
-if [ "$SUDO_USER" ]; then
-  USER_NAME="$SUDO_USER"
-elif [ "$USER" != "root" ]; then
-  USER_NAME="$USER"
-else
-  echo "❗ Unable to detect non-root user. Run this with sudo from a regular user."
-  exit 1
-fi
-
 USER_HOME="/home/$USER_NAME"
 ZSHRC="$USER_HOME/.zshrc"
 
