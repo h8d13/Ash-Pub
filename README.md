@@ -52,5 +52,5 @@ Sets up common aliases for Zsh & Ash
 ----
 ### Custom `.local/bin`
 
-With an example script to search through your apps `iapps`
+With an example script to search through your apps `iapps`: See example above ^^ 
 
