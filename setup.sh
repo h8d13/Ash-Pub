@@ -20,13 +20,6 @@ find /tmp -type f -atime +10 -delete
 EOF
 chmod +x /etc/periodic/daily/clean-tmp
 
-cat > /etc/security/limits.conf << 'EOF'
-* soft nofile 65535
-* hard nofile 65535
-* soft nproc 32768
-* hard nproc 32768
-EOF
-
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
 # Network performance and security
@@ -65,7 +58,7 @@ apk update
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 
 # === Install Essentials ===
-apk add zsh git
+apk add zsh git zsh-syntax-highlighting
 
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
@@ -172,7 +165,6 @@ install_plugin() {
 }
 
 install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.zsh/plugins/zsh-autosuggestions"
-install_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "$HOME/.zsh/plugins/zsh-syntax-highlighting"
 install_plugin "https://github.com/zsh-users/zsh-history-substring-search" "$HOME/.zsh/plugins/zsh-history-substring-search" 
 install_plugin "https://github.com/zsh-users/zsh-completions" "$HOME/.zsh/plugins/zsh-completions"
 
@@ -188,7 +180,6 @@ HISTFILE=~/.zsh_history
 
 # === Source Zsh Plugins (with error checking) ===
 for plugin in "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
-              "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
               "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"; do
     if [ -f "$plugin" ]; then
         . "$plugin"
@@ -196,6 +187,15 @@ for plugin in "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
         echo "Warning: Plugin file not found: $plugin"
     fi
 done
+
+# Source syntax-highlighting from system location
+if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+else
+    echo "Warning: zsh-syntax-highlighting not found"
+fi
 
 # === History Substring Search with Arrow Keys ===
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -226,7 +226,6 @@ grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 # === OR: Switch shell for current user only ===
 #sed -i -E "s|^($username:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:).*|\1/bin/zsh|" /etc/passwd
-
 
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
@@ -288,8 +287,6 @@ echo "Find shared aliases ~/.config/aliases"
 echo "Use . ~/.config/aliases if you added something"
 echo "Post login scripts can be added to /etc/profile.d"
 echo "Personal bin in ~/.local/bin"
-echo "chsh to switch between sh/zsh"
-
 EOF
 chmod +x /etc/profile.d/welcome.sh
 ################################################################################################################################################### 
