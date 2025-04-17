@@ -54,7 +54,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 
 ## ⌛ - 10 Minutes Total
 
-One reboot after inital `setup-alpine`,  `setup-desktop`
+One reboot after inital `setup-alpine`
 Then run the script.
 
 To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
