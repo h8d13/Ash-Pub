@@ -2,6 +2,11 @@
 
 ## Extended ascii support
 apk add --no-cache tzdata
+
+echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
+echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
+apk update
+
 ## Test emoji support
 apk add --no-cache font-noto-emoji fontconfig musl-locales
 
