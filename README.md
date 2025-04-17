@@ -8,6 +8,7 @@ I wanted to see how how much a single setup script can do.
 
 The only prereq is git to access the script.
 
+Do the standard `setup-alpine` 
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
 
@@ -31,9 +32,11 @@ export ENV="$HOME/.config/ash/ashrc"
 
 This modular approach makes it so that if you create several users down the line they can all have their own configs. 
 
-### Basic system conf 
+![image](https://github.com/user-attachments/assets/1ae70597-2560-431e-9cdc-1368f1826173)
 
 ### Auto-add main/community repos
+
+### Basic /etc confs 
 
 ### Emoji / UTF8 support
 
@@ -42,7 +45,10 @@ This modular approach makes it so that if you create several users down the line
 ### Cool splash screen
 ----
 
+Sets up common aliases for Zsh & Ash 
+> All in one place :)
 
+![image](https://github.com/user-attachments/assets/f68f8c19-7b45-4af9-9c10-03a321f599c4)
 
 
 
