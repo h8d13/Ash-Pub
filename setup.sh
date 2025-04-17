@@ -7,9 +7,12 @@ apk add --no-cache tzdata
 echo 'export LANG=en_US.UTF-8' >> /etc/profile
 echo 'export LC_ALL=en_US.UTF-8' >> /etc/profile
 
-# Create /etc/profile.d/profile.sh
-echo 'if [ -f "$HOME/.config/ash/profile" ]; then' > /etc/profile.d/profile.sh
-echo '    . "$HOME/.config/ash/profile"' >> /etc/profile.d/profile.sh
+# Create /etc/profile.d/profile.sh to source user profile if it exists
+cat > /etc/profile.d/profile.sh << 'EOF'
+if [ -f "$HOME/.config/ash/profile" ]; then
+    . "$HOME/.config/ash/profile"
+fi
+EOF
 
 # Make it executable
 chmod +x /etc/profile.d/profile.sh
