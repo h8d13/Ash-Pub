@@ -13,12 +13,13 @@ echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
 setup-desktop plasma
+apk add micro
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
-## Change login-screen language input for SDDM #### REPLACE "fr" With desired language. # Tested: OK
+## Change login-screen language input for SDDM #### REPLACE "fr" With desired language. 
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
 setxkbmap "fr"
 EOF
@@ -101,7 +102,7 @@ chmod +x ~/.local/bin/iapps
 
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
-alias k2="su -l"
+alias mc="micro"
 alias startde="rc-service sddm start"
 alias stoptde="rc-service sddm stop"
 # Base aliases
