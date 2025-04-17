@@ -167,7 +167,6 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # === Source Zsh Plugins (with error checking) ===
-# Common locations for Alpine packages
 plugin_locations=(
     "/usr/share/zsh/plugins"
     "/usr/share"
