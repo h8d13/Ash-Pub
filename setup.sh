@@ -247,7 +247,7 @@ cat > /etc/profile.d/welcome.sh << 'EOF'
 echo -e '\e[1;31mWelcome to Alpine K2.\e[0m'
 echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
 echo "Find shared aliases ~/.config/aliases"
-echo "Use source ~/.config/aliases if you added something"
+echo "Use . ~/.config/aliases if you added something"
 echo "Post login scripts can be added to /etc/profile.d"
 echo "Personal bin in ~/.local/bin"
 echo "chsh to switch between sh/zsh"
