@@ -2,23 +2,29 @@
 ## For optional change shells LATER IN SCRIPT
 username=$(whoami)
 echo "Hi $username"
+## Should be root :)
+TARGET_USER=Hill
+## Change this to the name of the user your created :)
+
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
 rc-update del sddm default
 
-## Change login screen language for sddm #### REPLACE FR With desired language.
+## Change login-screen language input for SDDM #### REPLACE FR With desired language.
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
 setxkbmap "fr"
 EOF
+chmod +x /usr/share/sddm/scripts/Xsetup
 
-cat > "$HOME/.config/kxkbrc" << 'EOF'
+cat > "/home/$TARGET_USER/.config/kxkbrc" << 'EOF'
 [Layout]
 LayoutList=fr
 Use=true
 EOF
 
+########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
 find /tmp -type f -atime +10 -delete
@@ -65,7 +71,6 @@ apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 # === Install Essentials ===
 apk add zsh git zsh-syntax-highlighting
 
-
 # Create all needed directories first
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
@@ -98,7 +103,9 @@ chmod +x ~/.local/bin/iapps
 
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
+alias k2="su -l"
 alias startde="rc-service sddm start"
+alias stoptde="rc-service sddm stop"
 # Base aliases
 alias clr="clear"
 alias cls="clr"
@@ -188,15 +195,6 @@ zle -N history-substring-search-down
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
-# === Custom Zsh Prompt Red ===
-export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
-%F{red}└──╼ %F{cyan}$ %f'
-
-# === Source common aliases ===
-if [ -f "$HOME/.config/aliases" ]; then
-    . "$HOME/.config/aliases"
-fi
-
 # Load syntax-highlighting last as recommended
 for location in "${plugin_locations[@]}"; do
     if [ -f "$location/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
@@ -204,7 +202,15 @@ for location in "${plugin_locations[@]}"; do
         break
     fi
 done
+# === Custom Zsh Prompt Red ===
+export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
+%F{red}└──╼ %F{cyan}$ %f'
 EOF
+
+# === Source common aliases ===
+if [ -f "$HOME/.config/aliases" ]; then
+    . "$HOME/.config/aliases"
+fi
 
 # === Ensure ~/.zshrc Sources the New Config ===
 # Create ~/.zshrc if it doesn't exist
@@ -228,6 +234,15 @@ Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
 Change default shells /etc/passwd
+
+Find shared aliases ~/.config/aliases
+Use . ~/.config/aliases if you added something
+
+Post login scripts can be added to /etc/profile.d
+Personal bin scripts in ~/.local/bin
+"startde/stopde" for Desktop Env. 
+To come back to this shell in your DE: Open Konsole > "k2"
+
 Custom with <3 by H8D13. 
 EOF
 
@@ -274,10 +289,6 @@ EOF
 cat > /etc/profile.d/welcome.sh << 'EOF'
 echo -e '\e[1;31mWelcome to Alpine K2.\e[0m'
 echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
-echo "Find shared aliases ~/.config/aliases"
-echo "Use . ~/.config/aliases if you added something"
-echo "Post login scripts can be added to /etc/profile.d"
-echo "Personal bin in ~/.local/bin"
 EOF
 chmod +x /etc/profile.d/welcome.sh
 ################################################################################################################################################### 
