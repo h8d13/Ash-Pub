@@ -27,6 +27,12 @@ echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
 
 cat > "$HOME/.config/ash/ashrc" << 'EOF'
 export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
+# Aliases base:
+alias cls="clr"
+alias sudo="doas"
+alias ll='ls -la'
+alias la='ls -a'
+alias l='ls -CF'
 EOF
 
 cat > /etc/motd << 'EOF'
