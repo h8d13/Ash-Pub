@@ -1,4 +1,9 @@
 #!/bin/sh
+
+# System tweaks
+sed -i 's/^rc_parallel="no"/rc_parallel="yes"/' /etc/rc.conf
+
+
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
