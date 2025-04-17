@@ -3,7 +3,7 @@
 username=$(whoami)
 ## Should be root :)
 echo "Hi $username"
-TARGET_USER=Hill
+TARGET_USER=hill
 ## Change this to the name of the user your created, use different PW!
 
 # Community & main ######################### vX.xX/Branch
@@ -11,7 +11,7 @@ echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/reposit
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
-apk add xorg-server dbus polkit-elogind plasma sddm
+setup-desktop plasma
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
