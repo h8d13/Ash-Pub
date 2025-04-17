@@ -17,6 +17,7 @@ bantime = 1h
 findtime = 10m
 maxretry = 5
 
-[sshd]
+## Add services here (Webservers, etc) 
+[sshd] 
 enabled = true
 EOF
