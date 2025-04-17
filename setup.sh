@@ -209,13 +209,11 @@ grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
-For keyboard layouts: setup-keymap
-Set up the system with: setup-alpine
 
 Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
-Change shells (zsh installed) /etc/passwd
+Change default shells /etc/passwd
 Custom with <3 by H8D13. 
 EOF
 
