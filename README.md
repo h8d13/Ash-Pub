@@ -68,13 +68,19 @@ run the script `./setup.sh`
 Once all is done I recommend to reboot.
 
 `startde` or `stopde`
+
+![image](https://github.com/user-attachments/assets/c7dda33b-de38-435a-ac47-f29630c5205a)
+
+You should find a program called `Konsole` This is your new best friend.
+
 To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
+
 Or `k2` will do the same. 
 
 ![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
 
 ----
-
+Love <3 H8D13
 
 
 
