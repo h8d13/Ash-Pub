@@ -23,7 +23,7 @@ setxkbmap "fr"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 
-# Same but for DE 
+# Same but for FULL DE
 mkdir -p "/home/$TARGET_USER/.config"
 # Write the keyboard configuration
 cat > "/home/$TARGET_USER/.config/kxkbrc" << 'EOF'
