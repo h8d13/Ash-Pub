@@ -13,14 +13,14 @@ Do the standard `setup-alpine`
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable.
-> Also has many essentials pre-installed and is still relatievly light (2.5GB Total)
+> Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total)
 
 The only prereq is git to access the script.
 
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
 
-Then only thing you have to do is specify the user you created in the script:
+> Then only thing you have to do is specify the user you created in the script:
 `TARGET_USER=Hill`
 
 ## What exactly: 
