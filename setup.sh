@@ -53,6 +53,14 @@ export PROMPT='%F{blue}┌──[%F{cyan}%*%F{blue}]─[%F{default}%n%F{blue}@%F
 %F{blue}└──╼ %F{cyan}$ %f'
 EOF
 
+# Set zsh as the default shell
+chsh -s $(which zsh)
+echo "Set zsh as the default shell."
+
+# Ensure zsh configuration is sourced
+echo 'source "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
+echo "Configured zsh to source $HOME/.config/zsh/zshrc."
+
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
 For keyboard layouts: setup-keymap
