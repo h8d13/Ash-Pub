@@ -1,6 +1,7 @@
 # Why this project ? 
 
 Everybody hates documention, and even more having to do manual menial tasks. 
+And even more when you have to work with 100 different underlying components that each have their own quirks.
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 It is also versatile, efficient and secure. 
 
@@ -16,6 +17,8 @@ Do the standard `setup-alpine`
 
 So let's go! `setup-desktop` > plasma
 
+
+
 The only prereq is git to access the script.
 
 So `apk add git`
@@ -23,20 +26,7 @@ Then `chmod +x` and `./setup.sh`
 
 ## What exactly: 
 
-### From Alpine Docs
-
-Create /etc/profile.d/profile.sh with
-```
-if [ -f "$HOME/.config/ash/profile" ]; then
-    . "$HOME/.config/ash/profile"
-fi
-```
-Create ~/.config/ash/profile with:
-```
-export ENV="$HOME/.config/ash/ashrc"
-```
-
-^^ Same for zsh and BOTH to /.config/aliases
+### Make a DE an Option not an obligation. 
 
 This modular approach makes it so that if you create several users down the line they can all have their own configs. 
 
