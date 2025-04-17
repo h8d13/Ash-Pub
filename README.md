@@ -1,9 +1,10 @@
 # Why this project ? 
 
-Everybody hates docs and even more having to do manual menial tasks. 
+Everybody hates documention, and even more having to do manual menial tasks. 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
+It is also versatile, efficient and secure. 
 
-It is also versatile, efficient and secure. I wanted to see how for a single setup script can do. 
+I wanted to see how for a single setup script can do. 
 
 ### From Alpine Docs
 
