@@ -8,7 +8,7 @@ It is also versatile, efficient and secure.
 I wanted to see how how much a single setup script can do. 
 
 Do the standard `setup-alpine` 
-> Make sure to create a user (this will be useful for later). Make the pw different from root. 
+> ⚠️ IMPORTANT: You have to create a user (this will be useful for later). Make the pw different from root. 
 
 ## Desktop Env 
 
