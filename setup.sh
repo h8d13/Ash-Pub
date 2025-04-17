@@ -5,16 +5,14 @@ echo "Hi $username"
 ## Should be root :)
 TARGET_USER=Hill
 ## Change this to the name of the user your created, use different PW!
-
-setup-dekstop && plasma
 apk update
+apk upgrade
+apk add xorg-server dbus polkit-elogind plasma sddm
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
-
-rc-update del sddm default
 
 ## Change login-screen language input for SDDM #### REPLACE "fr" With desired language.
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
@@ -27,6 +25,9 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << 'EOF'
 LayoutList=fr
 Use=true
 EOF
+
+# remove login default  (Shell already does this.) 
+rc-update del sddm default
 
 ########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
