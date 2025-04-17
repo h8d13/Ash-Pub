@@ -37,7 +37,7 @@ Set up the system with: setup-alpine
 Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
-Made with 🤍 by H8D13. 
+Made with <3 by H8D13. 
 EOF
 
 cat > /etc/issue << 'EOF'
