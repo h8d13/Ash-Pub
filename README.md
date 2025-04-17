@@ -6,6 +6,11 @@ It is also versatile, efficient and secure.
 
 I wanted to see how how much a single setup script can do. 
 
+Th eonly prereq is git to access the script. Then `chmod +x` and `./setup.sh` 
+
+
+## what exactly: 
+
 ### From Alpine Docs
 
 Create /etc/profile.d/profile.sh with (Make exec) 
@@ -19,15 +24,13 @@ Create ~/.config/ash/profile with:
 export ENV="$HOME/.config/ash/ashrc"
 ```
 
-### Profiles / Doas
+^^ Same for zsh
 
 ### Parralel boot
 
-### Zsh 
-
 ### Emoji / UTF8 support
 
-
+### Added more helpful motd
 ----
 
 
