@@ -80,7 +80,7 @@ Set up the system with: setup-alpine
 Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
-ZSH & SH Pre-Installed.
+Change shells (zsh installed) /etc/passwd
 Custom with <3 by H8D13. 
 EOF
 
