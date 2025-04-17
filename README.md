@@ -17,8 +17,6 @@ Do the standard `setup-alpine`
 
 So let's go! `setup-desktop` > plasma
 
-
-
 The only prereq is git to access the script.
 
 So `apk add git`
@@ -53,9 +51,14 @@ Sets up common aliases for Zsh & Ash
 
 With an example script to search through your apps `iapps`: See example above ^^ 
 
-## ⌛ - 10 Minutes (2 reboots) 
+## ⌛ - 10 Minutes Total
 
-One reboot after inital `setup-alpine` and another after `setup-desktop`
+One reboot after inital `setup-alpine`,  `setup-desktop`
+Then run the script.
+
+To get to your beautiful shell: `su -l` this tells it to run as root and as a login shell :)
+
+
 
 
 
