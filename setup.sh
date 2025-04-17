@@ -152,6 +152,7 @@ cat > /etc/profile.d/welcome.sh << 'EOF'
 echo -e '\e[1;31mWelcome to Alpine K2.\e[0m'
 echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
 echo -e '\e[1;31mPost login scripts can be added to /etc/profile.d\e[0m'
+echo -e '\e[1;31mChange root password!.\e[0m'
 EOF
 chmod +x /etc/profile.d/welcome.sh
 
