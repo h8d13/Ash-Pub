@@ -4,7 +4,11 @@ username=$(whoami)
 echo "Hi $username"
 ## Should be root :)
 TARGET_USER=Hill
-## Change this to the name of the user your created :)
+## Change this to the name of the user your created, use different PW!
+
+setup-dekstop && plasma
+apk update
+apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
@@ -12,7 +16,7 @@ TARGET_USER=Hill
 
 rc-update del sddm default
 
-## Change login-screen language input for SDDM #### REPLACE FR With desired language.
+## Change login-screen language input for SDDM #### REPLACE "fr" With desired language.
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
 setxkbmap "fr"
 EOF
