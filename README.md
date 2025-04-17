@@ -16,7 +16,7 @@ Then `chmod +x` and `./setup.sh`
 
 ### From Alpine Docs
 
-Create /etc/profile.d/profile.sh with (Make exec) 
+Create /etc/profile.d/profile.sh with
 ```
 if [ -f "$HOME/.config/ash/profile" ]; then
     . "$HOME/.config/ash/profile"
@@ -28,6 +28,8 @@ export ENV="$HOME/.config/ash/ashrc"
 ```
 
 ^^ Same for zsh
+
+This modular approach makes it so that if you create several users down the line they can all have their own configs. 
 
 ### Parralel boot
 
