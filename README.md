@@ -12,7 +12,6 @@ Do the standard `setup-alpine`
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
 
-
 ## What exactly: 
 
 ### From Alpine Docs
@@ -53,5 +52,5 @@ Sets up common aliases for Zsh & Ash
 ----
 ### Custom `.local/bin`
 
-With an example script to search through your apps
+With an example script to search through your apps `iapps`
 
