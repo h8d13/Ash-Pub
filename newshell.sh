@@ -3,27 +3,19 @@ set -e
 
 # === Install required packages ===
 apk update
-apk add zsh git curl wget unzip fontconfig
+apk add zsh git curl wget unzip
 
-# === Install Oh My Zsh ===
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+# === Install Zsh plugins: Autosuggestions & Syntax Highlighting ===
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/plugins/zsh-autosuggestions
+git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/plugins/zsh-syntax-highlighting
 
-# === Install Powerlevel10k ===
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.oh-my-zsh/custom/themes/powerlevel10k
-sed -i 's/^ZSH_THEME=.*/ZSH_THEME="powerlevel10k\/powerlevel10k"/' ~/.zshrc
+# === Update .zshrc to enable plugins ===
+echo 'source ~/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh' >> ~/.zshrc
+echo 'source ~/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh' >> ~/.zshrc
+echo 'export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=10"' >> ~/.zshrc
 
-# === Install plugins ===
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-sed -i 's/^plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/' ~/.zshrc
+# === Set Zsh as default shell ===
+chsh -s /bin/zsh
 
-# === Install Nerd Font (JetBrainsMono) ===
-FONT_DIR="/usr/share/fonts/nerd-fonts"
-mkdir -p "$FONT_DIR"
-TMP_ZIP="/tmp/JetBrainsMono.zip"
-wget -O "$TMP_ZIP" https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.zip
-unzip -o "$TMP_ZIP" -d "$FONT_DIR"
-fc-cache -fv
-rm "$TMP_ZIP"
-
-echo "Zsh + Oh My Zsh + Powerlevel10k installed."
+echo "Zsh setup complete with syntax highlighting and autosuggestions."
+echo "Restart your terminal or run 'zsh' to start using it."
