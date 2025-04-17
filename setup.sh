@@ -83,20 +83,6 @@ EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
 
-# Create a simple shell switcher
-cat > ~/.local/bin/chsh-local << 'EOF'
-#!/bin/sh
-# Simple shell toggler between ash and zsh
-if [ -n "$(ps -p $$ | grep ash)" ] || [ -n "$(ps -p $$ | grep sh)" ]; then
-    exec zsh
-else
-    exec ash
-fi
-EOF
-
-# Make it executable
-chmod +x ~/.local/bin/chsh-local
-
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
 # Base aliases
@@ -108,7 +94,6 @@ alias la='ls -a'
 alias l='ls -CF'
 alias wztree="doas du -h / | sort -rh | head -n 30 | less"
 alias wzhere="doas du -h . | sort -rh | head -n 30 | less"
-alias chsh='~/.local/bin/chsh-local'
 EOF
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
@@ -141,37 +126,18 @@ for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
 fi' >> "$config"
 done
 
-# === Install Zsh Plugins with retry mechanism ===
-install_plugin() {
-    local repo=$1
-    local dir=$2
-    local max_attempts=3
-    local attempt=1
-    
-    while [ $attempt -le $max_attempts ]; do
-        echo "Attempt $attempt: Cloning $repo to $dir"
-        if git clone "$repo" "$dir" 2>/dev/null; then
-            echo "Success: Cloned $repo"
-            return 0
-        else
-            echo "Failed to clone $repo (attempt $attempt/$max_attempts)"
-            attempt=$((attempt + 1))
-            sleep 2
-        fi
-    done
-    
-    echo "Warning: Failed to clone $repo after $max_attempts attempts"
-    return 1
-}
-
-install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.zsh/plugins/zsh-autosuggestions"
-install_plugin "https://github.com/zsh-users/zsh-history-substring-search" "$HOME/.zsh/plugins/zsh-history-substring-search" 
-install_plugin "https://github.com/zsh-users/zsh-completions" "$HOME/.zsh/plugins/zsh-completions"
+# Install ZSH plugins via package manager instead of git
+apk add zsh-autosuggestions \
+      zsh-history-substring-search \
+      zsh-completions \
+      zsh-syntax-highlighting
 
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
-fpath+=("$HOME/.zsh/plugins/zsh-completions/src")
+if [ -d "/usr/share/zsh/plugins/zsh-completions" ]; then
+    fpath+=("/usr/share/zsh/plugins/zsh-completions")
+fi
 
 # === History Configuration ===
 HISTSIZE=10000
@@ -179,23 +145,27 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # === Source Zsh Plugins (with error checking) ===
-for plugin in "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
-              "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"; do
-    if [ -f "$plugin" ]; then
-        . "$plugin"
-    else
-        echo "Warning: Plugin file not found: $plugin"
+# Common locations for Alpine packages
+plugin_locations=(
+    "/usr/share/zsh/plugins"
+    "/usr/share"
+)
+
+# Load autosuggestions and history-substring-search first
+for plugin in "zsh-autosuggestions/zsh-autosuggestions.zsh" "zsh-history-substring-search/zsh-history-substring-search.zsh"; do
+    found=0
+    for location in "${plugin_locations[@]}"; do
+        if [ -f "$location/$plugin" ]; then
+            . "$location/$plugin"
+            found=1
+            break
+        fi
+    done
+    
+    if [ $found -eq 0 ]; then
+        echo "Warning: Plugin not found: $plugin"
     fi
 done
-
-# Source syntax-highlighting from system location
-if [ -f "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-    . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-    . /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-else
-    echo "Warning: zsh-syntax-highlighting not found"
-fi
 
 # === History Substring Search with Arrow Keys ===
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -207,10 +177,19 @@ bindkey '^[[B' history-substring-search-down
 # === Custom Zsh Prompt Red ===
 export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
 %F{red}└──╼ %F{cyan}$ %f'
+
 # === Source common aliases ===
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
+
+# Load syntax-highlighting last as recommended
+for location in "${plugin_locations[@]}"; do
+    if [ -f "$location/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+        . "$location/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+        break
+    fi
+done
 EOF
 
 # === Ensure ~/.zshrc Sources the New Config ===
