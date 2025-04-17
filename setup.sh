@@ -68,7 +68,7 @@ echo "Configured zsh to source $HOME/.config/zsh/zshrc."
 which zsh
 # Add it to login shells
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
-# Change default shells to zsh OPTIONAL 
+# Change default shells to zsh OPTIONAL BETTER TO DO THIS ON USER (/etc/passwd) 
 # sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 
 
