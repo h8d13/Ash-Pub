@@ -9,7 +9,7 @@ I wanted to see how how much a single setup script can do.
 The only prereq is git to access the script.
 
 Do the standard `setup-alpine` 
-> Make sure to create a user (this will be useful for later)
+> Make sure to create a user (this will be useful for later). Make the pw different from root. 
 
 So `apk add git`
 Then `chmod +x` and `./setup.sh` 
@@ -59,3 +59,4 @@ With an example script to search through your apps `iapps`: See example above ^^
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable.
+> Also has many essentials pre-installed and is still relatievly light (5Gb Total) 
