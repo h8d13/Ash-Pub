@@ -9,7 +9,7 @@ I wanted to see how how much a single setup script can do.
 Th eonly prereq is git to access the script. Then `chmod +x` and `./setup.sh` 
 
 
-## what exactly: 
+## What exactly: 
 
 ### From Alpine Docs
 
