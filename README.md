@@ -59,8 +59,15 @@ With an example script to search through your apps `iapps`: See example above ^^
 ## ⌛ - 10 Minutes Total
 
 Inital `setup-alpine`, reboot to hardisk. 
-Then run the script.
+Then `apk add git`
+Then `https://github.com/h8d13/K2-Alpine`
+`cd K2-Alpine`
+`chmod +x setup.sh`
+run the script `./setup.sh`
 
+Once all is done I recommend to reboot.
+
+`startde` or `stopde`
 To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
 Or `k2` will do the same. 
 
