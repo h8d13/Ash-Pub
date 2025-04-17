@@ -3,6 +3,13 @@
 username=$(whoami)
 echo "Hi $username"
 
+# Create all needed directories first
+mkdir -p "$HOME/.config"
+mkdir -p "$HOME/.config/ash"
+mkdir -p "$HOME/.config/zsh"
+mkdir -p "$HOME/.local/bin"
+mkdir -p "$HOME/.zsh/plugins"
+
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -53,13 +60,14 @@ sysctl -p
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
-apk upgrade
 
 ## Extended ascii support  (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 
+# === Install Essentials ===
+apk add zsh git
+
 ########################################## LOCAL BIN THE GOAT <3
-mkdir -p "$HOME/.local/bin"
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
 if [ -d "$HOME/.local/bin" ]; then
@@ -81,13 +89,6 @@ EOF
 
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
-
-# Source environment file in both shells
-for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
-    echo 'if [ -f "$HOME/.config/environment" ]; then
-    . "$HOME/.config/environment"
-fi' >> "$config"
-done
 
 # Create a simple shell switcher
 cat > ~/.local/bin/chsh-local << 'EOF'
@@ -114,7 +115,7 @@ alias la='ls -a'
 alias l='ls -CF'
 alias wztree="doas du -h / | sort -rh | head -n 30 | less"
 alias wzhere="doas du -h . | sort -rh | head -n 30 | less"
-alias chsh='~/.local/bin/chsh-local'"
+alias chsh='~/.local/bin/chsh-local'
 EOF
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
@@ -126,8 +127,6 @@ EOF
 
 ########################################## ASH
 chmod +x /etc/profile.d/profile.sh
-# Create ~/.config/ash directory if it doesn't exist
-mkdir -p "$HOME/.config/ash"
 # Create ~/.config/ash/profile and add basic style 
 echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
 
@@ -140,28 +139,63 @@ fi
 EOF
 
 ########################################## ZSH 
-# === Install Essentials ===
-apk add zsh git
+# Source environment file in both shells
+for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
+    mkdir -p "$(dirname "$config")"
+    touch "$config"
+    echo 'if [ -f "$HOME/.config/environment" ]; then
+    . "$HOME/.config/environment"
+fi' >> "$config"
+done
 
-# === Install Zsh Plugins ===
-mkdir -p "$HOME/.zsh/plugins"
-git clone https://github.com/zsh-users/zsh-autosuggestions "$HOME/.zsh/plugins/zsh-autosuggestions"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting "$HOME/.zsh/plugins/zsh-syntax-highlighting"
-git clone https://github.com/zsh-users/zsh-history-substring-search "$HOME/.zsh/plugins/zsh-history-substring-search"
-git clone https://github.com/zsh-users/zsh-completions "$HOME/.zsh/plugins/zsh-completions"
+# === Install Zsh Plugins with retry mechanism ===
+install_plugin() {
+    local repo=$1
+    local dir=$2
+    local max_attempts=3
+    local attempt=1
+    
+    while [ $attempt -le $max_attempts ]; do
+        echo "Attempt $attempt: Cloning $repo to $dir"
+        if git clone "$repo" "$dir" 2>/dev/null; then
+            echo "Success: Cloned $repo"
+            return 0
+        else
+            echo "Failed to clone $repo (attempt $attempt/$max_attempts)"
+            attempt=$((attempt + 1))
+            sleep 2
+        fi
+    done
+    
+    echo "Warning: Failed to clone $repo after $max_attempts attempts"
+    return 1
+}
 
-# === Create ~/.config/zsh directory if it doesn't exist ===
-mkdir -p "$HOME/.config/zsh"
+install_plugin "https://github.com/zsh-users/zsh-autosuggestions" "$HOME/.zsh/plugins/zsh-autosuggestions"
+install_plugin "https://github.com/zsh-users/zsh-syntax-highlighting" "$HOME/.zsh/plugins/zsh-syntax-highlighting"
+install_plugin "https://github.com/zsh-users/zsh-history-substring-search" "$HOME/.zsh/plugins/zsh-history-substring-search" 
+install_plugin "https://github.com/zsh-users/zsh-completions" "$HOME/.zsh/plugins/zsh-completions"
 
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
 fpath+=("$HOME/.zsh/plugins/zsh-completions/src")
 
-# === Source Zsh Plugins ===
-. "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
-. "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-. "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"
+# === History Configuration ===
+HISTSIZE=10000
+SAVEHIST=10000
+HISTFILE=~/.zsh_history
+
+# === Source Zsh Plugins (with error checking) ===
+for plugin in "$HOME/.zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh" \
+              "$HOME/.zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+              "$HOME/.zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh"; do
+    if [ -f "$plugin" ]; then
+        . "$plugin"
+    else
+        echo "Warning: Plugin file not found: $plugin"
+    fi
+done
 
 # === History Substring Search with Arrow Keys ===
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
@@ -180,7 +214,10 @@ fi
 EOF
 
 # === Ensure ~/.zshrc Sources the New Config ===
-echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
+# Create ~/.zshrc if it doesn't exist
+touch "$HOME/.zshrc"
+# Add source line if not already present
+grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
@@ -257,6 +294,8 @@ EOF
 chmod +x /etc/profile.d/welcome.sh
 ################################################################################################################################################### 
 
+# Source the environment file in the current shell to make commands available
+. "$HOME/.config/environment" 
 
 
 
