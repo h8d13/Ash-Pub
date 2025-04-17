@@ -6,7 +6,6 @@ apk add --no-cache tzdata
 # Set locale and encoding support in profile
 echo 'export LANG=en_US.UTF-8' >> /etc/profile
 echo 'export LC_ALL=en_US.UTF-8' >> /etc/profile
-echo 'export TERM=xterm-256color' >> /etc/profile
 
 # Create /etc/profile.d/profile.sh
 echo 'if [ -f "$HOME/.config/ash/profile" ]; then' > /etc/profile.d/profile.sh
