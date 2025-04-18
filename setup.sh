@@ -49,7 +49,7 @@ cat > "$HOME/.config/micro/settings.json" << 'EOF'
 }
 EOF
 ## Do the same for the user.
-cat > "/home/$TARGET_USER/micro/settings.json" << 'EOF'
+cat > "/home/$TARGET_USER/.config/micro/settings.json" << 'EOF'
 {
     "sucmd": "doas"
 }
