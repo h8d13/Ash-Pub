@@ -124,7 +124,7 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 |----------|-------------|
 | [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | Official documentation and guides for Alpine Linux |
 | [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
-| [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc used in Alpine |
+| [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc counterpart |
 | [KDE Plasma](https://kde.org/plasma-desktop/) | Feature-rich, customizable desktop environment for Linux |
 | [KDE Configs](https://github.com/shalva97/kde-configuration-files) | For terminal nerds to change behavior. |
 | [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
