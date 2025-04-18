@@ -1,24 +1,21 @@
 #!/bin/sh
 username=$(whoami)
 echo "Hi $username"
-## Should be root :)
+
 TARGET_USER=hill
-## Change this to the name of the user your created, use different PW!
 DESKTOP=mate
+## Change this to the name of the user your created, use different PW! # Should be lowercase :)
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
 setup-desktop $DESKTOP
-## Debloat if necessary
-#apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
+apk add micro # more modern/intuitive editor
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
-# remove login default  (Shell already does this.) 
-#rc-update del sddm default
 ########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
@@ -58,9 +55,6 @@ sysctl -p
 ## Extended ascii support  (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
 
-# === Install Essentials ===
-apk add zsh git zsh-syntax-highlighting
-
 # Create all needed directories first
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
@@ -68,6 +62,12 @@ mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
 
+########################################## FRIENDLY EDITOR NEEDS EDITING
+cat > "$HOME/.config/micro/settings.json" << 'EOF'
+{
+    "sucmd": "doas"
+}
+EOF
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
@@ -75,7 +75,6 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
-
 ########################################## Example Script: Called "iapps" To search in installed packages. 
 # Create the script file
 cat > ~/.local/bin/iapps << 'EOF'
@@ -93,8 +92,8 @@ chmod +x ~/.local/bin/iapps
 
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
+alias mc="micro"
 # Base aliases
-# Add start/stop de 
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
@@ -119,22 +118,15 @@ echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
 
 # Custom Ash blue
 cat > "$HOME/.config/ash/ashrc" << 'EOF'
+# Style
 export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
+## Source aliases
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
 EOF
 
 ########################################## ZSH 
-# Source environment file in both shells
-for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
-    mkdir -p "$(dirname "$config")"
-    touch "$config"
-    echo 'if [ -f "$HOME/.config/environment" ]; then
-    . "$HOME/.config/environment"
-fi' >> "$config"
-done
-
 # Install ZSH plugins via package manager instead of git
 apk add zsh-autosuggestions \
       zsh-history-substring-search \
@@ -154,7 +146,6 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # === Source Zsh Plugins (with error checking) ===
-# Common locations for Alpine packages
 plugin_locations=(
     "/usr/share/zsh/plugins"
     "/usr/share"
@@ -193,17 +184,26 @@ done
 # === Custom Zsh Prompt Red ===
 export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
 %F{red}└──╼ %F{cyan}$ %f'
-EOF
 
 # === Source common aliases ===
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
+EOF
+
+# Source environment file in both shells
+for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
+    mkdir -p "$(dirname "$config")"
+    touch "$config"
+    echo 'if [ -f "$HOME/.config/environment" ]; then
+    . "$HOME/.config/environment"
+fi' >> "$config"
+done
 
 # === Ensure ~/.zshrc Sources the New Config ===
 # Create ~/.zshrc if it doesn't exist
 touch "$HOME/.zshrc"
-# Add source line if not already present
+# Add source line if not already present ## Symlink ciz we dont like cluttering our home
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 
 # === Add zsh to /etc/shells if missing ===
@@ -228,6 +228,9 @@ Use . ~/.config/aliases if you added something
 
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
+"startde/stopde" for Desktop Env. 
+To come back to this shell in your DE: Open Konsole > "su -l"
+Can also use micro or mc for friendly editing.
 
 Custom with <3 by H8D13. 
 EOF
@@ -281,6 +284,3 @@ chmod +x /etc/profile.d/welcome.sh
 
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
-
-
-
