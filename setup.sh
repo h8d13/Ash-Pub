@@ -31,16 +31,17 @@ rc-update del sddm default
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
 
 # Create all needed directories first
+## Admin
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/micro/"
-mkdir -p "/home/$TARGET_USER/micro/"
-mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "$HOME/.zsh/plugins"
-
+## User
+mkdir -p "/home/$TARGET_USER/micro/"
+mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 cat > "$HOME/.config/micro/settings.json" << 'EOF'
 {
