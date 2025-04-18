@@ -10,7 +10,8 @@ echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
 setup-desktop plasma
-apk add micro # more modern/intuitive editor
+
+## Debloating
 apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
@@ -62,7 +63,7 @@ EOF
 sysctl -p
 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh 
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
 
 # Create all needed directories first
 mkdir -p "$HOME/.config"
