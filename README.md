@@ -13,12 +13,14 @@ I wanted to see how how much a single setup script can do.
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
+
 > Make the pw different from root. lowercase usernames (I used k2 & hill).
 
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable.
 > Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total)
+
 > Inside utils you will find the same script without any desktop if you prefer ;)
 
 The only prereq is git to access the script.
