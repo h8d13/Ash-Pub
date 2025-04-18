@@ -124,6 +124,7 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 | [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
 | [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc used in Alpine |
 | [KDE Plasma](https://kde.org/plasma-desktop/) | Feature-rich, customizable desktop environment for Linux |
+| [KDE Configs](https://github.com/shalva97/kde-configuration-files) | For terminal nerds to change behavior. |
 | [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
 | [Zsh](https://github.com/zsh-users/zsh) | Extended Bourne shell with improved features and customization |
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
