@@ -91,7 +91,7 @@ Then `apk add git`
 
 `cd k2-alpine`
 
-> ⚙ Then only thing you have to do is specify the user you created in the script:
+> ⚙ Can edit using `vi setup.sh` then edit `Ìnsert` the values `Esc` and `:wq`
 
 > `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
 
