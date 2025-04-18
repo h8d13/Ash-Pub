@@ -17,6 +17,8 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
+# === OPTIONAL: Switch default login shell to zsh globally ===
+#sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 
 ## Change login-screen language input for SDDM #### 
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
@@ -271,7 +273,7 @@ EOF
 
 ## Pre login splash art
 cat > /etc/issue << 'EOF'
-
+##################################################################################################################################################
                                                                                                                                                   
                                                       ▒▒▒▒░░░░                                                                                    
                                                       ▓▓  ░░  ░░                                                                                  
@@ -306,7 +308,9 @@ cat > /etc/issue << 'EOF'
 ▓██████████████▓▓██▓▓▓▓▓▓▓▓▓▓██▓▓▓▓███████████████▓██▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓▓█████████▓████████████████████████████████████████████▓▓▓▓
 ██████████████▓▓████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓██████████████▓██████████████████████████▓██████████████████▓▓
 ██████████▓▓████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████████████████████▓█████████████████████████████████▓▓███████████
+##################################################################################################################################################
 # Kernel \r on \m #
+
 EOF
 
 cat > /etc/profile.d/welcome.sh << 'EOF'
@@ -318,6 +322,3 @@ chmod +x /etc/profile.d/welcome.sh
 
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
-
-
-
