@@ -54,8 +54,9 @@ cat > "/home/$TARGET_USER/micro/settings.json" << 'EOF'
     "sucmd": "doas"
 }
 EOF
-########################################## CREATE THE KONSOLE PROFILE >> Change hill here to desired username!
-cat > "/home/$TARGET_USER/.local/share/konsole" << 'EOF'
+########################################## CREATE THE KONSOLE PROFILE >> Change 2x hill here to desired username! 
+# Create the profile file with a .profile extension
+cat > "/home/$TARGET_USER/.local/share/konsole/hill.profile" << 'EOF'
 [General]
 Command=su -l
 Name=hill
