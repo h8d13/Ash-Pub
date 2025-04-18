@@ -82,10 +82,11 @@ With an example script to search through your apps `iapps`: See example above ^^
 ### Fixed SDDM keyboard locale
 > Another quirk that annoyed me to do on every fresh install. 
 
-## ⌛ - 8 Minutes Installation vs 2H Setting-up
+## ⌛ - 8 Minutes Installation vs 2 Hours Setting-up
 
-Inital `setup-alpine`, reboot to hardisk. 
-
+Inital `setup-alpine`, follow prompts, reboot to hardisk. 
+ Create a user, lowercase. Different pw than root. 
+ 
 Then `apk add git`
 `git clone https://github.com/h8d13/k2-alpine`
 
@@ -114,7 +115,6 @@ To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as 
 ## Video Tutorial
 
 https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
-
 
 ## Further reading
 
