@@ -193,7 +193,6 @@ if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
 EOF
-
 # Source environment file in both shells
 for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
     mkdir -p "$(dirname "$config")"
@@ -202,21 +201,13 @@ for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
     . "$HOME/.config/environment"
 fi' >> "$config"
 done
-
 # === Ensure ~/.zshrc Sources the New Config ===
 # Create ~/.zshrc if it doesn't exist
 touch "$HOME/.zshrc"
 # Add source line if not already present ## Symlink ciz we dont like cluttering our home
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
-
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
-
-# === OPTIONAL: Switch default login shell to zsh globally ===
-#sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
-# === OR: Switch shell for current user only ===
-#sed -i -E "s|^($username:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:).*|\1/bin/zsh|" /etc/passwd
-
 ########################################## SYSTEM HARDENING
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
