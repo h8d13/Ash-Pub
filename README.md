@@ -20,7 +20,7 @@ Do the standard `setup-alpine`
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable. (x11 + Wayland enabled)
-> Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total)
+> Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total with Wallpapers)
 
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
 
