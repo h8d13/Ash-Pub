@@ -124,11 +124,13 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 |----------|-------------|
 | [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | Official documentation and guides for Alpine Linux |
 | [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
+| [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
+| [Bash](https://www.gnu.org/software/bash/manual/bash.html) | Lightweight shell included in BusyBox, Alpine's default shell |
+| [Zsh](https://github.com/zsh-users/zsh) | Extended Bourne shell with improved features and customization |
 | [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc counterpart |
 | [KDE Plasma](https://kde.org/plasma-desktop/) | Feature-rich, customizable desktop environment for Linux |
 | [KDE Configs](https://github.com/shalva97/kde-configuration-files) | For terminal nerds to change behavior. |
-| [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
-| [Zsh](https://github.com/zsh-users/zsh) | Extended Bourne shell with improved features and customization |
+| [FreeDesktop](https://gitlab.freedesktop.org)) | Desktop utils KDE uses extensively  |
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
 | [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
