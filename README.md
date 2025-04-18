@@ -23,15 +23,6 @@ Do the standard `setup-alpine`
 
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
 
-The only prereq is git to access the script.
-
-So `apk add git` 
-
-`git clone https://github.com/h8d13/k2-alpine`
-Then cd `k2-alpine`
-
-Then `chmod +x` and `./setup.sh` 
-
 ## Config 
 > ⚙ Then only thing you have to do is specify the user you created in the script:
 
