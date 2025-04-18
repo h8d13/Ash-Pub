@@ -73,6 +73,8 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
+########################################## Give everything back to user 
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## Example Script: Called "iapps" To search in installed packages. 
 # Create the script file
 cat > ~/.local/bin/iapps << 'EOF'
