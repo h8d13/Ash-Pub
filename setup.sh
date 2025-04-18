@@ -40,6 +40,7 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "$HOME/.zsh/plugins"
 ## User
+mkdir -p "/home/$TARGET_USER/.config"
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
@@ -54,7 +55,12 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << 'EOF'
     "sucmd": "doas"
 }
 EOF
-########################################## CREATE THE KONSOLE PROFILE >> Change 2x hill here to desired username! 
+########################################## CREATE THE KONSOLE PROFILE >> Change 3x hill here to desired username! 
+mkdir -p "/home/$TARGET_USER/.config"
+cat > "/home/$TARGET_USER/.config/konsolerc" << 'EOF'
+[Desktop Entry]
+DefaultProfile=hill.profile
+EOF
 # Create the profile file with a .profile extension
 cat > "/home/$TARGET_USER/.local/share/konsole/hill.profile" << 'EOF'
 [General]
