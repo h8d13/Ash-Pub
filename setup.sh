@@ -102,18 +102,30 @@ chmod +x ~/.local/bin/iapps
 
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
+# Main alias
 alias mc="micro"
 alias startde="rc-service sddm start"
 alias stoptde="rc-service sddm stop"
-# Base aliases
+# Base alias
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
 alias ll='ls -la'
 alias la='ls -a'
 alias l='ls -CF'
+# Utils alias
+alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
+alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
+alias logd="tail -f /var/log/messages"
+alias logds="dmesg -r"
+# Apk alias
+alias updapc="apk update && doas apk upgrade"
+alias apklean="apk clean cache"
+alias apka="apk add"
+alias apkd="apk del"
+alias apks="apk search"
 EOF
 
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
