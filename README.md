@@ -90,6 +90,11 @@ Then `apk add git`
 `git clone https://github.com/h8d13/k2-alpine`
 
 `cd k2-alpine`
+
+> ⚙ Then only thing you have to do is specify the user you created in the script:
+
+> `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
+
 `chmod +x setup.sh`
 
 Run the script `./setup.sh`
