@@ -1,9 +1,10 @@
 #!/bin/sh
-username=$(whoami)
-echo "Hi $username"
+#### CONFIG: CHANGE TO DESIRED
 TARGET_USER=hill
 KB_LAYOUT=us #### Change to "fr" "de" "it" "es" etc 
 ## Change this to the name of the user your created, use different PW! # Should be lowercase :)
+username=$(whoami)
+echo "Hi $username"
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
