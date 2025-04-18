@@ -41,7 +41,7 @@ mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "$HOME/.zsh/plugins"
 ## User
 mkdir -p "/home/$TARGET_USER/micro/"
-mkdir -p "/home/$TARGET_USER/.local/share/konsole"
+mkdir -p "/home/$TARGET_USER/.local/share/"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 cat > "$HOME/.config/micro/settings.json" << 'EOF'
 {
