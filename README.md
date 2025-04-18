@@ -102,4 +102,10 @@ To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as 
 ![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
 
 ----
+
+## Video Tutorial
+
+https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
+
+
 Love <3 H8D13
