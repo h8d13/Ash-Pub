@@ -79,7 +79,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 > Managed in `/.config/environment`
 
 ---
-### Fixed SDDM keyboard locale
+### Fixed SDDM keyboard locale & KDE icons
 > Another quirk that annoyed me to do on every fresh install. 
 
 ## ⌛ - 7 Minutes Installation vs 2 Hours Setting-up
