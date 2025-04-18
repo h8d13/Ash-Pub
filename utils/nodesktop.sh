@@ -9,7 +9,6 @@ echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/reposit
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 apk update
 apk upgrade
-apk add micro # more modern/intuitive editor
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -51,7 +50,7 @@ EOF
 sysctl -p
 
 ## Extended ascii support  (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales micro # more modern/intuitive editor
 
 # === Install Essentials ===
 apk add zsh git zsh-syntax-highlighting
@@ -59,6 +58,7 @@ apk add zsh git zsh-syntax-highlighting
 # Create all needed directories first
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
+mkdir -p "$HOME/.config/micro"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
