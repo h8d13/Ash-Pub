@@ -13,7 +13,7 @@ apk upgrade
 setup-desktop plasma
 
 ## Debloating
-apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk kate kate-common
+apk del discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
