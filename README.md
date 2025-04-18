@@ -82,7 +82,8 @@ With an example script to search through your apps `iapps`: See example above ^^
 ### Fixed SDDM keyboard locale
 > Another quirk that annoyed me to do on every fresh install. 
 
-## ⌛ - 8 Minutes Installation vs 2 Hours Setting-up
+## ⌛ - 7 Minutes Installation vs 2 Hours Setting-up
+> That on a mini-pc with horrible hardware!
 
 Inital `setup-alpine`, follow prompts, reboot to hardisk. 
  Create a user, lowercase. Different pw than root. 
@@ -117,6 +118,8 @@ To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as 
 ## Video Tutorial
 
 https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
+
+> I will post to YouTube the first successful install I had soon :)
 
 ## Further reading
 
