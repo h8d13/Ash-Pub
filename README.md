@@ -103,7 +103,7 @@ Once all is done, reboot again. `startde` to start SDDM.
 
 ![image](https://github.com/user-attachments/assets/c7dda33b-de38-435a-ac47-f29630c5205a)
 
-You should find a program called `Konsole` This is your new best friend.
+You should find a program called `Konsole` This is your new best friend. I've also included `micro` for friendly terminal editor. 
 
 To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
 
