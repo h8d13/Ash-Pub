@@ -109,7 +109,7 @@ You should find a program called `Konsole` This is your new best friend.
 
 I've also included `micro` for friendly terminal editor. 
 
-To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as a login shell :)
+## Also updated Konsole profile to match our setup :) 
 
 ![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
 
