@@ -10,7 +10,7 @@ This mini-service philosophy makes it versatile, efficient and secure.
 
 **But again more difficult to set-up for a beginner?**
 
-I wanted to see how how much a single setup script can do. As one of the most important parts of dev is doing things faster than the other person.
+I wanted to see how how much a single setup script can do. As one the essential of dev is doing things faster than the other person.
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
