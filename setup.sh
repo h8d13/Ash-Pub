@@ -2,9 +2,8 @@
 username=$(whoami)
 echo "Hi $username"
 TARGET_USER=hill
+KB_LAYOUT=us #### Change to "fr" "de" "it" "es" etc 
 ## Change this to the name of the user your created, use different PW! # Should be lowercase :)
-#### Shoudl also be replaced in the "Konsole profile" Section. 
-
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
@@ -18,9 +17,9 @@ apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 
-## Change login-screen language input for SDDM #### REPLACE "fr" With desired language. 
-cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
-setxkbmap "us"
+## Change login-screen language input for SDDM #### 
+cat >> /usr/share/sddm/scripts/Xsetup << EOF
+setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 
@@ -55,17 +54,17 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << 'EOF'
     "sucmd": "doas"
 }
 EOF
-########################################## CREATE THE KONSOLE PROFILE >> Change 3x hill here to desired username! 
+########################################## CREATE THE KONSOLE PROFILE 
 mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/konsolerc" << 'EOF'
+cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
-DefaultProfile=hill.profile
+DefaultProfile=$TARGET_USER.profile
 EOF
 # Create the profile file with a .profile extension
-cat > "/home/$TARGET_USER/.local/share/konsole/hill.profile" << 'EOF'
+cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
 Command=su -l
-Name=hill
+Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
 ########################################## LOCAL BIN THE GOAT <3
