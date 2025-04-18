@@ -27,7 +27,7 @@ Do the standard `setup-alpine`
 ## Config 
 > ⚙ Then only thing you have to do is specify the user you created in the script:
 
-> `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
+> `TARGET_USER=hill` and keyboard language for sddm: `KB_LAYOUT=us`
 
 Make sure to edit this to your values.
 
@@ -95,9 +95,7 @@ Then `apk add git`
 
 > ⚙ Can edit using `vi setup.sh` then to edit `Insert`, change the values `Esc` and `:wq`
 
-> Modify to desired: `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "us"`
-
-> If you don't use the same username "hill" you have to replace all instances of it (sorry not sorry).
+> Modify to desired: `TARGET_USER=hill` and keyboard language for sddm: `KB_LAYOUT=us`
 
 `chmod +x setup.sh`
 
