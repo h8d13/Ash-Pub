@@ -56,21 +56,35 @@ This modular approach makes it so that if you create several users down the line
 > System hardening, not a router stuff etc
 
 ### Emoji / UTF8 support
-### Added more helpful motd
+### Added more helpful guidance on where to start
+```
+Apk sources /etc/apk/repositories
+Change this message by editing /etc/motd
+Change the pre-login message /etc/issue
+Change default shells /etc/passwd
+
+Find shared aliases ~/.config/aliases
+Use . ~/.config/aliases if you added something (same as source)
+
+Post login scripts can be added to /etc/profile.d
+Personal bin scripts in ~/.local/bin
+```
+
 ----
 ### Zsh integrated
 Sets up common aliases for Zsh & Ash 
-> All in one place :)
+> All in one place :) Following Alpine docs best practice but better.
 
 ![image](https://github.com/user-attachments/assets/f68f8c19-7b45-4af9-9c10-03a321f599c4)
 
 ### Custom `.local/bin`
 With an example script to search through your apps `iapps`: See example above ^^ 
+> Managed in `/.config/environment`
 
 ---
 ### Fixed SDDM keyboard locale
 
-## ⌛ - 10 Minutes Total
+## ⌛ - 8 Minutes Total
 
 Inital `setup-alpine`, reboot to hardisk. 
 
