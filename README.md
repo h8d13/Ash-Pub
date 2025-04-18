@@ -94,7 +94,7 @@ Then `apk add git`
 
 > ⚙ Can edit using `vi setup.sh` then to edit `Insert`, change the values `Esc` and `:wq`
 
-> `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
+> Modify to desired: `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
 
 `chmod +x setup.sh`
 
