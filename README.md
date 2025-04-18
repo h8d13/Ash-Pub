@@ -64,10 +64,11 @@ Change the pre-login message /etc/issue
 Change default shells /etc/passwd
 
 Find shared aliases ~/.config/aliases
-Use . ~/.config/aliases if you added something (same as source)
+Use . ~/.config/aliases if you added something
 
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
+Env file in ~/.config/environment 
 ```
 
 ----
