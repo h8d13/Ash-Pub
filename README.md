@@ -25,9 +25,10 @@ Do the standard `setup-alpine`
 
 The only prereq is git to access the script.
 
-So `apk add git` then cd `k2-alpine`
+So `apk add git` 
 
 `git clone https://github.com/h8d13/k2-alpine`
+Then cd `k2-alpine`
 
 Then `chmod +x` and `./setup.sh` 
 
