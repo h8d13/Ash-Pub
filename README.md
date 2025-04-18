@@ -79,7 +79,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 ### Fixed SDDM keyboard locale
 > Another quirk that annoyed me to do on every fresh install. 
 
-## ⌛ - 8 Minutes Total
+## ⌛ - 8 Minutes Installation vs 2H Setting-up
 
 Inital `setup-alpine`, reboot to hardisk. 
 
