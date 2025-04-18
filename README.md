@@ -113,20 +113,15 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 
 ## Further reading
 
-[Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page)
-
-[BusyBox](https://www.busybox.net/)
-
-[Musl](https://musl.libc.org/)
-
-[KDE Plasma](https://kde.org/plasma-desktop/)
-
-[Ash](https://linux.die.net/man/1/ash)
-
-[Zsh](https://github.com/zsh-users/zsh)
-
-[Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/)
-
-[Micro](https://github.com/zyedidia/micro)
+| Resource | Description |
+|----------|-------------|
+| [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | Official documentation and guides for Alpine Linux |
+| [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
+| [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc used in Alpine |
+| [KDE Plasma](https://kde.org/plasma-desktop/) | Feature-rich, customizable desktop environment for Linux |
+| [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
+| [Zsh](https://github.com/zsh-users/zsh) | Extended Bourne shell with improved features and customization |
+| [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
+| [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
 Love <3 H8D13
