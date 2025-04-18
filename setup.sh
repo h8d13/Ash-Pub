@@ -61,20 +61,17 @@ EOF
 # Apply settings
 sysctl -p
 
-## Extended ascii support  (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales
-
-# === Install Essentials ===
-apk add zsh git zsh-syntax-highlighting
+## Extended ascii support + Inital zsh (thank me later ;)
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh 
 
 # Create all needed directories first
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
 mkdir -p "$HOME/.config/zsh"
+mkdir -p "$HOME/.config/micro/"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
-
-########################################## FRIENDLY EDITOR NEEDS EDITING
+########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 cat > "$HOME/.config/micro/settings.json" << 'EOF'
 {
     "sucmd": "doas"
