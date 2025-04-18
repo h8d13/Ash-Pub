@@ -21,7 +21,7 @@ Do the standard `setup-alpine`
 - KDE because it's beautiful and reliable.
 > Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total)
 
-> Inside utils you will find the same script without any desktop if you prefer ;)
+> DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
 
 The only prereq is git to access the script.
 
