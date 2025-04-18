@@ -32,8 +32,10 @@ Then cd `k2-alpine`
 
 Then `chmod +x` and `./setup.sh` 
 
-> Then only thing you have to do is specify the user you created in the script:
-`TARGET_USER=hill` and keyboard language `setxkbmap "fr"`
+## Config 
+> ⚙ Then only thing you have to do is specify the user you created in the script:
+
+> `TARGET_USER=hill` and keyboard language `setxkbmap "fr"`
 
 ---
 
