@@ -1,6 +1,6 @@
 # Why this project ? 
 
-Most people hates documention, and even more having to do manual menial tasks. 
+Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
 This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO. 
