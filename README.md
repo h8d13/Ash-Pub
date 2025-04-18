@@ -135,4 +135,6 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
+
+---
 Love <3 H8D13
