@@ -20,7 +20,7 @@ apk del plasma-welcome plasma-workspace-wallpapers discover discover-backend-apk
 
 ## Change login-screen language input for SDDM #### REPLACE "fr" With desired language. 
 cat >> /usr/share/sddm/scripts/Xsetup << 'EOF'
-setxkbmap "fr"
+setxkbmap "en"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 
