@@ -91,7 +91,7 @@ Then `apk add git`
 
 `cd k2-alpine`
 
-> ⚙ Can edit using `vi setup.sh` then edit `Ìnsert` the values `Esc` and `:wq`
+> ⚙ Can edit using `vi setup.sh` then to edit `Insert`, change the values `Esc` and `:wq`
 
 > `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
 
