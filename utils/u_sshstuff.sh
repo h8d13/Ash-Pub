@@ -1,4 +1,8 @@
 # Secure SSH Configuration
+
+apk add openssl ssh 
+# Gen origin key
+
 cat > /etc/ssh/sshd_config.d/secure.conf << 'EOF'
 PermitRootLogin no
 PasswordAuthentication no
