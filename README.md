@@ -113,12 +113,19 @@ https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
 ## Further reading
 
 [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page)
+
 [BusyBox](https://www.busybox.net/)
+
 [Musl](https://musl.libc.org/)
+
 [KDE Plasma](https://kde.org/plasma-desktop/)
+
 [Ash](https://linux.die.net/man/1/ash)
-[Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/)
-[Micro](https://github.com/zyedidia/micro)
+
 [Zsh](https://github.com/zsh-users/zsh)
+
+[Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/)
+
+[Micro](https://github.com/zyedidia/micro)
 
 Love <3 H8D13
