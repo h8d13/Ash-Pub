@@ -40,7 +40,6 @@ mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "$HOME/.zsh/plugins"
 ## User
-mkdir -p "/home/$TARGET_USER/.config"
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
