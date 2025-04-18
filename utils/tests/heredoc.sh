@@ -13,3 +13,6 @@ cat << EOF
 Username is $TARGET_USER
 EOF
 
+
+
+### So when unquoted they take in the variable :) If quoted, then just fucks the whole code
