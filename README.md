@@ -3,7 +3,7 @@
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
-This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO. 
+This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO (Order of Operations). 
 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 This mini-service philosophy makes it versatile, efficient and secure. 
