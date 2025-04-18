@@ -1,13 +1,14 @@
 # Why this project ? 
 
-Everybody hates documention, and even more having to do manual menial tasks. 
+Most people hates documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
 This project aims to do exactly this. Eliminate quirks by programatically solving issue with OOO. 
 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 This mini-service philosophy makes it versatile, efficient and secure. 
-But again more difficult to set-up for a beginner?
+
+**But again more difficult to set-up for a beginner?**
 
 I wanted to see how how much a single setup script can do. As one of the most important parts of dev is doing things faster than the other person.
 
