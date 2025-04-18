@@ -1,6 +1,6 @@
 # Qemu utils
 
-This section is for host computer if you're palnning to test in QEMU. 
+This section is for host computer if you're planning to test in QEMU. 
 
 Prereqs are in `setup.sh`
 
