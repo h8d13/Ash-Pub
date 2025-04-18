@@ -1,9 +1,10 @@
 #!/bin/sh
 username=$(whoami)
 echo "Hi $username"
-
 TARGET_USER=hill
 ## Change this to the name of the user your created, use different PW! # Should be lowercase :)
+#### Shoudl also be replaced in the "Konsole profile" Section. 
+
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
@@ -26,42 +27,6 @@ chmod +x /usr/share/sddm/scripts/Xsetup
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
 # for start /stop commands 
-########################################## SYSTEM HARDENING
-cat > /etc/periodic/daily/clean-tmp << 'EOF'
-#!/bin/sh
-find /tmp -type f -atime +10 -delete
-EOF
-chmod +x /etc/periodic/daily/clean-tmp
-
-## Not a router stuff
-cat > /etc/sysctl.conf << 'EOF'
-# Network performance and security
-net.core.rmem_max = 16777216
-net.core.wmem_max = 16777216
-net.ipv4.tcp_rmem = 4096 87380 16777216
-net.ipv4.tcp_wmem = 4096 65536 16777216
-net.ipv4.tcp_congestion_control = bbr
-net.ipv4.tcp_fastopen = 3
-net.ipv4.tcp_mtu_probing = 1
-
-# Security settings
-net.ipv4.conf.all.rp_filter = 1
-net.ipv4.conf.default.rp_filter = 1
-net.ipv4.tcp_syncookies = 1
-net.ipv4.icmp_echo_ignore_broadcasts = 1
-net.ipv4.conf.all.accept_redirects = 0
-net.ipv4.conf.default.accept_redirects = 0
-net.ipv4.conf.all.secure_redirects = 0
-net.ipv4.conf.default.secure_redirects = 0
-
-# Enable IPv6 privacy extensions
-net.ipv6.conf.all.use_tempaddr = 2
-net.ipv6.conf.default.use_tempaddr = 2
-EOF
-
-# Apply settings
-sysctl -p
-
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
 
@@ -70,13 +35,30 @@ mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/micro/"
+mkdir -p "/home/$TARGET_USER/micro/"
+mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 mkdir -p "$HOME/.local/bin"
 mkdir -p "$HOME/.zsh/plugins"
+mkdir -p "$HOME/.zsh/plugins"
+
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 cat > "$HOME/.config/micro/settings.json" << 'EOF'
 {
     "sucmd": "doas"
 }
+EOF
+## Do the same for the user.
+cat > "/home/$TARGET_USER/micro/settings.json" << 'EOF'
+{
+    "sucmd": "doas"
+}
+EOF
+########################################## CREATE THE KONSOLE PROFILE >> Change hill here to desired username!
+cat > "/home/$TARGET_USER/.local/share/konsole" << 'EOF'
+[General]
+Command=su -l
+Name=hill
+Parent=FALLBACK/
 EOF
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
@@ -99,7 +81,6 @@ EOF
 
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
-
 ########################################## SHARED (ASH & ZSH) ALIASES
 cat > "$HOME/.config/aliases" << 'EOF'
 # Main alias
@@ -134,7 +115,6 @@ if [ -f "$HOME/.config/ash/profile" ]; then
     . "$HOME/.config/ash/profile"
 fi
 EOF
-
 ########################################## ASH
 chmod +x /etc/profile.d/profile.sh
 # Create ~/.config/ash/profile and add basic style 
@@ -149,14 +129,12 @@ if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
 EOF
-
 ########################################## ZSH 
 # Install ZSH plugins via package manager instead of git
 apk add zsh-autosuggestions \
       zsh-history-substring-search \
       zsh-completions \
       zsh-syntax-highlighting
-
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
@@ -238,6 +216,41 @@ grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 # === OR: Switch shell for current user only ===
 #sed -i -E "s|^($username:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:).*|\1/bin/zsh|" /etc/passwd
 
+########################################## SYSTEM HARDENING
+cat > /etc/periodic/daily/clean-tmp << 'EOF'
+#!/bin/sh
+find /tmp -type f -atime +10 -delete
+EOF
+chmod +x /etc/periodic/daily/clean-tmp
+
+## Not a router stuff
+cat > /etc/sysctl.conf << 'EOF'
+# Network performance and security
+net.core.rmem_max = 16777216
+net.core.wmem_max = 16777216
+net.ipv4.tcp_rmem = 4096 87380 16777216
+net.ipv4.tcp_wmem = 4096 65536 16777216
+net.ipv4.tcp_congestion_control = bbr
+net.ipv4.tcp_fastopen = 3
+net.ipv4.tcp_mtu_probing = 1
+
+# Security settings
+net.ipv4.conf.all.rp_filter = 1
+net.ipv4.conf.default.rp_filter = 1
+net.ipv4.tcp_syncookies = 1
+net.ipv4.icmp_echo_ignore_broadcasts = 1
+net.ipv4.conf.all.accept_redirects = 0
+net.ipv4.conf.default.accept_redirects = 0
+net.ipv4.conf.all.secure_redirects = 0
+net.ipv4.conf.default.secure_redirects = 0
+
+# Enable IPv6 privacy extensions
+net.ipv6.conf.all.use_tempaddr = 2
+net.ipv6.conf.default.use_tempaddr = 2
+EOF
+
+# Apply settings
+sysctl -p
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
