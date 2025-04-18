@@ -18,7 +18,7 @@ Do the standard `setup-alpine`
 
 ## Desktop Env 
 
-- KDE because it's beautiful and reliable.
+- KDE because it's beautiful and reliable. (x11 + Wayland enabled)
 > Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total)
 
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
@@ -26,8 +26,9 @@ Do the standard `setup-alpine`
 ## Config 
 > ⚙ Then only thing you have to do is specify the user you created in the script:
 
-> `TARGET_USER=hill` and keyboard language `setxkbmap "fr"`
+> `TARGET_USER=hill` and keyboard language for sddm: `setxkbmap "fr"`
 
+Make sure to edit this to your values.
 ---
 
 ## What exactly: 
