@@ -55,7 +55,6 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << 'EOF'
 }
 EOF
 ########################################## CREATE THE KONSOLE PROFILE 
-mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
@@ -264,7 +263,6 @@ Use . ~/.config/aliases if you added something
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
 "startde/stopde" for Desktop Env. 
-To come back to this shell in your DE: Open Konsole > "su -l"
 Can also use micro or mc for friendly editing.
 
 Custom with <3 by H8D13. 
