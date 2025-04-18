@@ -27,8 +27,6 @@ chmod +x /usr/share/sddm/scripts/Xsetup
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
 # for start /stop commands 
-## fix the launch bar to be clean
-sed -i '/\[Containments\]\[2\]\[Applets\]\[5\]\[Configuration\]\[General\]/,/^\[/ s/launchers=.*/launchers=applications:org.kde.konsole.desktop/' "/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
 # Create all needed directories first
