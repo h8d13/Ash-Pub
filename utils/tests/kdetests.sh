@@ -4,9 +4,9 @@
 # Modify default Konsole profile to use su -l directly. 
 # Modify default bg & start icon 
 
-plasma-apply-desktoptheme breeze-dark
-plasma-apply-colorscheme BreezeDark
-plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+#plasma-apply-desktoptheme breeze-dark
+#plasma-apply-colorscheme BreezeDark
+#plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
 
 #copy personal image to 
 #> /home/$TARGET_USER/Pictures 
