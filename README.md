@@ -50,21 +50,21 @@ This modular approach makes it so that if you create several users down the line
 ![image](https://github.com/user-attachments/assets/1ae70597-2560-431e-9cdc-1368f1826173)
 
 ### Auto-add main/community repos
+> Giving you access to 25 000 packages through apk 
 
 ### Basic /etc confs 
+> System hardening, not a router stuff etc
 
 ### Emoji / UTF8 support
-
 ### Added more helpful motd
 ----
-
+### Zsh integrated
 Sets up common aliases for Zsh & Ash 
 > All in one place :)
 
 ![image](https://github.com/user-attachments/assets/f68f8c19-7b45-4af9-9c10-03a321f599c4)
 
 ### Custom `.local/bin`
-
 With an example script to search through your apps `iapps`: See example above ^^ 
 
 ---
@@ -94,7 +94,3 @@ To get to your beautiful shell/zsh: `su -l` this tells it to run as root and as 
 
 ----
 Love <3 H8D13
-
-
-
-
