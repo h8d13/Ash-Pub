@@ -61,6 +61,8 @@ This modular approach makes it so that if you create several users down the line
 Sets up common aliases for Zsh & Ash 
 > All in one place :) Following Alpine docs best practice but better.
 
+![image](https://github.com/user-attachments/assets/db03d55c-8080-44f4-bfc3-99b09aa037d8)
+
 ### Custom `.local/bin`
 With an example script to search through your apps `iapps`: See example above ^^ 
 > Managed in `/.config/environment`
