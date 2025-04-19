@@ -9,7 +9,7 @@ if [ -z "$TARGET_USER" ]; then
     exit 1
 fi
 username=$(whoami)
-echo "Hi $username : TARGET_USER set to: $TARGET_USER"
+echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############## vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
