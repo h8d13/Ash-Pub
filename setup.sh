@@ -85,11 +85,11 @@ mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
 # Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark
+plasma-apply-desktoptheme breeze-dark > /dev/null 2>&1
 # Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
+plasma-apply-colorscheme BreezeDark > /dev/null 2>&1
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell
+killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
