@@ -25,6 +25,15 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 # === OPTIONAL: Switch default login shell to zsh globally ===
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
+########################################## FIX ICONS + Colors
+su - $TARGET_USER -c "kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletrc --group \"Containments\" --group \"2\" --group \"Applets\" --group \"5\" --group \"Configuration\" --group \"General\" --key \"launchers\" \"applications:org.kde.konsole.desktop\""
+## This sets menu + taskbar
+su - $TARGET_USER -c "plasma-apply-desktoptheme breeze-dark"
+## This sets window styles 
+su - $TARGET_USER -c "plasma-apply-colorscheme BreezeDark"
+## Could also set wallpaper here! 
+su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' \"/usr/share/wallpapers/Mountain\""
+su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' \"/usr/share/wallpapers/Mountain\""
 ########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
@@ -42,7 +51,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
