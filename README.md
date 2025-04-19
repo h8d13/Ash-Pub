@@ -44,41 +44,27 @@ This modular approach makes it so that if you create several users down the line
 ![image](https://github.com/user-attachments/assets/1ae70597-2560-431e-9cdc-1368f1826173)
 
 ### Auto-add main/community repos
-> Giving you access to 25 000 packages through apk 
+> Giving you access to 30 000+ packages through apk 
 
 ### Basic /etc confs 
 > System hardening, not a router stuff etc
 
 ### Emoji / UTF8 support
+
 ### Added more helpful guidance on where to start
-```
-Apk sources /etc/apk/repositories
-Change this message by editing /etc/motd
-Change the pre-login message /etc/issue
-Change default shells /etc/passwd
 
-Find shared aliases ~/.config/aliases
-Use . ~/.config/aliases if you added something
-
-Post login scripts can be added to /etc/profile.d
-Personal bin scripts in ~/.local/bin
-Env file in ~/.config/environment 
-```
-
-----
 ### Zsh integrated
 Sets up common aliases for Zsh & Ash 
 > All in one place :) Following Alpine docs best practice but better.
-
-![image](https://github.com/user-attachments/assets/f68f8c19-7b45-4af9-9c10-03a321f599c4)
 
 ### Custom `.local/bin`
 With an example script to search through your apps `iapps`: See example above ^^ 
 > Managed in `/.config/environment`
 
----
 ### Fixed SDDM keyboard locale & Same for KDE 
 > Another quirk that annoyed me to do on every fresh install. 
+
+---
 
 ## ⌛ - 7 Minutes Installation vs 2 Hours Setting-up
 > That on a mini-pc with horrible hardware!
@@ -104,7 +90,8 @@ I've also included `micro` for friendly terminal editor.
 
 ## Also updated Konsole profile to match our setup :) 
 
-![image](https://github.com/user-attachments/assets/4538fc89-a0b0-4feb-9a02-0279dfc6109f)
+![Untitled design](https://github.com/user-attachments/assets/9da06497-0620-4f93-82f5-e2e7deb558ac)
+
 
 ----
 
