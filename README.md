@@ -59,7 +59,7 @@ That's right you terminal nerds.
 Sets up common aliases for Zsh & Ash 
 > All in one place :) Following Alpine docs best practice but better.
 
-![image](https://github.com/user-attachments/assets/db03d55c-8080-44f4-bfc3-99b09aa037d8)
+![image](https://github.com/user-attachments/assets/15c3e523-59ac-4000-80ee-ff0a199245e3)
 
 ### Custom `.local/bin`
 With an example script to search through your apps `iapps`: See example above ^^ 
