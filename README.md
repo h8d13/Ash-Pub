@@ -25,7 +25,7 @@ Do the standard `setup-alpine`
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
 
 ## Config 
-> ⚙ Nothing to do. All automated. You could add your desired software to line 45 like `vscodium` 😎
+> ⚙ Nothing to do. All automated. You could add your desired software to line 45 like `vscodium` or do it later. 😎
 
 ---
 
