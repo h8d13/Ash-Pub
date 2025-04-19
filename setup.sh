@@ -42,7 +42,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw 
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
