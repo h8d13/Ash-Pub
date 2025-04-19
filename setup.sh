@@ -32,8 +32,8 @@ su - $TARGET_USER -c "plasma-apply-desktoptheme breeze-dark"
 ## This sets window styles 
 su - $TARGET_USER -c "plasma-apply-colorscheme BreezeDark"
 ## Could also set wallpaper here! 
-su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' \"/usr/share/wallpapers/Mountain\""
-su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' \"/usr/share/wallpapers/Mountain\""
+su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' \"/usr/share/wallpapers/Mountain/\""
+su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' \"/usr/share/wallpapers/Mountain/\""
 ########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
