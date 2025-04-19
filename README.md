@@ -115,7 +115,9 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 | [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc counterpart |
 | [FreeDesktop](https://gitlab.freedesktop.org) | Desktop utils KDE uses extensively  |
 | [KDE Plasma](https://kde.org/plasma-desktop/) | Feature-rich, customizable desktop environment for Linux |
-| [KDE Configs](https://github.com/shalva97/kde-configuration-files) | For terminal nerds to change behavior. |
+| [KDE Configs](https://github.com/shalva97/kde-configuration-files) | For terminal nerds to change behavior |
+| [Dolphin](https://userbase.kde.org/Dolphin) | File viewer for for KDE. Integrated permissions, etc. |
+| [Util-Linux](https://github.com/util-linux/util-linux) | Random collection of Linux utilities |
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
 | [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
