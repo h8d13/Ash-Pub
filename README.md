@@ -14,7 +14,7 @@ I wanted to see how how much a single setup script can do. As the essential of d
 
 [Alpine ISOs](https://www.alpinelinux.org/downloads/) 
 > Select the right architecture (usually x86_64)
-> Flash to a USB (See [Rufus](https://rufus.ie/en/). 
+> Flash to a USB. See [Rufus](https://rufus.ie/en/) 
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
