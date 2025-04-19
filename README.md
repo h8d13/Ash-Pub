@@ -25,11 +25,7 @@ Do the standard `setup-alpine`
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
 
 ## Config 
-> ⚙ Then only thing you have to do is specify the user you created in the script:
-
-> `TARGET_USER=hill` and keyboard language for sddm: `KB_LAYOUT=us`
-
-Make sure to edit this to your values.
+> ⚙ Nothing to do. All automated.
 
 ---
 
@@ -92,11 +88,6 @@ Then `apk add git`
 `git clone https://github.com/h8d13/k2-alpine`
 
 `cd k2-alpine`
-
-> ⚙ Can edit using `vi setup.sh` then to edit `Insert`, change the values `Esc` and `:wq`
-
-> Modify to desired: `TARGET_USER=hill` and keyboard language for sddm: `KB_LAYOUT=us`
-
 `chmod +x setup.sh`
 
 Run the script `./setup.sh`
