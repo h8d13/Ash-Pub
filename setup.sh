@@ -28,19 +28,12 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## FIX ICONS + Colors
 cat > "/home/$TARGET_USER/Desktop/kpost.sh" << 'EOF'
 #!/bin/bash
-
 # Set konsole to taskbar
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletrc --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" --key "launchers" "applications:org.kde.konsole.desktop"
-
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
-
-# Set wallpaper
-kwriteconfig5 --file "plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' "/usr/share/wallpapers/Mountain/"
-kwriteconfig5 --file "plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' "/usr/share/wallpapers/Mountain/"
-
 # Restart Plasma to apply changes
 kquitapps5 plasmashell || killall plasmashell && kstart5 plasmashell
 EOF
