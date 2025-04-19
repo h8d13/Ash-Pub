@@ -43,7 +43,7 @@ That's right you terminal nerds.
 `startde` and `stopde` commands.
 
 ### One place for admin configs
-> This modular approach makes it so that if you create several users down the line they can all have their own configs. 
+> So that if you create several users down the line they can all have their own configs. 
 
 ### Auto-add main/community repos
 > Giving you access to 30 000+ packages through apk 
