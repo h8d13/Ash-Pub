@@ -84,16 +84,14 @@ EOF
 mkdir -p "/home/$TARGET_USER/K2-Os/"
 cat > /home/$TARGET_USER/K2-Os/kpost.sh << 'EOF'
 #!/bin/bash
-# Set konsole to taskbar
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletrc --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" --key "launchers" "applications:org.kde.konsole.desktop"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-kquitapps5 plasmashell || killall plasmashell && kstart5 plasmashell
+killall plasmashell && kstart5 plasmashell
 EOF
-chmod +x /home/$TARGET_USER/k2-os/kpost.sh
+chmod +x /home/$TARGET_USER/K2-Os/kpost.sh
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
