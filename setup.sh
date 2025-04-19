@@ -42,7 +42,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw 
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
@@ -260,10 +260,8 @@ net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 EOF
 
-# Apply settings
+# Apply settings + UFW
 sysctl -p
-
-apk add ufw
 ufw default deny incoming
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
