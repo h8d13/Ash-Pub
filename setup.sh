@@ -1,7 +1,8 @@
 #!/bin/sh
 #### CONFIG: CHANGE TO DESIRED
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
-KB_LAYOUT=us #### Change to "fr" "de" "it" "es" etc 
+KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
+#### Should return "us" "fr" "de" "it" "es" etc 
 
 # Exit if no TARGET_USER found
 if [ -z "$TARGET_USER" ]; then
@@ -10,12 +11,14 @@ if [ -z "$TARGET_USER" ]; then
 fi
 echo "TARGET_USER set to: $TARGET_USER"
 
-## Change this to the name of the user your created, use different PW! # Should be lowercase :)
 username=$(whoami)
 echo "Hi $username"
+# Will be root ^^
 # Community & main ######################### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
+echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
 apk update
 apk upgrade
 setup-desktop plasma
