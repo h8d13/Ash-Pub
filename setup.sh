@@ -79,7 +79,7 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-########################################## Give everything back to user. Bellow should be only admin changes.
+########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
