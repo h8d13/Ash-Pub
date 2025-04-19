@@ -1,5 +1,5 @@
 # TreeStruc
-
+```
 Alpine KDE Setup Script
 ├── System Detection
 │   ├── TARGET_USER detection
@@ -66,3 +66,4 @@ Alpine KDE Setup Script
    ├── System welcome message (/etc/motd)
    ├── Login banner (/etc/issue)
    └── Post-login welcome message (/etc/profile.d/welcome.sh)
+```
