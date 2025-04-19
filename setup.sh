@@ -83,7 +83,7 @@ EOF
 ########################################## KPost script :) 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
-#!/bin/bash
+#!/bin/sh
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
