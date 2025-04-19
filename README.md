@@ -110,9 +110,7 @@ I've also included `micro` for friendly terminal editor.
 
 ## Video Tutorial
 
-https://github.com/user-attachments/assets/ceec2426-c93f-47d1-90be-894110e37aae
-
-> I will post to YouTube the first successful install I had soon :)
+https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 ## Further reading
 
