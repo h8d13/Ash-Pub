@@ -31,6 +31,7 @@ setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## FIX GLOBAL KB
+mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 [Layout]
 LayoutList=$KB_LAYOUT
