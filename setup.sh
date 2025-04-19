@@ -1,28 +1,23 @@
 #!/bin/sh
-#### CONFIG: CHANGE TO DESIRED
+#### NO MORE CONFIG ALL AUTOMATED.
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
 #### Should return "us" "fr" "de" "it" "es" etc 
-
 # Exit if no TARGET_USER found
 if [ -z "$TARGET_USER" ]; then
     echo "ERROR: No user with /home directory found. Exiting."
     exit 1
 fi
-echo "TARGET_USER set to: $TARGET_USER"
-
 username=$(whoami)
-echo "Hi $username"
+echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
-# Community & main ######################### vX.xX/Branch
+# Community & main & Testing ############## vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
 apk update
 apk upgrade
 setup-desktop plasma
-
 ## Debloating
 apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
@@ -30,19 +25,25 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 # === OPTIONAL: Switch default login shell to zsh globally ===
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
-
-## Change login-screen language input for SDDM #### 
+########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
-
+########################################## FIX GLOBAL KB
+mkdir -p "/home/$TARGET_USER/.config"
+cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
+[Layout]
+LayoutList=$KB_LAYOUT
+Use=True
+EOF
+########################################## MORE SYSTEM TWEAKS
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro # more modern/intuitive editor
-# Create all needed directories first
+########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
@@ -78,7 +79,7 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-########################################## Give everything back to user 
+########################################## Give everything back to user. Bellow should be only admin changes.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
@@ -128,7 +129,6 @@ alias apka="apk add"
 alias apkd="apk del"
 alias apks="apk search"
 EOF
-
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
 cat > /etc/profile.d/profile.sh << 'EOF'
 if [ -f "$HOME/.config/ash/profile" ]; then
@@ -262,6 +262,9 @@ EOF
 
 # Apply settings
 sysctl -p
+
+apk add ufw
+ufw default deny incoming
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
 See <https://wiki.alpinelinux.org> for more info.
@@ -288,11 +291,11 @@ cat > /etc/issue << 'EOF'
                                                                                                                                                   
                                                       ▒▒▒▒░░░░                                                                                    
                                                       ▓▓  ░░  ░░                                                                                  
-                                                  ▒▒▓▓▓▓    ░░  ▒▒                           ########                                                     
-                                              ░░▓▓▓▓▓▓░░    ░░    ▒▒                         # 8611 #                                                 
-                                          ▓▓▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█▓▓▓               ########                                                     
-                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒▒▒             # v1.3 #                                                    
-                                        ▓▓▓█▓▓▒▒▓█▓▓          ░░▒▒    ░░▓▓▓▓▓▓░░             ########                                                     
+                                                  ▒▒▓▓▓▓    ░░  ▒▒                           #########                                                     
+                                              ░░▓▓▓▓▓▓░░    ░░    ▒▒                         # 8611m #                                                 
+                                          ▓▓▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█▓▓▓               #########                                                     
+                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒▒▒             # 1.3.1 #                                                    
+                                        ▓▓▓█▓▓▒▒▓█▓▓          ░░▒▒    ░░▓▓▓▓▓▓░░             #########                                                    
                                       ░░▓█▓▓▒▒▒▓▓▓▓█▒▒       ░  ▒▒░░    ░░▓▓█▓                                          ▒▒▓█▒▒                    
                                       ▓█▓▓▓▓▒▒▓▓▓▓█▓▓▓▓▓        ▒▒░░      ▒▒▓▓░░▒▒                                    ▓▓▓▓    ▒▒                  
                                 ▒▒▓▓▓▓▓▓█▓▒▒▒▒▒▓▓▓▓█▓▓▓▓░░    ░░▒▒▒▒   ░    ▓█▓▓  ▒                                 ▓▓▓█▓▓  ░   ░                  
