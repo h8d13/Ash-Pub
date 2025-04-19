@@ -11,7 +11,7 @@ fi
 username=$(whoami)
 echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
-# Community & main & Testing ############## vX.xX/Branch
+# Community & main & Testing ############### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -26,14 +26,25 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 # === OPTIONAL: Switch default login shell to zsh globally ===
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 ########################################## FIX ICONS + Colors
-su - $TARGET_USER -c "kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletrc --group \"Containments\" --group \"2\" --group \"Applets\" --group \"5\" --group \"Configuration\" --group \"General\" --key \"launchers\" \"applications:org.kde.konsole.desktop\""
-## This sets menu + taskbar
-su - $TARGET_USER -c "plasma-apply-desktoptheme breeze-dark"
-## This sets window styles 
-su - $TARGET_USER -c "plasma-apply-colorscheme BreezeDark"
-## Could also set wallpaper here! 
-su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' \"/usr/share/wallpapers/Mountain/\""
-su - $TARGET_USER -c "kwriteconfig5 --file \"plasma-org.kde.plasma.desktop-appletsrc\" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' \"/usr/share/wallpapers/Mountain/\""
+cat > "/home/$TARGET_USER/Desktop/kpost.sh" << 'EOF'
+#!/bin/bash
+
+# Set konsole to taskbar
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletrc --group "Containments" --group "2" --group "Applets" --group "5" --group "Configuration" --group "General" --key "launchers" "applications:org.kde.konsole.desktop"
+
+# Set dark theme for menu and taskbar
+plasma-apply-desktoptheme breeze-dark
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark
+
+# Set wallpaper
+kwriteconfig5 --file "plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'Image' "/usr/share/wallpapers/Mountain/"
+kwriteconfig5 --file "plasma-org.kde.plasma.desktop-appletsrc" --group 'Containments' --group '1' --group 'Wallpaper' --group 'org.kde.image' --group 'General' --key 'PreviewImage' "/usr/share/wallpapers/Mountain/"
+
+# Restart Plasma to apply changes
+kquitapps5 plasmashell || killall plasmashell && kstart5 plasmashell
+EOF
+chmod +x "/home/$TARGET_USER/Desktop/kpost.sh"
 ########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
