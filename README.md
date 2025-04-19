@@ -12,6 +12,10 @@ This mini-service philosophy makes it versatile, efficient and secure.
 
 I wanted to see how how much a single setup script can do. As the essential of dev is doing things faster than the other person.
 
+[Alpine ISOs](https://www.alpinelinux.org/downloads/) 
+> Select the right architecture (usually x86_64)
+> Flash to a USB (See [Rufus](https://rufus.ie/en/). 
+
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
 
@@ -80,7 +84,7 @@ Then `apk add git`
 
 Run the script `./setup.sh`
 
-Once all is done, reboot again. `startde` to start SDDM. 
+Once all is done, reboot again. `startde` to start SDDM & KDE. 
 
 ![image](https://github.com/user-attachments/assets/c7dda33b-de38-435a-ac47-f29630c5205a)
 
@@ -89,9 +93,6 @@ You should find a program called `Konsole` This is your new best friend.
 I've also included `micro` for friendly terminal editor. 
 
 ## Also updated Konsole profile to match our setup :) 
-
-![Untitled design](https://github.com/user-attachments/assets/9da06497-0620-4f93-82f5-e2e7deb558ac)
-
 
 ----
 
