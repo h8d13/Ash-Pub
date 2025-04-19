@@ -23,7 +23,7 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
-# === OPTIONAL: Switch default login shell to zsh globally ===
+## OPTIONAL: Switch default login shell to zsh globally
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 ########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
