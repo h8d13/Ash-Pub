@@ -24,7 +24,9 @@ Do the standard `setup-alpine`
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable. (x11 + Wayland enabled)
-> Also has many essentials pre-installed and is still relatievly light (2.5GB/3GB Total with Wallpapers)
+> Also has many essentials pre-installed and is still relatively light (2.5GB/3GB Total with Wallpapers)
+
+> RAM Usage: > 1GB~ Idle
 
 ## Config 
 > ⚙ All automated. You could add your desired software to line 45 like `vscodium` or do it later. 😎
