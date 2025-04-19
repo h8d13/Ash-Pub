@@ -11,7 +11,7 @@ fi
 username=$(whoami)
 echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
-# Community & main & Testing ############## vX.xX/Branch
+# Community & main & Testing ############### vX.xX/Branch
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -23,7 +23,7 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
-# === OPTIONAL: Switch default login shell to zsh globally ===
+## OPTIONAL: Switch default login shell to zsh globally
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
 ########################################## FIX LOGIN KB
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
@@ -42,7 +42,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
@@ -79,6 +79,19 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
+
+########################################## KPost script :) 
+mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
+cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
+#!/bin/sh
+# Set dark theme for menu and taskbar
+plasma-apply-desktoptheme breeze-dark > /dev/null 2>&1
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark > /dev/null 2>&1
+# Restart Plasma to apply changes
+killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3

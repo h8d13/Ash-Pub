@@ -93,6 +93,9 @@ You should find a program called `Konsole` This is your new best friend.
 I've also included `micro` for friendly terminal editor. 
 
 ## Also updated Konsole profile to match our setup :) 
+> To go back to a user shell you can simply right click this:
+
+![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
 
 ----
 

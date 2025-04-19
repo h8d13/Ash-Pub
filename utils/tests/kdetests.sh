@@ -15,3 +15,12 @@
 # Remove icons # 
 
 #/usr/share/applications/kde-mimeapps.list 
+
+
+#!/bin/bash
+# Set dark theme for menu and taskbar
+plasma-apply-desktoptheme breeze-dark
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark
+# Restart Plasma to apply changes
+killall plasmashell && kstart5 plasmashell
