@@ -31,6 +31,8 @@ Do the standard `setup-alpine`
 
 ## What exactly: 
 
+For a better view [Project Tree](https://github.com/h8d13/k2-alpine/blob/master/utils/tests/TreeStruc.md)
+
 ### Make a DE an option not an obligation. 
 
 That's right you terminal nerds. 
