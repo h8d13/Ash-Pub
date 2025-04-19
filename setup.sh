@@ -1,7 +1,15 @@
 #!/bin/sh
 #### CONFIG: CHANGE TO DESIRED
-TARGET_USER=hill
+TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=us #### Change to "fr" "de" "it" "es" etc 
+
+# Exit if no TARGET_USER found
+if [ -z "$TARGET_USER" ]; then
+    echo "ERROR: No user with /home directory found. Exiting."
+    exit 1
+fi
+echo "TARGET_USER set to: $TARGET_USER"
+
 ## Change this to the name of the user your created, use different PW! # Should be lowercase :)
 username=$(whoami)
 echo "Hi $username"
