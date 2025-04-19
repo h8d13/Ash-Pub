@@ -25,7 +25,8 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 # === OPTIONAL: Switch default login shell to zsh globally ===
 #sed -i 's|/bin/sh|/bin/zsh|g' /etc/passwd
-########################################## FIX ICONS + Colors
+########################################## FIX ICONS + Colors, post login script.
+mkdir -p "/home/$TARGET_USER/Desktop/"
 cat > "/home/$TARGET_USER/Desktop/kpost.sh" << 'EOF'
 #!/bin/bash
 # Set konsole to taskbar
