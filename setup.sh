@@ -81,8 +81,8 @@ Parent=FALLBACK/
 EOF
 
 ########################################## KPost script :) 
-mkdir -p "/home/$TARGET_USER/K2-Os/"
-cat > /home/$TARGET_USER/K2-Os/kpost.sh << 'EOF'
+mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
+cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/bash
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
@@ -91,7 +91,7 @@ plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
 killall plasmashell && kstart5 plasmashell
 EOF
-chmod +x /home/$TARGET_USER/K2-Os/kpost.sh
+chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
