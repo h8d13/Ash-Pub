@@ -25,6 +25,7 @@ Do the standard `setup-alpine`
 
 - KDE because it's beautiful and reliable. (x11 + Wayland enabled)
 > Also has many essentials pre-installed and is still relatively light (2.5GB/3GB Total with Wallpapers)
+> Much lighter on alpine (example BSD default KDE: 7.5Gb)
 
 > RAM Usage: > 1GB~ Idle
 
