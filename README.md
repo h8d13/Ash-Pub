@@ -116,7 +116,7 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
 | [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
-> DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;)
+> DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;) Altho I haven't updated these enough. 
 
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
