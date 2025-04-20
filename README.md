@@ -124,6 +124,11 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 > DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;) Altho I haven't updated these enough. 
 
+> Note: But Hadie! I cannot game on Alpine... You absolutely can. And it works nice :) 
+[Chimera-Linux](https://chimera-linux.org/docs/configuration/flatpak)
+
+This also uses apk and MUSL so here you will find golden trove of information ^^
+
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
 
