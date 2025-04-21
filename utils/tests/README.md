@@ -27,4 +27,4 @@ And low level integration then becomes more and more essential to having what yo
 
 ---
 
-"In the end it's all atoms and void" "Do not believe in psychology, only in good moves". 
+"In the end it's all atoms and void" "Do not believe in psychology, only in good moves". "Leave a mark, not a trace."
