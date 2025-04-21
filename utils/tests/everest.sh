@@ -4,7 +4,7 @@ set -e  # Exit on error
 
 # WHAT DO WE NEED IN ALPINE ?
 echo "Installing required packages in Alpine..."
-apk add wget curl zstd dosfstools
+apk add wget curl zstd dosfstools arch-install-scripts
 
 ## Make sure user doesnt have a file named arch-bootstrap in /tmp
 ## Case: failed previous install
@@ -70,8 +70,8 @@ chroot "$TARGET_MOUNT" /bin/bash -c "pacman-key --init && pacman-key --populate 
 
 # Bootstrap the system
 echo "Bootstrapping Arch Linux..."
-chroot "$TARGET_MOUNT" /bin/bash -c "pacstrap /mnt base linux linux-firmware"
-chroot "$TARGET_MOUNT" /bin/bash -c "genfstab -U /mnt >> /mnt/etc/fstab"
+chroot "$TARGET_MOUNT" /bin/bash -c "pacman -Sy base linux linux-firmware --noconfirm"
+genfstab -U "$TARGET_MOUNT" > "$TARGET_MOUNT/etc/fstab"
 
 # Configure the new system
 echo "Configuring new system..."
