@@ -62,6 +62,14 @@ That means that, you can have all your important work on one, your second OS on 
 
 > If your CMOS battery is dead and you turn off your power for some reason or lightning just hit your house lol, well it might default back to it's initial value, and if you have old hardware that might just break your boot. Anyways happened to me on older Acer motherboard that defaults to RST.
 
+
+### About Multi-booting
+
+It's 100% doable and not that complex if you understand all that is above here. ^^ 
+
+But I tend to stay away from it having had bad experiences especially trying Windows with something else and not being able to boot because of either downright criminal Windows code or Hardware incompatibility.
+Also storage has become one of the least expensive and easiest to find refurbished compared to other hardware. Again I recommend looking into NVMe adapters with USB-C support. 
+
 ----
 
 ## Lazy & Impatient
