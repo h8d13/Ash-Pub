@@ -7,8 +7,7 @@ TARGET_DISK="/dev/sdb"
 TARGET_HOSTNAME=$(cat /etc/hostname)-arch
 TARGET_TIMEZONE="Europe/Paris"
 ROOT_PASSWORD="Everest"
-TARGET_MOUNT="/mnt/arch"
-SWAP_SIZE="4G"  # Size of swap file
+SWAP_SIZE="4G" 
 # Install required packages
 echo "Installing required packages in Alpine..."
 apk add wget curl zstd dosfstools arch-install-scripts parted grub-bios
@@ -33,7 +32,8 @@ echo "Formatting partitions..."
 mkfs.ext4 "${TARGET_DISK}1"  # Boot partition
 mkfs.ext4 "${TARGET_DISK}2"  # Root partition
 # Mount filesystems
-echo "Mounting filesystems..."
+echo "Mounting filesystems... And target mount."
+TARGET_MOUNT="/mnt/arch"
 mount "${TARGET_DISK}2" "$TARGET_MOUNT"       # Mount root
 mkdir -p "$TARGET_MOUNT/boot"
 mount "${TARGET_DISK}1" "$TARGET_MOUNT/boot"  # Mount boot
