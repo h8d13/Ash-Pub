@@ -4,11 +4,11 @@ apk add os-prober grub-bios
 
 # Force GRUB to show menu and wait
 cat > /etc/default/grub << EOF
-GRUB_TIMEOUT=5
+GRUB_TIMEOUT=10
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISABLE_OS_PROBER=false
-# Uncomment to get a GRUB menu with a transparent background
-# GRUB_GFXMODE=auto
+GRUB_GFXMODE=1024x768
+GRUB_TERMINAL_OUTPUT="gfxterm"
 EOF
 
 # Make sure our Arch installation is detectable
