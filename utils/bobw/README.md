@@ -21,3 +21,13 @@ In our first case `everest.sh` we are using MBR + BIOS and a swap file of 4GB.
 If you go into your BIOS, you should find an entry that either says "Boot Mode" or "UEFI/Legacy Boot" or if it's not present it might just have legacy only, or worse some (worse) weird formats like HFS for Apple, FAT32 for Windows, or custom boot options that are manufacturer-specific. Modern systems typically offer at least two options - UEFI and Legacy (BIOS) boot modes, while older systems may only support Legacy.
 
 > Some systems also have a hybrid option called "UEFI with CSM" (Compatibility Support Module) that allows UEFI firmware to support legacy BIOS booting.
+
+----
+
+## Lazy & Impatient
+
+The advantage of being both of these at the same time is that you will think of heuristics of how to get to where you want but to do it quickly too. Even if it takes days to get there, once it's done it can be replicated instantly. 
+Second part of this is to still try to realize that you do need patience and hard work to get there. So this is the philosophy that I adhere by to build this system for others: so they can just enjoy the final results. 
+
+> Note: Take skripts (kde fan lol) with a grain of salt. They should be adapted to your needs sometimes and not just blindly followed.
+ 
