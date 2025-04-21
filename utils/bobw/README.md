@@ -26,6 +26,18 @@ Inherently storage is not that complicated, today you can get USB Thunderbold NV
 That means that, you can have all your important work on one, your second OS on the other... Etc. 
 > Note: Take skripts (kde fan lol) with a grain of salt. They should be adapted to your needs sometimes and not just blindly followed. Risk overwriting your data.
 
+# Another quirk in BIOS
+
+IDE/Legacy mode - Very old mode, limited functionality
+AHCI - Modern standard, recommended for most systems
+RAID - For disk arrays
+Intel RST/Intel Rapid Storage Technology - Intel's proprietary mode
+SATA Native Mode
+SATA Compatible Mode
+AMD RAID/AMD-RAIDXpert - AMD's equivalent to Intel RST
+
+> If your CMOS battery is dead and you turn off your power for some reason or lightning just hit your house lol, well it might default back to it's initial value, and if you have old hardware that might just break your boot. Anyways happened to me on older Acer motherboard that defaults to RST.
+
 ----
 
 ## Lazy & Impatient
