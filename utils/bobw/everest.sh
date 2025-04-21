@@ -80,6 +80,8 @@ echo "$TARGET_HOSTNAME" > /etc/hostname
 echo "KEYMAP=$KB_LAYOUT" > /etc/vconsole.conf 
 echo "127.0.0.1 localhost" > /etc/hosts
 echo "::1 localhost" >> /etc/hosts
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 echo "root:$ROOT_PASSWORD" | chpasswd
 
 # Install GRUB and essentials including os-prober
