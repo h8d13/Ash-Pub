@@ -1,26 +1,42 @@
 #!/bin/sh
-# REQ
-apk add os-prober
-# Ensure os-prober is enabled in GRUB config
-if ! grep -q "GRUB_DISABLE_OS_PROBER=false" /etc/default/grub; then
-    echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
-fi
-# Create mount points
-mkdir -p /mnt/usb
-mkdir -p /mnt/usb/boot
-# Mount the root partition first
-mount /dev/sdb3 /mnt/usb
-# Then mount the boot partition
-mount /dev/sdb1 /mnt/usb/boot
-# No need to mount swap for os-prober
-# Update GRUB config
+# Install os-prober if needed
+apk add os-prober grub-bios
+
+# Force GRUB to show menu and wait
+cat > /etc/default/grub << EOF
+GRUB_TIMEOUT=5
+GRUB_TIMEOUT_STYLE=menu
+GRUB_DISABLE_OS_PROBER=false
+# Uncomment to get a GRUB menu with a transparent background
+# GRUB_GFXMODE=auto
+EOF
+
+# Make sure our Arch installation is detectable
+mkdir -p /mnt/arch
+mount /dev/sdb3 /mnt/arch
+## 2 is usually swap
+mount /dev/sdb1 /mnt/arch/boot
+
+# Run os-prober to explicitly detect other OSes
+os-prober
+
+# Reinstall GRUB to the MBR of the primary drive
+grub-install --target=i386-pc --recheck /dev/sda
+
+# Update GRUB configuration
 grub-mkconfig -o /boot/grub/grub.cfg
-# Unmount in reverse order
-umount /mnt/usb/boot
-umount /mnt/usb
-# Verify the unmount worked
-if mountpoint -q /mnt/usb; then
-    echo "Warning: /mnt/usb is still mounted"
-    echo "Attempting lazy unmount..."
-    umount -l /mnt/usb
+
+# Verify the output
+echo "OS-prober output:"
+os-prober
+
+# Check if Arch was detected in the GRUB config
+if grep -q "Arch" /boot/grub/grub.cfg; then
+    echo "Arch Linux was successfully detected!"
+else
+    echo "Warning: Arch Linux was not detected in GRUB config"
 fi
+
+# Unmount the Arch partitions
+umount /mnt/arch/boot
+umount /mnt/arch
