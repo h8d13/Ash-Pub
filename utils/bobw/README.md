@@ -29,7 +29,6 @@ grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch
  
 Key here is `grub-install --target=x86_64-efi` instead of `--target=i386-pc`
 
-
 ```
 parted -s "$TARGET_DISK" mklabel gpt
 parted -s "$TARGET_DISK" mkpart primary fat32 1MiB 512MiB  # EFI partition
@@ -37,7 +36,8 @@ parted -s "$TARGET_DISK" set 1 esp on
 parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
 parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
 
-Format EFI partition correctly:
+## correct format after for EDI 
+mkfs.fat -F32 "${TARGET_DISK}1"
 ```
 
 ### All depends on your hardware
