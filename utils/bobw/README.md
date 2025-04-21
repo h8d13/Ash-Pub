@@ -18,6 +18,30 @@ Contrary to some common belief they all 4 support SWAP in both forms: a file or 
 In our first case `everest.sh` we are using MBR + BIOS and a swap file of 4GB. 
 > This is possibly the most legacy approach (relevant for old hardware pre 2012).
 
+> Note it doesn't need much change to be compatible with UEFI, change the partition tables to GPT.
+
+```
+pacman -S --noconfirm grub efibootmgr networkmanager base-devel sudo util-linux os-prober
+mkdir -p /boot/efi
+mount ${TARGET_DISK}1 /boot/efi
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=arch
+```
+ 
+Key here is `grub-install --target=x86_64-efi` instead of `--target=i386-pc`
+
+
+```
+parted -s "$TARGET_DISK" mklabel gpt
+parted -s "$TARGET_DISK" mkpart primary fat32 1MiB 512MiB  # EFI partition
+parted -s "$TARGET_DISK" set 1 esp on
+parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
+parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
+
+Format EFI partition correctly:
+```
+
+### All depends on your hardware
+----
 If you go into your BIOS, you should find an entry that either says "Boot Mode" or "UEFI/Legacy Boot" or if it's not present it might just have legacy only, or worse some (worse) weird formats like HFS for Apple, FAT32 for Windows, or custom boot options that are manufacturer-specific. Modern systems typically offer at least two options - UEFI and Legacy (BIOS) boot modes, while older systems may only support Legacy.
 
 > Some systems also have a hybrid option called "UEFI with CSM" (Compatibility Support Module) that allows UEFI firmware to support legacy BIOS booting.
