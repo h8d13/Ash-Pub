@@ -92,6 +92,14 @@ plasma-apply-colorscheme BreezeDark > /dev/null 2>&1
 killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
+
+cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
+[Desktop Entry]
+Icon=alienarena
+Name=wiki-k2
+Type=Link
+URL[$e]=https://github.com/h8d13/k2-alpine/wiki
+EOF
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
