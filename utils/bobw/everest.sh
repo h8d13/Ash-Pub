@@ -33,10 +33,10 @@ parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
 parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
 # Format partitions
 echo "Formatting partitions..."
-mkfs.ext4 "${TARGET_DISK}1"  # Boot partition
+mkfs.ext4 -F "${TARGET_DISK}1"  # Boot partition
 mkswap "${TARGET_DISK}2"     # Swap partition
 swapon "${TARGET_DISK}2"     # Enable swap
-mkfs.ext4 "${TARGET_DISK}3"  # Root partition
+mkfs.ext4 -F "${TARGET_DISK}3"  # Root partition
 # Mount filesystems
 echo "Mounting filesystems... And target mount."
 mount "${TARGET_DISK}3" "$TARGET_MOUNT"       # Mount root
@@ -86,20 +86,15 @@ echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 echo "root:$ROOT_PASSWORD" | chpasswd
 
 # Install GRUB and essentials including os-prober
-pacman -S --noconfirm grub networkmanager base-devel sudo util-linux os-prober
+pacman -S --noconfirm grub networkmanager base-devel sudo util-linux ufw
 
-# Enable os-prober to detect other operating systems
-echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
-
-# Enable NetworkManager
+# Enable NetworkManager & UFW stuff
 systemctl enable NetworkManager
+ufw enable
+ufw default deny incoming 
 
 # Install GRUB to disk
 grub-install --target=i386-pc --recheck --force $TARGET_DISK
-
-# Run os-prober to detect other operating systems
-os-prober
-
 # Generate GRUB configuration with detected operating systems
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
@@ -117,4 +112,4 @@ umount -l "$TARGET_MOUNT/proc" 2>/dev/null || true
 umount -l "$TARGET_MOUNT/sys" 2>/dev/null || true
 umount -l "$TARGET_MOUNT/boot" 2>/dev/null || true  # Unmount boot first
 umount -l "$TARGET_MOUNT" 2>/dev/null || true       # Then root
-echo "Arch Linux installation complete!"
+echo "Arch installation complete!"
