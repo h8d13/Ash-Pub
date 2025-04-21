@@ -13,7 +13,7 @@ In order to make this useful the most important to understand will be:
 | GPT | BIOS |
 | GPT | UEFI |
 
-Contrary to some common belief they all 4 support SWAP in both a file or a full partition. 
+Contrary to some common belief they all 4 support SWAP in both forms: a file or a full partition. 
 
 In our first case `everest.sh` we are using MBR + BIOS and a swap file of 4GB. 
 > This is possibly the most legacy approach (relevant for old hardware pre 2012).
