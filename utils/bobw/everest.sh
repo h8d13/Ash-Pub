@@ -14,6 +14,7 @@ apk add wget curl zstd dosfstools arch-install-scripts parted grub-bios
 # Clean up previous files if canceled/failed install
 rm -rf /tmp/archlinux-bootstrap*
 # Ensure target mount point exists
+TARGET_MOUNT="/mnt/arch"
 mkdir -p "$TARGET_MOUNT"
 # Make sure nothing is mounted from the target disk
 echo "Unmounting any existing mounts..."
@@ -33,7 +34,6 @@ mkfs.ext4 "${TARGET_DISK}1"  # Boot partition
 mkfs.ext4 "${TARGET_DISK}2"  # Root partition
 # Mount filesystems
 echo "Mounting filesystems... And target mount."
-TARGET_MOUNT="/mnt/arch"
 mount "${TARGET_DISK}2" "$TARGET_MOUNT"       # Mount root
 mkdir -p "$TARGET_MOUNT/boot"
 mount "${TARGET_DISK}1" "$TARGET_MOUNT/boot"  # Mount boot
