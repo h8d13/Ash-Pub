@@ -16,3 +16,5 @@ Contrary to some common belief they all 4 support SWAP in both a file or a full 
 In our first case `everest.sh` we are using MBR + BIOS. 
 
 This is possibly the most legacy approach (relevant for oldhardware pre 2012).
+
+> If you go into your BIOS, you should find an entry that either says "Boot Mode" or "UEFI/Legacy Boot" or if it's not present it might just have legacy only, or worse some weird formats like HFS for Apple, FAT32 for Windows, or custom boot options that are manufacturer-specific. Modern systems typically offer at least two options - UEFI and Legacy (BIOS) boot modes, while older systems may only support Legacy. Some systems also have a hybrid option called "UEFI with CSM" (Compatibility Support Module) that allows UEFI firmware to support legacy BIOS booting.
