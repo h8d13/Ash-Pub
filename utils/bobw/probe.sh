@@ -7,8 +7,10 @@ if ! grep -q "GRUB_DISABLE_OS_PROBER=false" /etc/default/grub; then
     echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 fi
 
-# Make sure the USB drive is connected and mounted
+# Make sure the USB/Drive is connected and mounted
 # You don't need to keep it mounted, just mount it so os-prober can detect it
+# replace sdΣx with your own values and use lsblk to check if needed. 
+
 mkdir -p /mnt/usb
 mount /dev/sdb2 /mnt/usb
 mount /dev/sdb1 /mnt/usb/boot ## Usually part 1 is boot
