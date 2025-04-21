@@ -1,5 +1,6 @@
 #!/bin/sh
 # Script for Arch installation # Assumes a couple of things: x86_64, and /dev/sdb
+#### ALSO LEGACY MBR / BIOS
 
 set -e  # Exit on error
 # Configuration variables
