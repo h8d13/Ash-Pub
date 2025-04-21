@@ -3,6 +3,7 @@
 
 set -e  # Exit on error
 # Configuration variables
+KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
 TARGET_DISK="/dev/sdb"
 TARGET_HOSTNAME=$(cat /etc/hostname)-arch
 TARGET_TIMEZONE="Europe/Paris"
@@ -76,6 +77,7 @@ echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 locale-gen
 echo "LANG=en_US.UTF-8" > /etc/locale.conf
 echo "$TARGET_HOSTNAME" > /etc/hostname
+echo "KEYMAP=$KB_LAYOUT" > /etc/vconsole.conf 
 echo "127.0.0.1 localhost" > /etc/hosts
 echo "::1 localhost" >> /etc/hosts
 echo "root:$ROOT_PASSWORD" | chpasswd
