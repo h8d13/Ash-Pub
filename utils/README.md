@@ -4,6 +4,7 @@ Ar
 - Add user auto to arch install
 - Keymap for console ☑️
 - What if we can copy over some config KDE files over to arch auto
+- Create GPT EFI version
 
 Al
 - Create info section on rc
