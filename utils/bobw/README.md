@@ -15,7 +15,7 @@ In order to make this useful the most important to understand will be:
 
 Contrary to some common belief they all 4 support SWAP in both a file or a full partition. 
 
-In our first case `everest.sh` we are using MBR + BIOS. 
+In our first case `everest.sh` we are using MBR + BIOS and a swap file of 4GB. 
 > This is possibly the most legacy approach (relevant for old hardware pre 2012).
 
 If you go into your BIOS, you should find an entry that either says "Boot Mode" or "UEFI/Legacy Boot" or if it's not present it might just have legacy only, or worse some (worse) weird formats like HFS for Apple, FAT32 for Windows, or custom boot options that are manufacturer-specific. Modern systems typically offer at least two options - UEFI and Legacy (BIOS) boot modes, while older systems may only support Legacy.
