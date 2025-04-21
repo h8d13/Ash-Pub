@@ -70,6 +70,12 @@ It's 100% doable and not that complex if you understand all that is above here. 
 But I tend to stay away from it having had bad experiences especially trying Windows with something else and not being able to boot because of either downright criminal Windows code or Hardware incompatibility.
 Also storage has become one of the least expensive and easiest to find refurbished compared to other hardware. Again I recommend looking into NVMe adapters with USB-C support. 
 
+### Why GPT UEFI ? 
+
+**Faster boot on SSDs, No 2TB limit. Secure boot, almost no partition limit.** 
+
+But obviously this is also what I do like about Alpine/Arch, can run on a potato. 
+
 ----
 
 ## Lazy & Impatient
