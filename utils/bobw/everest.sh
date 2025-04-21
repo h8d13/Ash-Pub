@@ -22,19 +22,22 @@ for mnt in $(mount | grep ${TARGET_DISK} | awk '{print $1}'); do
   echo "Unmounting $mnt"
   umount -f "$mnt" || true
 done
-# Partitioning - For BIOS boot with separate /boot
+# Partitioning with three partitions: boot, swap, and root
 echo "Partitioning $TARGET_DISK..."
 parted -s "$TARGET_DISK" mklabel msdos
 parted -s "$TARGET_DISK" mkpart primary ext4 1MiB 512MiB
 parted -s "$TARGET_DISK" set 1 boot on
-parted -s "$TARGET_DISK" mkpart primary ext4 512MiB 100%
+parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
+parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
 # Format partitions
 echo "Formatting partitions..."
 mkfs.ext4 "${TARGET_DISK}1"  # Boot partition
-mkfs.ext4 "${TARGET_DISK}2"  # Root partition
+mkswap "${TARGET_DISK}2"     # Swap partition
+swapon "${TARGET_DISK}2"     # Enable swap
+mkfs.ext4 "${TARGET_DISK}3"  # Root partition
 # Mount filesystems
 echo "Mounting filesystems... And target mount."
-mount "${TARGET_DISK}2" "$TARGET_MOUNT"       # Mount root
+mount "${TARGET_DISK}3" "$TARGET_MOUNT"       # Mount root
 mkdir -p "$TARGET_MOUNT/boot"
 mount "${TARGET_DISK}1" "$TARGET_MOUNT/boot"  # Mount boot
 # Download and extract Arch bootstrap
@@ -77,22 +80,22 @@ echo "127.0.0.1 localhost" > /etc/hosts
 echo "::1 localhost" >> /etc/hosts
 echo "root:$ROOT_PASSWORD" | chpasswd
 
-# Install GRUB and essentials
-pacman -S --noconfirm grub networkmanager base-devel sudo util-linux
+# Install GRUB and essentials including os-prober
+pacman -S --noconfirm grub networkmanager base-devel sudo util-linux os-prober
 
-# Create swap file
-echo "Creating swap file..."
-dd if=/dev/zero of=/swapfile bs=1M count=${SWAP_SIZE%G*}000 status=progress
-chmod 600 /swapfile
-mkswap /swapfile
-swapon /swapfile
-echo "/swapfile none swap defaults 0 0" >> /etc/fstab
+# Enable os-prober to detect other operating systems
+echo "GRUB_DISABLE_OS_PROBER=false" >> /etc/default/grub
 
 # Enable NetworkManager
 systemctl enable NetworkManager
 
 # Install GRUB to disk
 grub-install --target=i386-pc --recheck --force $TARGET_DISK
+
+# Run os-prober to detect other operating systems
+os-prober
+
+# Generate GRUB configuration with detected operating systems
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
 chmod +x "$TARGET_MOUNT/configure.sh"
@@ -102,7 +105,7 @@ echo "Cleaning up..."
 sync
 sleep 2
 echo "Unmounting filesystems..."
-chroot "$TARGET_MOUNT" /bin/bash -c "swapoff /swapfile" || true
+swapoff "${TARGET_DISK}2" || true
 umount -l "$TARGET_MOUNT/dev/pts" 2>/dev/null || true
 umount -l "$TARGET_MOUNT/dev" 2>/dev/null || true
 umount -l "$TARGET_MOUNT/proc" 2>/dev/null || true
