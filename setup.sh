@@ -80,10 +80,28 @@ Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
 
-########################################## KPost script :) 
+########################################## KPost script fix KDE Quirks. 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
+CONFIG_FILE="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="$(mktemp)"
+
+awk '
+BEGIN { state = 0 }
+/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
+state == 1 && /^immutability=1$/ { state = 2; print; next }
+state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
+    print
+    print ""  # one newline
+    print "[Containments][2][Applets][5][Configuration][General]"
+    print "launchers=preferred://filemanager,applications:org.kde.konsole.desktop"
+    state = 0
+    next
+}
+{ print }
+' "$CONFIG_FILE" > "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark > /dev/null 2>&1
 # Set dark theme for window styles
