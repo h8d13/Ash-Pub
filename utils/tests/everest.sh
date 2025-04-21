@@ -2,9 +2,22 @@
 # Script for dual boot Arch & Alpine
 set -e  # Exit on error
 
+# WHAT DO WE NEED IN ALPINE ?
+echo "Installing required packages in Alpine..."
+apk add wget curl zstd dosfstools
+
+## Make sure user doesnt have a file named arch-bootstrap in /tmp
+## Case: failed previous install
+rm -rf /tmp/archlinux-bootstrap*
+
 # Configuration variables - adjust these
-TARGET_DISK="/dev/sda"  # The disk to install Arch on
+TARGET_DISK="/dev/sdb"  # The disk to install Arch on
 # Find out where the Alpine install is (so we don't overwrite it.) Currently manual
+# Try lazy unmount
+umount -l "$TARGET_MOUNT" 2>/dev/null || true
+umount -l "${TARGET_DISK}1" 2>/dev/null || true
+umount -l "${TARGET_DISK}2" 2>/dev/null || true
+
 TARGET_HOSTNAME="archlinux"
 ## Use the same hostname as Alpine install + arch
 TARGET_TIMEZONE="Europe/Paris"
@@ -32,16 +45,14 @@ mount "${TARGET_DISK}2" "$TARGET_MOUNT"
 mkdir -p "$TARGET_MOUNT/boot/efi"
 mount "${TARGET_DISK}1" "$TARGET_MOUNT/boot/efi"
 
-# WHAT DO WE NEED IN ALPINE ?
-echo "Installing required packages in Alpine..."
-apk add wget curl zstd
-
 # Download and extract Arch bootstrap
 echo "Downloading Arch Linux bootstrap..."
 cd /tmp
-wget https://mirrors.edge.kernel.org/archlinux/iso/latest/archlinux-bootstrap.tar.zst
-tar -I zstd -xf archlinux-bootstrap.tar.zst -C /tmp
-mv /tmp/root.x86_64/* "$TARGET_MOUNT"
+wget https://mirrors.edge.kernel.org/archlinux/iso/latest/archlinux-bootstrap-x86_64.tar.zst
+
+zstd -d archlinux-bootstrap-x86_64.tar.zst
+tar -xf archlinux-bootstrap-x86_64.tar -C /tmp
+cp -a /tmp/root.x86_64/* "$TARGET_MOUNT"/
 
 # Configure pacman mirrorlist
 echo "Configuring pacman..."
@@ -54,6 +65,8 @@ mount -t sysfs /sys "$TARGET_MOUNT/sys"
 mount -o bind /dev "$TARGET_MOUNT/dev"
 mount -o bind /dev/pts "$TARGET_MOUNT/dev/pts"
 cp /etc/resolv.conf "$TARGET_MOUNT/etc/"
+echo "Keyrings"
+chroot "$TARGET_MOUNT" /bin/bash -c "pacman-key --init && pacman-key --populate archlinux"
 
 # Bootstrap the system
 echo "Bootstrapping Arch Linux..."
