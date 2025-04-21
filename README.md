@@ -122,7 +122,7 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
 | [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
-> DONT LIKE KDE? Inside utils you will find the same script without any desktop if you prefer, or with a choice ;) Altho I haven't updated these enough. 
+> DONT LIKE KDE? You could modify the script to install any Desktop Env, but it would be quite a bit of work.
 
 > Note: But Hadie! I cannot game on Alpine... You absolutely can. And it works nice :) 
 [Chimera-Linux](https://chimera-linux.org/docs/configuration/flatpak)
