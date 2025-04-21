@@ -2,19 +2,19 @@
 # Script for Arch Linux installation on USB
 set -e  # Exit on error
 
-# Install required packages
-echo "Installing required packages in Alpine..."
-apk add wget curl zstd dosfstools arch-install-scripts parted grub-bios
-
-# Clean up previous files
-rm -rf /tmp/archlinux-bootstrap*
-
 # Configuration variables
 TARGET_DISK="/dev/sdb"
 TARGET_HOSTNAME="archlinux"
 TARGET_TIMEZONE="Europe/Paris"
 ROOT_PASSWORD="Everest"
 TARGET_MOUNT="/mnt/arch"
+
+# Install required packages
+echo "Installing required packages in Alpine..."
+apk add wget curl zstd dosfstools arch-install-scripts parted grub-bios
+
+# Clean up previous files
+rm -rf /tmp/archlinux-bootstrap*
 
 # Ensure target mount point exists
 mkdir -p "$TARGET_MOUNT"
