@@ -1,4 +1,4 @@
-# Secure SSH Configuration
+# SSH Config
 
 apk add openssl ssh 
 # Gen origin key
