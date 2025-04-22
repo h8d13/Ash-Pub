@@ -124,7 +124,6 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell 
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 
@@ -134,7 +133,7 @@ cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
 [Desktop Entry]
 Type=Application
 Name=KPost Setup
-Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop && rm /home/$TARGET_USER/Desktop/k2-os/kpost.sh'
+Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop && rm /home/$TARGET_USER/Desktop/k2-os/kpost.sh && sleep 3 && service sddm restart'
 Hidden=false
 NoDisplay=false
 X-KDE-autostart-after=panel
