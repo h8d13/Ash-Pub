@@ -72,13 +72,13 @@ mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
-cat > "$HOME/.config/micro/settings.json" << 'EOF'
+cat > "$HOME/.config/micro/settings.json" << EOF
 {
     "sucmd": "doas"
 }
 EOF
 ## Do the same for the user.
-cat > "/home/$TARGET_USER/.config/micro/settings.json" << 'EOF'
+cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
 {
     "sucmd": "doas"
 }
@@ -97,7 +97,7 @@ Parent=FALLBACK/
 EOF
 ########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
-cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
+cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << EOF
 #!/bin/sh
 # Fix applets configuration
 CONFIG_FILE1="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
