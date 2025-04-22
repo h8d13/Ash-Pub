@@ -1,4 +1,5 @@
 # Best of Both Worlds
+> This part is under construction. Do not run scripts are risk bricking. 
 
 **3 Scripts:** 
 1. To install just the base Arch.
