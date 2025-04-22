@@ -100,9 +100,8 @@ mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << EOF
 #!/bin/sh
 # Fix applets configuration
-CONFIG_FILE1="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
-TMP_FILE="$(mktemp)"
-sleep 10
+CONFIG_FILE1="\$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="\$(mktemp)"
 awk '
 BEGIN { state = 0 }
 /^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
@@ -116,14 +115,14 @@ state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
     next
 }
 { print }
-' "$CONFIG_FILE1" > "$TMP_FILE"
-mv "$TMP_FILE" "$CONFIG_FILE1"
+' "\$CONFIG_FILE1" > "\$TMP_FILE"
+mv "\$TMP_FILE" "\$CONFIG_FILE1"
 
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
-# Restart Plasma to apply changes ##### WAIT FOR GEN OF FILES KDE INIT SCRIPTS I'M GUESSING
+# Restart Plasma to apply changes
 killall plasmashell && kstart5 plasmashell
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
@@ -133,7 +132,7 @@ cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
 [Desktop Entry]
 Type=Application
 Name=KPost Setup
-Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop'
+Exec=sh -c 'if [ ! -f \$HOME/.kpost-done ]; then /home/$TARGET_USER/Desktop/k2-os/kpost.sh && touch \$HOME/.kpost-done && rm \$HOME/.config/autostart/kpost-once.desktop; fi'
 Hidden=false
 NoDisplay=false
 X-KDE-autostart-after=panel
