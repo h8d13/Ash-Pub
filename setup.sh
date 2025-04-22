@@ -99,25 +99,7 @@ EOF
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << EOF
 #!/bin/sh
-# Fix applets configuration
-CONFIG_FILE1="\$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
-TMP_FILE="\$(mktemp)"
-awk '
-BEGIN { state = 0 }
-/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
-state == 1 && /^immutability=1$/ { state = 2; print; next }
-state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
-    print
-    print ""  # one newline
-    print "[Containments][2][Applets][5][Configuration][General]"
-    print "launchers=applications:org.kde.konsole.desktop"
-    state = 0
-    next
-}
-{ print }
-' "\$CONFIG_FILE1" > "\$TMP_FILE"
-mv "\$TMP_FILE" "\$CONFIG_FILE1"
-
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
