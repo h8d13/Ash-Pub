@@ -84,7 +84,7 @@ EOF
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
-CONFIG_FILE="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+CONFIG_FILE="/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
 TMP_FILE="$(mktemp)"
 
 awk '
@@ -103,11 +103,11 @@ state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
 ' "$CONFIG_FILE" > "$TMP_FILE"
 mv "$TMP_FILE" "$CONFIG_FILE"
 # Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark > /dev/null 2>&1
+plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark > /dev/null 2>&1
+plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1
+killall plasmashell && kstart5 plasmashell
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 
