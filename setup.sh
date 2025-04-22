@@ -135,9 +135,9 @@ cat > /usr/lib/firefox/distribution/policies.json << EOF
     },
     "DisablePrivateBrowsing": false,
     "ExtensionSettings": {
-      "uBlock0@raymondhill.net": {
+      "support@adguard.com": {
         "installation_mode": "normal_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+        "install_url": "https://addons.mozilla.org/firefox/downloads/file/4466075/adguard_adblocker-5.1.72.xpi"
       }
     }
   }
