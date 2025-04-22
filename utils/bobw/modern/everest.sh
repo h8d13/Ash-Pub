@@ -1,15 +1,16 @@
 #!/bin/sh
 # Script for Arch installation # Assumes a couple of things: x86_64, and /dev/sdb
 #### ALSO GPT / UEFI
-
 set -e  # Exit on error
+
+
 # Configuration variables
+TARGET_DISK="/dev/sdb" ### VERY CAREFULY LSBLK TO CHECK 
+TARGET_TIMEZONE="Europe/Paris" 
+ROOT_PASSWORD="Everest" ### PLEASE CHANGE ME 
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
-TARGET_DISK="/dev/sdb"
 TARGET_HOSTNAME=$(cat /etc/hostname)-arch
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
-TARGET_TIMEZONE="Europe/Paris"
-ROOT_PASSWORD="Everest"
 SWAP_SIZE="4G" 
 # Install required packages
 echo "Installing required packages in Alpine..."
@@ -90,7 +91,7 @@ echo "$TARGET_USER:$ROOT_PASSWORD" | chpasswd
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Install GRUB and essentials
-pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux ufw
+pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux
 
 # Enable NetworkManager & UFW stuff
 systemctl enable NetworkManager
