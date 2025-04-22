@@ -124,7 +124,7 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes ##### WAIT FOR GEN OF FILES KDE INIT SCRIPTS I'M GUESSING
-killall plasmashell && kstart5 plasmashell && sleep 20 && sddm service restart
+killall plasmashell && kstart5 plasmashell
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 # Create autostart entry to run kpost on first login
@@ -181,8 +181,8 @@ cat > "$HOME/.config/aliases" << 'EOF'
 # Main alias
 alias mc="micro"
 alias startde="rc-service sddm start"
-alias stoptde="service sddm stop"
-alias restarde="service sddm restart"
+alias stopde="service sddm stop"
+alias restartde="service sddm restart"
 # Base alias
 alias clr="clear"
 alias cls="clr"
@@ -409,3 +409,7 @@ chmod +x /etc/profile.d/welcome.sh
 
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
+
+echo "K2 SETUP. DONE. Reboot, use startde. Then CTRL + ALT + F1/F2, then restartde. All set." 
+
+
