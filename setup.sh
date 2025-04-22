@@ -124,7 +124,7 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell && service sddm restart
+killall plasmashell && kstart5 plasmashell 
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 
@@ -134,7 +134,7 @@ cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
 [Desktop Entry]
 Type=Application
 Name=KPost Setup
-Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop'
+Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop && rm /home/$TARGET_USER/Desktop/k2-os/kpost.sh'
 Hidden=false
 NoDisplay=false
 X-KDE-autostart-after=panel
@@ -150,11 +150,11 @@ Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
 ########################################## Clone utils only
-wget https://github.com/h8d13/k2-alpine/archive/main.tar.gz -O /tmp/k2-alpine.tar.gz
+wget https://github.com/h8d13/k2-alpine/archive/master.tar.gz -O /tmp/k2-alpine.tar.gz
 tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
-mv /tmp/k2-alpine-main/utils /home/$TARGET_USER/Desktop/k2-os/
-rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-main
-########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
+mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
+rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
+########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
