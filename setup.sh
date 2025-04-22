@@ -99,48 +99,34 @@ EOF
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
-# Let's wait for the configuration file to be fully generated
-sleep 15
-
-# Fix applets configuration - simpler approach
+# Fix applets configuration
 CONFIG_FILE1="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="$(mktemp)"
 
-# Check if file exists first
-if [ -f "$CONFIG_FILE1" ]; then
-    # Backup original file
-    cp "$CONFIG_FILE1" "$CONFIG_FILE1.bak"
-    
-    # Find the icontasks section and add launcher
-    APPLET_SECTION=$(grep -n "\[Containments\]\[[0-9]*\]\[Applets\]\[[0-9]*\]" "$CONFIG_FILE1" | grep -A5 "plugin=org.kde.plasma.icontasks" -m1 | head -1 | cut -d: -f1)
-    
-    if [ -n "$APPLET_SECTION" ]; then
-        # Insert the launcher configuration
-        SECTION_NUM=$(sed -n "${APPLET_SECTION}p" "$CONFIG_FILE1" | grep -o '\[[0-9]*\]' | grep -o '[0-9]*' | tail -1)
-        TMP_FILE="$(mktemp)"
-        sed "/\[Containments\]\[[0-9]*\]\[Applets\]\[${SECTION_NUM}\]/ a \\
-[Containments][2][Applets][${SECTION_NUM}][Configuration][General]\\
-launchers=applications:org.kde.konsole.desktop" "$CONFIG_FILE1" > "$TMP_FILE"
-        mv "$TMP_FILE" "$CONFIG_FILE1"
-    else
-        echo "Could not find icontasks section in $CONFIG_FILE1"
-    fi
-fi
+awk '
+BEGIN { state = 0 }
+/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
+state == 1 && /^immutability=1$/ { state = 2; print; next }
+state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
+    print
+    print ""  # one newline
+    print "[Containments][2][Applets][5][Configuration][General]"
+    print "launchers=applications:org.kde.konsole.desktop"
+    state = 0
+    next
+}
+{ print }
+' "$CONFIG_FILE1" > "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE1"
 
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
-
-# Use a safer approach to restart Plasma
-(
-    # Wait a moment to ensure changes are saved
-    sleep 5
-    # Kill plasmashell and restart it
-    killall plasmashell
-    sleep 2
-    kstart5 plasmashell
-) &
+# Restart Plasma to apply changes ##### WAIT FOR GEN OF FILES KDE INIT SCRIPTS I'M GUESSING
+killall plasmashell && kstart5 plasmashell
 EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 # Create autostart entry to run kpost on first login
 mkdir -p "/home/$TARGET_USER/.config/autostart"
 cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
@@ -425,5 +411,4 @@ chmod +x /etc/profile.d/welcome.sh
 . "$HOME/.config/environment" 
 
 echo "K2 SETUP. DONE. Reboot, use startde. Then CTRL + ALT + F1/F2, then restartde. All set." 
-
 
