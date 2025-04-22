@@ -95,7 +95,7 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-########################################## KPost script fix KDE Quirks. 
+########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
@@ -123,18 +123,17 @@ mv "$TMP_FILE" "$CONFIG_FILE1"
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
-# Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell 
+# Restart Plasma to apply changes ##### WAIT FOR GEN OF FILES KDE INIT SCRIPTS I'M GUESSING
+killall plasmashell && kstart5 plasmashell && sleep 20 && sddm service restart
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
-
 # Create autostart entry to run kpost on first login
 mkdir -p "/home/$TARGET_USER/.config/autostart"
 cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
 [Desktop Entry]
 Type=Application
 Name=KPost Setup
-Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop && rm /home/$TARGET_USER/Desktop/k2-os/kpost.sh && sleep 3 && service sddm restart'
+Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop'
 Hidden=false
 NoDisplay=false
 X-KDE-autostart-after=panel
