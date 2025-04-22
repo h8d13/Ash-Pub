@@ -118,6 +118,11 @@ Name=wiki-k2
 Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
+
+git clone https://github.com/h8d13/k2-alpine.git /tmp/k2-alpine-temp
+mv /tmp/k2-alpine-temp/* /home/$TARGET_USER/Desktop/k2-os/
+mv /tmp/k2-alpine-temp/.* /home/$TARGET_USER/Desktop/k2-os/ 2>/dev/null || true
+rm -rf /tmp/k2-alpine-temp
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
