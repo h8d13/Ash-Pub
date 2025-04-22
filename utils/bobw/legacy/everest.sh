@@ -94,8 +94,6 @@ pacman -S --noconfirm grub networkmanager base-devel sudo util-linux ufw
 
 # Enable NetworkManager & UFW stuff
 systemctl enable NetworkManager
-ufw enable
-ufw default deny incoming 
 
 # Install GRUB to disk
 grub-install --target=i386-pc --recheck --force $TARGET_DISK
