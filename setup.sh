@@ -109,20 +109,6 @@ plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
 killall plasmashell && kstart5 plasmashell
 EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
-# Create autostart entry to run kpost on first login
-mkdir -p "/home/$TARGET_USER/.config/autostart"
-cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
-[Desktop Entry]
-Type=Application
-Name=KPost Setup
-Exec=sh -c 'if [ ! -f \$HOME/.kpost-done ]; then /home/$TARGET_USER/Desktop/k2-os/kpost.sh && touch \$HOME/.kpost-done && rm \$HOME/.config/autostart/kpost-once.desktop; fi'
-Hidden=false
-NoDisplay=false
-X-KDE-autostart-after=panel
-X-KDE-autostart-phase=2
-EOF
-chown -R $TARGET_USER:$TARGET_USER "/home/$TARGET_USER/.config/autostart"
 ########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
 [Desktop Entry]
@@ -393,5 +379,6 @@ chmod +x /etc/profile.d/welcome.sh
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
 
-echo "K2 SETUP. DONE. Reboot, use startde. Then CTRL + ALT + F1/F2, then restartde. All set." 
+echo "K2 SETUP. DONE. Reboot, use "startde".
+echo "All set." 
 
