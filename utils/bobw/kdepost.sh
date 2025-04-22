@@ -187,10 +187,10 @@ alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="journalctl -f"
 alias logds="dmesg -r"
 # Pacman alias
-alias updapc="sudo pacman -Syu"
-alias paclean="sudo pacman -Sc"
-alias pacin="sudo pacman -S"
-alias pacrm="sudo pacman -R"
+alias updapc="pacman -Syu"
+alias paclean="pacman -Sc"
+alias pacin="pacman -S"
+alias pacrm="pacman -R"
 alias pacs="pacman -Ss"
 EOF
 
@@ -210,7 +210,7 @@ fi
 EOF
 
 # ZSH Setup
-sudo pacman -S --noconfirm zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-history-substring-search
+pacman -S --noconfirm zsh-autosuggestions zsh-syntax-highlighting zsh-completions zsh-history-substring-search
 
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # Load plugins
