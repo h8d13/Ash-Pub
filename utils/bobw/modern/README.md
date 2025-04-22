@@ -10,16 +10,27 @@ mount /dev/nvmeXnXpY /mnt  # Replace with your Arch root partition
 os-prober
 
 >It should detect Arch and list it.
->Regenerate GRUB config:
 
-grub-mkconfig -o /boot/grub/grub.cfg
 
 #### Enable os-prober in GRUB config
 nano /etc/default/grub
+```
 GRUB_TIMEOUT=10
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISABLE_OS_PROBER=false
 
-#### Weird is that legacy is much easier to detect kind of just works by itself. 
-#### Update GRUB configuration (this runs os-prober automatically again because of setting)
+````
+
+>Regenerate GRUB config:
 grub-mkconfig -o /boot/grub/grub.cfg
+
+-----
+
+
+If you're like me you can run `efibootmgr`
+
+You will see a bunch of old entries. 
+
+To clean up: 
+
+`efibootmgr -b 0000 -B` especially that windows one. 
