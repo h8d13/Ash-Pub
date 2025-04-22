@@ -22,7 +22,6 @@ pacman -S --noconfirm plasma-meta kde-applications sddm plasma-wayland-session z
 systemctl enable sddm.service
 systemctl enable NetworkManager
 systemctl enable ufw
-
 ########################################## FIX LOGIN KB
 mkdir -p /etc/X11/xorg.conf.d/
 cat > /etc/X11/xorg.conf.d/00-keyboard.conf << EOF
@@ -80,6 +79,43 @@ Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
 
+# Fix 1: The hardcoded path needs to use the TARGET_USER variable
+CONFIG_FILE="/home/$TARGET_USER/.config/ksmserverrc"
+TMP_FILE="$(mktemp)"
+echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
+cat "$CONFIG_FILE" >> "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE"
+
+# Fix 2: The hardcoded path needs to use the TARGET_USER variable
+CONFIG_FILE2="/home/$TARGET_USER/.config/kscreenlockerrc"
+cat <<EOF > $CONFIG_FILE2
+[Daemon]
+LockGrace=300
+Timeout=15
+EOF
+
+# Fix 3: Should use TARGET_USER's home directory instead of $HOME
+CONFIG_FILE3="/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="$(mktemp)"
+
+awk '
+BEGIN { state = 0 }
+
+/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
+state == 1 && /^immutability=1$/ { state = 2; print; next }
+state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
+    print
+    print ""  # one newline
+    print "[Containments][2][Applets][5][Configuration][General]"
+    print "launchers=applications:org.kde.konsole.desktop"
+    state = 0
+    next
+}
+{ print }
+' "$CONFIG_FILE3" > "$TMP_FILE"
+
+mv "$TMP_FILE" "$CONFIG_FILE3"
+
 ########################################## KPost script fix KDE Quirks. 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
@@ -108,7 +144,6 @@ plasma-apply-colorscheme BreezeDark > /dev/null 2>&1
 killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
-
 ########################################## K2 Wiki and Repo
 cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
 [Desktop Entry]
@@ -122,7 +157,6 @@ git clone https://github.com/h8d13/k2-alpine.git /tmp/k2-alpine-temp
 mv /tmp/k2-alpine-temp/* /home/$TARGET_USER/Desktop/k2-os/
 mv /tmp/k2-alpine-temp/.* /home/$TARGET_USER/Desktop/k2-os/ 2>/dev/null || true
 rm -rf /tmp/k2-alpine-temp
-
 ########################################## Give everything back to user
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 
