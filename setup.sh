@@ -76,7 +76,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget zip unzip
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
@@ -125,7 +125,20 @@ plasma-apply-colorscheme BreezeDark
 killall plasmashell && kstart5 plasmashell
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
-
+# Create autostart entry to run kpost on first login
+mkdir -p "/home/$TARGET_USER/.config/autostart"
+cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
+[Desktop Entry]
+Type=Application
+Name=KPost Setup
+Exec=sh -c '/home/$TARGET_USER/Desktop/k2-os/kpost.sh && rm ~/.config/autostart/kpost-once.desktop'
+Hidden=false
+NoDisplay=false
+X-KDE-autostart-after=panel
+X-KDE-autostart-phase=2
+EOF
+chown -R $TARGET_USER:$TARGET_USER "/home/$TARGET_USER/.config/autostart"
+########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
 [Desktop Entry]
 Icon=alienarena
@@ -133,11 +146,11 @@ Name=wiki-k2
 Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
-
-git clone https://github.com/h8d13/k2-alpine.git /tmp/k2-alpine-temp
-mv /tmp/k2-alpine-temp/* /home/$TARGET_USER/Desktop/k2-os/
-mv /tmp/k2-alpine-temp/.* /home/$TARGET_USER/Desktop/k2-os/ 2>/dev/null || true
-rm -rf /tmp/k2-alpine-temp
+########################################## Clone utils only
+wget https://github.com/h8d13/k2-alpine/archive/master.zip -O /tmp/k2-alpine.zip
+unzip -q /tmp/k2-alpine.zip -d /tmp/
+mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
+rm -rf /tmp/k2-alpine*
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
