@@ -37,24 +37,6 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
-######################################### FIX APPLETS
-CONFIG_FILE1="/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
-TMP_FILE="$(mktemp)"
-awk '
-BEGIN { state = 0 }
-/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
-state == 1 && /^immutability=1$/ { state = 2; print; next }
-state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
-    print
-    print ""  # one newline
-    print "[Containments][2][Applets][5][Configuration][General]"
-    print "launchers=preferred://filemanager,applications:org.kde.konsole.desktop"
-    state = 0
-    next
-}
-{ print }
-' "$CONFIG_FILE1" > "$TMP_FILE"
-mv "$TMP_FILE" "$CONFIG_FILE1"
 ######################################### FIX SESSIONS
 ## Cool prepend move
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
@@ -117,14 +99,35 @@ EOF
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
+# Fix applets configuration
+CONFIG_FILE1="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="$(mktemp)"
+
+awk '
+BEGIN { state = 0 }
+/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
+state == 1 && /^immutability=1$/ { state = 2; print; next }
+state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
+    print
+    print ""  # one newline
+    print "[Containments][2][Applets][5][Configuration][General]"
+    print "launchers=applications:org.kde.konsole.desktop"
+    state = 0
+    next
+}
+{ print }
+' "$CONFIG_FILE1" > "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE1"
+
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell
+killall plasmashell && kstart5 plasmashell && service sddm restart
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
+
 # Create autostart entry to run kpost on first login
 mkdir -p "/home/$TARGET_USER/.config/autostart"
 cat > "/home/$TARGET_USER/.config/autostart/kpost-once.desktop" << EOF
