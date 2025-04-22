@@ -37,6 +37,40 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
+######################################### FIX APPLETS
+CONFIG_FILE1="/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
+TMP_FILE="$(mktemp)"
+awk '
+BEGIN { state = 0 }
+/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
+state == 1 && /^immutability=1$/ { state = 2; print; next }
+state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
+    print
+    print ""  # one newline
+    print "[Containments][2][Applets][5][Configuration][General]"
+    print "launchers=preferred://filemanager,applications:org.kde.konsole.desktop"
+    state = 0
+    next
+}
+{ print }
+' "$CONFIG_FILE1" > "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE1"
+######################################### FIX SESSIONS
+## Cool prepend move
+CONFIG_FILE2="/home/harch/.config/ksmserverrc"
+TMP_FILE="$(mktemp)"
+echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
+cat "$CONFIG_FILE2" >> "$TMP_FILE"
+mv "$TMP_FILE" "$CONFIG_FILE2"
+# Basiclally just makes it so that new sessions are fresh. 
+
+# Simple override the whole file for 15 min lockout and 5 min password grace. 
+CONFIG_FILE3="/home/harch/.config/kscreenlockerrc"
+cat <<EOF > $CONFIG_FILE2
+[Daemon]
+LockGrace=300
+Timeout=15
+EOF
 ########################################## MORE SYSTEM TWEAKS
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
@@ -79,29 +113,10 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-
 ########################################## KPost script fix KDE Quirks. 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 #!/bin/sh
-CONFIG_FILE="/home/$TARGET_USER/.config/plasma-org.kde.plasma.desktop-appletsrc"
-TMP_FILE="$(mktemp)"
-
-awk '
-BEGIN { state = 0 }
-/^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
-state == 1 && /^immutability=1$/ { state = 2; print; next }
-state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
-    print
-    print ""  # one newline
-    print "[Containments][2][Applets][5][Configuration][General]"
-    print "launchers=preferred://filemanager,applications:org.kde.konsole.desktop"
-    state = 0
-    next
-}
-{ print }
-' "$CONFIG_FILE" > "$TMP_FILE"
-mv "$TMP_FILE" "$CONFIG_FILE"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
@@ -152,6 +167,7 @@ cat > "$HOME/.config/aliases" << 'EOF'
 alias mc="micro"
 alias startde="rc-service sddm start"
 alias stoptde="rc-service sddm stop"
+alias resartde="service sddm restart"
 # Base alias
 alias clr="clear"
 alias cls="clr"
