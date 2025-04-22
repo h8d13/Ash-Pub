@@ -123,6 +123,26 @@ wget https://github.com/h8d13/k2-alpine/archive/master.tar.gz -O /tmp/k2-alpine.
 tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
 mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
+
+########################################## Firefox profile
+mkdir -p /usr/lib/firefox/distribution
+cat > /usr/lib/firefox/distribution/policies.json << EOF
+{
+  "policies": {
+    "Homepage": {
+      "URL": "https://duckduckgo.com",
+      "Locked": false
+    },
+    "DisablePrivateBrowsing": false,
+    "ExtensionSettings": {
+      "uBlock0@raymondhill.net": {
+        "installation_mode": "normal_installed",
+        "install_url": "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+      }
+    }
+  }
+}
+EOF
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
