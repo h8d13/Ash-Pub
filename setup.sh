@@ -167,13 +167,15 @@ EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
 ########################################## SHARED (ASH & ZSH) ALIASES
-cat > "$HOME/.config/aliases" << 'EOF'
+cat > "$HOME/.config/aliases" << EOF
+alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Main alias
 alias mc="micro"
 alias startde="rc-service sddm start"
 alias stopde="service sddm stop"
 alias restartde="service sddm restart"
 # Base alias
+alias cdu= "cd /home/$TARGET_USER/"
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
@@ -181,7 +183,6 @@ alias ll='ls -la'
 alias la='ls -a'
 alias l='ls -CF'
 # Utils alias
-alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
@@ -194,6 +195,7 @@ alias apka="apk add"
 alias apkd="apk del"
 alias apks="apk search"
 EOF
+########################################## Auto source
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
 cat > /etc/profile.d/profile.sh << 'EOF'
 if [ -f "$HOME/.config/ash/profile" ]; then
