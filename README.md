@@ -102,13 +102,13 @@ I've also included `micro` for friendly terminal editor.
 
 ----
 
-## Video Tutorial
+## Video Tutorial + Wiki
+
+Read our Wiki: [K2-ALPINE-WIKI](https://github.com/h8d13/k2-alpine/wiki)
 
 https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 ## Further reading
-
-Read our Wiki: [K2-ALPINE-WIKI](https://github.com/h8d13/k2-alpine/wiki)
 
 | Resource | Description |
 |----------|-------------|
