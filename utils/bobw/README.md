@@ -1,5 +1,7 @@
 # Best of Both Worlds
 
+**3 Scripts:** 1. To install just the base Arch. 2. To chroot into it and do the setup you need. 3. On Alpine host to add an entry to Grub Menu. 
+
 This section is to create a double boot with Alpine as host and Arch to run systemd/glibc programs.
 > It also assumes x86_64 arch beceause doing it for other architectures would require significantly more of the only real currency: time.
 > Add to this unique quirks of certain architecures.
