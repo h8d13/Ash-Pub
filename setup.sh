@@ -97,7 +97,7 @@ Parent=FALLBACK/
 EOF
 ########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
-cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << EOF
+cat > /home/$TARGET_USER/Desktop/k2-os/runme_asuser.sh << EOF
 #!/bin/sh
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
 kwriteconfig5 --file kdeglobals --group General --key AccentColor "27,94,209"
@@ -107,7 +107,8 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell
+killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1 &
+exit 0
 EOF
 ########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
