@@ -94,8 +94,6 @@ pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-l
 
 # Enable NetworkManager & UFW stuff
 systemctl enable NetworkManager
-ufw enable
-ufw default deny incoming 
 
 # Install GRUB to EFI partition
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
