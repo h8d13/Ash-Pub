@@ -166,7 +166,7 @@ cat > "$HOME/.config/aliases" << 'EOF'
 # Main alias
 alias mc="micro"
 alias startde="rc-service sddm start"
-alias stoptde="rc-service sddm stop"
+alias stoptde="service sddm stop"
 alias resartde="service sddm restart"
 # Base alias
 alias clr="clear"
