@@ -1,5 +1,5 @@
 #!/bin/sh
-# Install os-prober if needed
+# Install os-prober if needed ##  KEY DIFF is grub-bios package
 apk add os-prober grub-bios
 
 # Enable os-prober in GRUB config
