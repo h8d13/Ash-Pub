@@ -89,7 +89,7 @@ Run the script `./setup.sh`
 
 Once all is done, reboot again. `startde` to start SDDM & KDE. 
 
-![image](https://github.com/user-attachments/assets/c7dda33b-de38-435a-ac47-f29630c5205a)
+![image](https://github.com/user-attachments/assets/300e8782-8506-4d96-b406-9e14e1f024be)
 
 You should find a program called `Konsole` This is your new best friend. 
 
