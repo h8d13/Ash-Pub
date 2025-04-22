@@ -38,11 +38,11 @@ LayoutList=$KB_LAYOUT
 Use=True
 EOF
 ######################################### FIX SESSIONS
-## Cool prepend move
+## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
 echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
-cat "$CONFIG_FILE2" >> "$TMP_FILE"
+cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
 mv "$TMP_FILE" "$CONFIG_FILE2"
 # Basiclally just makes it so that new sessions are fresh. 
 
@@ -124,6 +124,7 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
+killall plasmashell && kstart5 plasmashell 
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/kpost.sh
 
