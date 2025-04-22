@@ -57,7 +57,7 @@ state == 2 && /^plugin=org\.kde\.plasma\.icontasks$/ {
 mv "$TMP_FILE" "$CONFIG_FILE1"
 ######################################### FIX SESSIONS
 ## Cool prepend move
-CONFIG_FILE2="/home/harch/.config/ksmserverrc"
+CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
 echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
 cat "$CONFIG_FILE2" >> "$TMP_FILE"
@@ -65,8 +65,8 @@ mv "$TMP_FILE" "$CONFIG_FILE2"
 # Basiclally just makes it so that new sessions are fresh. 
 
 # Simple override the whole file for 15 min lockout and 5 min password grace. 
-CONFIG_FILE3="/home/harch/.config/kscreenlockerrc"
-cat <<EOF > $CONFIG_FILE2
+CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
+cat <<EOF > $CONFIG_FILE3
 [Daemon]
 LockGrace=300
 Timeout=15
@@ -167,7 +167,7 @@ cat > "$HOME/.config/aliases" << 'EOF'
 alias mc="micro"
 alias startde="rc-service sddm start"
 alias stoptde="service sddm stop"
-alias resartde="service sddm restart"
+alias restarde="service sddm restart"
 # Base alias
 alias clr="clear"
 alias cls="clr"
