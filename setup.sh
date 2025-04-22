@@ -58,7 +58,7 @@ EOF
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar
 ########################################## DIRS
 ## Admin
 mkdir -p "$HOME/.config"
@@ -150,14 +150,10 @@ Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
 ########################################## Clone utils only
-git clone --depth 1 --filter=blob:none --sparse https://github.com/h8d13/k2-alpine.git /tmp/k2-alpine-temp
-cd /tmp/k2-alpine-temp
-git sparse-checkout set utils
-cd -
-
-# Move only utils to the target directory
-mv /tmp/k2-alpine-temp/utils /home/$TARGET_USER/Desktop/k2-os/
-rm -rf /tmp/k2-alpine-temp
+wget https://github.com/h8d13/k2-alpine/archive/main.tar.gz -O /tmp/k2-alpine.tar.gz
+tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
+mv /tmp/k2-alpine-main/utils /home/$TARGET_USER/Desktop/k2-os/
+rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-main
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES.
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
