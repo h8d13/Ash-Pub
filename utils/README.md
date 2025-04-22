@@ -4,7 +4,7 @@ Start with a fresh Alpine Linux 3.21 installation
 
 Do the standard `setup-alpine`
 Create a user during setup!
-> Make sure to use different passwords for root and user
+> Make sure to use different strong passwords for root and user. Usernames lowercase.
 
 Then follow documented steps:
 ```
