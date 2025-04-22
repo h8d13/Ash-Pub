@@ -7,6 +7,7 @@ set -e  # Exit on error
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
 TARGET_DISK="/dev/sdb"
 TARGET_HOSTNAME=$(cat /etc/hostname)-arch
+TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 TARGET_TIMEZONE="Europe/Paris"
 ROOT_PASSWORD="Everest"
 SWAP_SIZE="4G" 
@@ -84,6 +85,9 @@ echo "::1 localhost" >> /etc/hosts
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 echo "root:$ROOT_PASSWORD" | chpasswd
+useradd -m -s /bin/bash -G wheel $TARGET_USER
+echo "$TARGET_USER:$ROOT_PASSWORD" | chpasswd
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Install GRUB and essentials
 pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux ufw
