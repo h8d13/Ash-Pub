@@ -18,7 +18,7 @@ Reboot
 
 Test `startde` command
 
-Once Alpine is configured, proceed to `bobw` module should be cloned on your desktop.
+Once Alpine is configured, proceed to `utils/bobw` module should be cloned on your desktop.
 
 Run the appropriate `everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
 
