@@ -67,7 +67,9 @@ That means that, you can have all your important work on one, your second OS on 
 
 It's 100% doable and not that complex if you understand all that is above here. ^^ 
 
-But I tend to stay away from it having had bad experiences especially trying Windows with something else and not being able to boot because of either downright criminal Windows code or Hardware incompatibility.
+**For me it's seperate drives.**
+
+I tend to stay away from it having had bad experiences especially trying Windows with something else and not being able to boot because of either downright criminal Windows code or Hardware incompatibility.
 Also storage has become one of the least expensive and easiest to find refurbished compared to other hardware. Again I recommend looking into NVMe adapters with USB-C support. 
 
 ### Why GPT UEFI ? 
