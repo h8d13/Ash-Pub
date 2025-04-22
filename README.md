@@ -1,5 +1,7 @@
 # Why this project ? 
 
+> My personal KDE reverse enginner project from the user's perspective. 
+
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
@@ -41,7 +43,7 @@ For a better view [Project Tree](https://github.com/h8d13/k2-alpine/blob/master/
 ### Make a DE an option not an obligation. 
 
 That's right you terminal nerds. 
-`startde` and `stopde` commands.
+`startde`, `restartde` and `stopde` commands.
 
 ### One place for admin configs
 > So that if you create several users down the line they can all have their own configs. 
@@ -105,6 +107,8 @@ I've also included `micro` for friendly terminal editor.
 https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 ## Further reading
+
+Read our Wiki: [K2-ALPINE-WIKI](https://github.com/h8d13/k2-alpine/wiki)
 
 | Resource | Description |
 |----------|-------------|
