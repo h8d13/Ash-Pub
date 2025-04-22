@@ -34,3 +34,8 @@ You will see a bunch of old entries.
 To clean up: 
 
 `efibootmgr -b 0000 -B` especially that windows one. 
+
+
+
+to see what is currently mounted `findmnt`
+
