@@ -102,7 +102,7 @@ cat > /home/$TARGET_USER/Desktop/k2-os/kpost.sh << 'EOF'
 # Fix applets configuration
 CONFIG_FILE1="$HOME/.config/plasma-org.kde.plasma.desktop-appletsrc"
 TMP_FILE="$(mktemp)"
-
+sleep 10
 awk '
 BEGIN { state = 0 }
 /^\[Containments\]\[2\]\[Applets\]\[5\]$/ { state = 1; print; next }
