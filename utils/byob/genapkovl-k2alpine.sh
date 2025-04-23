@@ -1,19 +1,10 @@
 #!/bin/sh -e
-#/scrips/genapkovl-k2alpine.sh
-HOSTNAME="k2alpine"
-
-HOSTNAME="$1"
-if [ -z "$HOSTNAME" ]; then
-	echo "usage: $0 hostname"
-	exit 1
-fi
+#/scripts/genapkovl-k2alpine.sh
 
 tmp=$(mktemp -d) || exit 1
 trap 'rm -rf "$tmp"' EXIT
 
-cleanup() {
-	rm -rf "$tmp"
-}
+HOSTNAME="k2alpine"
 
 makefile() {
 	OWNER="$1"
@@ -56,11 +47,10 @@ rc_add syslog boot
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
-
-
 # Create setup-k2 script
+
 mkdir -p "$tmp"/usr/local/bin
-makefile root:root 0755 "$tmp"/usr/local/bin/setup-k2 <<'EOF'
+makefile root:root 0755 "$tmp"/usr/local/bin/setup-k2 << EOF
 #!/bin/sh
 # Detect environment and act accordingly
 if mount | grep -q "overlay on / "; then
@@ -115,7 +105,7 @@ EOF
 
 # Create a setup-alpine hook to copy our files during installation
 mkdir -p "$tmp"/etc/setup-hooks
-makefile root:root 0755 "$tmp"/etc/setup-hooks/10-k2-installer.sh <<'EOF'
+makefile root:root 0755 "$tmp"/etc/setup-hooks/10-k2-installer.sh << EOF
 #!/bin/sh
 # This hook runs during Alpine installation
 if [ "$STAGE" = "post-install" ]; then
@@ -140,8 +130,7 @@ makefile root:root 0644 "$tmp"/etc/motd.d/k2-welcome <<EOF
   
   Run 'setup-k2' to complete K2 installation
 ========================================================
-
 EOF
 
-# Build the overlay tarball
+# Output overlay tarball to stdout for mkimage.sh to capture
 tar -c -C "$tmp" etc usr | gzip -9n
