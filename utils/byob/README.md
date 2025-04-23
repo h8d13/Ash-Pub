@@ -27,44 +27,6 @@ aports/scripts/genapkovl-dhcp.sh
 Create an example profile:
 `touch mkimg.calpine.sh`
 
-```
-/bin, /sbin, /usr/bin, /usr/sbin, and /usr/local/bin is:
-
-/bin and /usr/bin: For essential user commands (used by both normal users and system administrators)
-/sbin and /usr/sbin: For system administration commands (primarily used by root)
-/usr/local/bin: For locally installed commands that aren't part of the base system
-```
-
-Example file content:
-```
-#!/bin/sh
-# Based on genapkovl-dhcp.sh
-tmp="$(mktemp -d)"
-trap 'rm -rf "$tmp"' EXIT
-
-mkdir -p "$tmp"/usr/local/bin
-
-cat > "$tmp"/usr/local/bin/setup-k2 << 'EOF'
-#!/bin/sh
-echo "Setting up K2 for Alpine Linux 3.21..."
-apk add --quiet --no-progress --no-cache git 
-echo "Clone then move"
-git clone https://github.com/h8d13/k2-alpine && cd k2-alpine
-echo "Make exec."
-chmod +x setup.sh
-echo "Ready."
-./setup.sh
-cd ..
-echo "Cleaning up."
-rm -rf k2-alpine
-echo "K2 setup complete!"
-EOF
-
-chmod +x "$tmp"/usr/local/bin/setup-k2
-
-tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
-```
-
 Here the apkovl specifies a script to append. 
 
 Defined here in our profile:
@@ -82,7 +44,7 @@ profile_calpine() {
                     apks="$apks $_a-$_k"
             done
     done
-    apks="$apks linux-firmware wpa_supplicant"
+    apks="$apks linux-firmware"
     apkovl="genapkovl-calpine.sh"
 }
 ```
