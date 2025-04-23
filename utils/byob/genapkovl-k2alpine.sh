@@ -1,8 +1,5 @@
 #!/bin/sh -e
 #/scrips/genapkovl-k2alpine.sh
-tmp=$(mktemp -d) || exit 1
-trap 'rm -rf "$tmp"' EXIT
-
 HOSTNAME="k2alpine"
 
 HOSTNAME="$1"
@@ -10,6 +7,9 @@ if [ -z "$HOSTNAME" ]; then
 	echo "usage: $0 hostname"
 	exit 1
 fi
+
+tmp=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp"' EXIT
 
 cleanup() {
 	rm -rf "$tmp"
