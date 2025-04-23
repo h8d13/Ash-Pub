@@ -23,3 +23,4 @@ profile_$PROFILENAME() {
 EOF
 chmod +x ~/aports/scripts/mkimg.$PROFILENAME.sh
 
+cat << 'EOF' > ~/aports/scripts/genapkovl-kalpine.sh
