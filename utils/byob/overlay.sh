@@ -1,38 +1,56 @@
 #!/bin/sh -e
-tmp="$(mktemp -d)"
+HOSTNAME="$1"
+if [ -z "$HOSTNAME" ]; then
+	echo "usage: $0 hostname"
+	exit 1
+fi
 
 cleanup() {
-    rm -rf "$tmp"
+	rm -rf "$tmp"
 }
 
 makefile() {
-    OWNER="$1"
-    PERMS="$2"
-    FILENAME="$3"
-    cat > "$FILENAME"
-    chown "$OWNER" "$FILENAME"
-    chmod "$PERMS" "$FILENAME"
+	OWNER="$1"
+	PERMS="$2"
+	FILENAME="$3"
+	cat > "$FILENAME"
+	chown "$OWNER" "$FILENAME"
+	chmod "$PERMS" "$FILENAME"
 }
 
 rc_add() {
-    mkdir -p "$tmp"/etc/runlevels/"$2"
-    ln -sf /etc/init.d/"$1" "$tmp"/etc/runlevels/"$2"/"$1"
+	mkdir -p "$tmp"/etc/runlevels/"$2"
+	ln -sf /etc/init.d/"$1" "$tmp"/etc/runlevels/"$2"/"$1"
 }
 
-trap cleanup EXIT
-
-# Set hostname
 mkdir -p "$tmp"/etc
 makefile root:root 0644 "$tmp"/etc/hostname <<EOF
-k2-alpine
+$HOSTNAME
 EOF
 
-# Add packages to install
 mkdir -p "$tmp"/etc/apk
 makefile root:root 0644 "$tmp"/etc/apk/world <<EOF
 alpine-base
-git
 EOF
+
+rc_add devfs sysinit
+rc_add dmesg sysinit
+rc_add mdev sysinit
+rc_add hwdrivers sysinit
+rc_add modloop sysinit
+
+rc_add networking boot
+rc_add hwclock boot
+rc_add modules boot
+rc_add sysctl boot
+rc_add hostname boot
+rc_add bootmisc boot
+rc_add syslog boot
+
+rc_add mount-ro shutdown
+rc_add killprocs shutdown
+rc_add savecache shutdown
+
 
 # Create setup-k2 script
 mkdir -p "$tmp"/usr/local/bin
@@ -118,23 +136,6 @@ makefile root:root 0644 "$tmp"/etc/motd.d/k2-welcome <<EOF
 ========================================================
 
 EOF
-
-# Create services
-rc_add devfs sysinit
-rc_add dmesg sysinit
-rc_add mdev sysinit
-rc_add hwdrivers sysinit
-rc_add modloop sysinit
-rc_add hwclock boot
-rc_add modules boot
-rc_add sysctl boot
-rc_add networking boot
-rc_add hostname boot
-rc_add bootmisc boot
-rc_add syslog boot
-rc_add mount-ro shutdown
-rc_add killprocs shutdown
-rc_add savecache shutdown
 
 # Build the overlay tarball
 tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
