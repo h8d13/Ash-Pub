@@ -15,3 +15,6 @@ profile_k2alpine() {
     apks="$apks linux-firmware"
     apkovl="genapkovl-k2alpine.sh"
 }
+
+
+# ./mkimage.sh --profile k2alpine --outdir ~/out --repository https://dl-cdn.alpinelinux.org/latest-stable/main --arch x86_64 --hostkey
