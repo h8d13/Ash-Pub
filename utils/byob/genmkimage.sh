@@ -1,3 +1,5 @@
+#!/bin/sh
+#/scripts/mkimg.k2akpine.sh
 profile_k2alpine() {
     profile_standard
     kernel_cmdline="unionfs_size=512M console=tty0 console=ttyS0,115200"
