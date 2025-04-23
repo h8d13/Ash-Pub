@@ -18,6 +18,10 @@ Also as build user `mkdir -p out`
 ![image](https://github.com/user-attachments/assets/2ba8cf03-bda6-4289-b6b9-c389957844d2)
 
 Explore the dirs a little. They contain 90% of what you'll need. 
+Here are some key things to look for:
+```
+aports/scripts/genapkovl-dhcp.sh
+```
 
 ### Attempt 001 
 Create an example profile:
