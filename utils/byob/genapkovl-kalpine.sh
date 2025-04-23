@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/sh -e
+
 HOSTNAME="$1"
 if [ -z "$HOSTNAME" ]; then
 	echo "usage: $0 hostname"
@@ -33,11 +34,16 @@ EOF
 
 mkdir -p "$tmp"/etc/network
 makefile root:root 0644 "$tmp"/etc/network/interfaces <<EOF
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+EOF
 
 mkdir -p "$tmp"/etc/apk
 makefile root:root 0644 "$tmp"/etc/apk/world <<EOF
 alpine-base
-git
 EOF
 
 rc_add devfs sysinit
@@ -45,26 +51,26 @@ rc_add dmesg sysinit
 rc_add mdev sysinit
 rc_add hwdrivers sysinit
 rc_add modloop sysinit
-rc add git boot
 rc_add hwclock boot
 rc_add modules boot
 rc_add sysctl boot
 rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
-
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
 
 tar -c -C "$tmp" etc | gzip -9n > $HOSTNAME.apkovl.tar.gz
 
+###################################### STAL ALL THE SETUP ALPINE CODE INTO A TMP FILE
 mkdir -p "$tmp"/sbin/
 cat > "$tmp"/sbin/setup-alpine << EOF
+#!/bin/sh
 PROGRAM=setup-alpine
-VERSION=@VERSION@
+VERSION=3.19.2-3-g0e10a51
 
-PREFIX=@PREFIX@
+PREFIX=
 : ${LIBDIR=$PREFIX/lib}
 . "$LIBDIR/libalpine.sh"
 
@@ -100,7 +106,9 @@ is_virtual_console() {
 usage() {
 	cat <<-__EOF__
 		usage: setup-alpine [-ahq] [-c FILE | -f FILE]
+
 		Setup Alpine Linux
+
 		options:
 		 -a  Create Alpine Linux overlay file
 		 -c  Create answer file (do not install anything)
@@ -157,56 +165,72 @@ if [ -n "$CREATEANSWERFILE" ]; then
 	cat > "$CREATEANSWERFILE" <<-__EOF__
 		# Example answer file for setup-alpine script
 		# If you don't want to use a certain option, then comment it out
+
 		# Use US layout with US variant
 		# KEYMAPOPTS="us us"
 		KEYMAPOPTS=none
+
 		# Set hostname to 'alpine'
 		HOSTNAMEOPTS=alpine
+
 		# Set device manager to mdev
 		DEVDOPTS=mdev
+
 		# Contents of /etc/network/interfaces
 		INTERFACESOPTS="auto lo
 		iface lo inet loopback
+
 		auto eth0
 		iface eth0 inet dhcp
 		hostname alpine-test
 		"
+
 		# Search domain of example.com, Google public nameserver
 		# DNSOPTS="-d example.com 8.8.8.8"
+
 		# Set timezone to UTC
 		#TIMEZONEOPTS="UTC"
 		TIMEZONEOPTS=none
+
 		# set http/ftp proxy
 		#PROXYOPTS="http://webproxy:8080"
 		PROXYOPTS=none
+
 		# Add first mirror (CDN)
 		APKREPOSOPTS="-1"
+
 		# Create admin user
 		USEROPTS="-a -u -g audio,input,video,netdev juser"
 		#USERSSHKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOIiHcbg/7ytfLFHUNLRgEAubFz/13SwXBOM/05GNZe4 juser@example.com"
 		#USERSSHKEY="https://example.com/juser.keys"
+
 		# Install Openssh
 		SSHDOPTS=openssh
 		#ROOTSSHKEY="ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOIiHcbg/7ytfLFHUNLRgEAubFz/13SwXBOM/05GNZe4 juser@example.com"
 		#ROOTSSHKEY="https://example.com/juser.keys"
+
 		# Use openntpd
 		# NTPOPTS="openntpd"
 		NTPOPTS=none
+
 		# Use /dev/sda as a sys disk
 		# DISKOPTS="-m sys /dev/sda"
 		DISKOPTS=none
+
 		# Setup storage with label APKOVL for config storage
 		#LBUOPTS="LABEL=APKOVL"
 		LBUOPTS=none
+
 		#APKCACHEOPTS="/media/LABEL=APKOVL/cache"
 		APKCACHEOPTS=none
+
 	__EOF__
 	echo "Answer file $CREATEANSWERFILE has been created.  Please add or remove options as desired in that file"
 	exit 0
 fi
 
 printf "\n\n"
-print_heading1 " ALPINE LINUX INSTALL K2"
+print_heading1 " ALPINE LINUX INSTALL"
 print_heading1 "----------------------"
 
 if [ "$ARCHIVE" ] ; then
@@ -240,9 +264,9 @@ if [ -n "$INTERFACESOPTS" ]; then
 	fi
 else
 	echo
-	print_heading2 " Interfaces"
+	print_heading2 " Interface"
 	print_heading2 "-----------"
-	setup-interfaces -i ${quick:+-a} ${rst_if:+-r} ## Force interactive if not SSH 
+	setup-interfaces ${quick:+-a} ${rst_if:+-r}
 fi
 
 # setup up dns if no dhcp was configured
@@ -263,7 +287,7 @@ fi
 # pick timezone
 if [ -z "$quick" ]; then
 	echo
-	print_heading2 " Timezones"
+	print_heading2 " Timezone"
 	print_heading2 "----------"
 	setup-timezone ${TIMEZONEOPTS}
 fi
@@ -303,7 +327,7 @@ sed -i -e "s/^127\.0\.0\.1.*/127.0.0.1\t${_hn}.${_dn:-$(get_fqdn my.domain)} ${_
 
 if [ -z "$quick" ]; then
 	echo
-	print_heading2 " Proxies"
+	print_heading2 " Proxy"
 	print_heading2 "-------"
 	setup-proxy -q ${PROXYOPTS}
 fi
@@ -320,7 +344,7 @@ if ! is_kvm_clock && [ "$rc_sys" != "LXC" ] && [ "$quick" != 1 ]; then
 fi
 
 echo
-print_heading2 " APK Mirrors"
+print_heading2 " APK Mirror"
 print_heading2 "------------"
 setup-apkrepos ${APKREPOSOPTS}
 
@@ -334,20 +358,9 @@ if [ "$quick" = 1 ]; then
 	exit 0
 fi
 
-echo "Adding git..."
-echo "Setting up K2 for Alpine Linux..."
-apk add --no-cache git
-git clone https://github.com/h8d13/k2-alpine
-cd k2-alpine
-chmod +x setup.sh
-./setup.sh
-cd ..
-rm -rf k2-alpine
-echo "K2 setup complete!"
-
 echo
-print_heading2 " User (Recommended)"
-print_heading2 "------------------"
+print_heading2 " User"
+print_heading2 "------"
 setup-user ${USERSSHKEY+-k "$USERSSHKEY"} ${USEROPTS:--a -g 'audio input video netdev'}
 for i in "$ROOT"home/*; do
 	if [ -d "$i" ]; then
@@ -388,6 +401,31 @@ if [ "$diskmode" != "sys" ]; then
 		apk cache sync
 	fi
 fi
+echo ""
+echo "------------------------------------------------------"
+echo "After reboot, run 'setup-k2' to set up K2 for Alpine."
+echo "------------------------------------------------------"
 EOF
 chmod +x "$tmp"/sbin/setup-alpine
 
+############################# Now setup-k2
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+mkdir -p "$tmp"/usr/local/bin
+cat > "$tmp"/usr/local/bin/setup-k2 << 'EOF'
+#!/bin/sh
+echo "Setting up K2 for Alpine Linux 3.21..."
+apk add --quiet --no-progress --no-cache git 
+echo "Clone then move"
+git clone https://github.com/h8d13/k2-alpine && cd k2-alpine
+echo "Make exec."
+chmod +x setup.sh
+echo "Ready."
+./setup.sh
+cd ..
+echo "Cleaning up."
+rm -rf k2-alpine
+echo "K2 setup complete! Reboot and run set-up k2"
+EOF
+chmod +x "$tmp"/usr/local/bin/setup-k2
+tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
