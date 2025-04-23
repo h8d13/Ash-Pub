@@ -1,4 +1,3 @@
-cat << 'EOF' > ~/aports/scripts/genapkovl-k2alpine.sh
 #!/bin/sh -e
 tmp="$(mktemp -d)"
 
@@ -35,9 +34,9 @@ alpine-base
 git
 EOF
 
-# Create a smarter setup-k2 script that can detect live vs installed environment
+# Create setup-k2 script
 mkdir -p "$tmp"/usr/local/bin
-makefile root:root 0755 "$tmp"/usr/local/bin/setup-k2 <<'EOFINNER'
+makefile root:root 0755 "$tmp"/usr/local/bin/setup-k2 <<'EOF'
 #!/bin/sh
 # Detect environment and act accordingly
 if mount | grep -q "overlay on / "; then
@@ -88,7 +87,7 @@ else
     rm -rf k2-alpine
     echo "K2 setup complete! Please reboot your system."
 fi
-EOFINNER
+EOF
 
 # Create a setup-alpine hook to copy our files during installation
 mkdir -p "$tmp"/etc/setup-hooks
@@ -139,7 +138,3 @@ rc_add savecache shutdown
 
 # Build the overlay tarball
 tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
-EOF
-
-# Make it executable
-chmod +x ~/aports/scripts/genapkovl-k2alpine.sh
