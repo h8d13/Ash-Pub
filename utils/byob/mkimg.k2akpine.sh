@@ -1,5 +1,5 @@
 #!/bin/sh
-export PROFILENAME=k2alpine
+export PROFILENAME=calpine
 #/scripts/mkimg.k2akpine.sh
 
 cat << EOF > ~/aports/scripts/mkimg.$PROFILENAME.sh
@@ -26,4 +26,3 @@ EOF
 chmod +x ~/aports/scripts/mkimg.$PROFILENAME.sh
 
 
-# ./mkimage.sh --profile k2alpine --outdir ~/out --repository https://dl-cdn.alpinelinux.org/latest-stable/main --arch x86_64 --hostkey
