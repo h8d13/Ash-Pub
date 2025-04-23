@@ -1,4 +1,8 @@
 #!/bin/sh -e
+tmp="$(mktemp -d)"
+mkdir -p "$tmp"/etc
+
+HOSTNAME=k2-alps
 
 HOSTNAME="$1"
 if [ -z "$HOSTNAME" ]; then
@@ -24,7 +28,6 @@ rc_add() {
 	ln -sf /etc/init.d/"$1" "$tmp"/etc/runlevels/"$2"/"$1"
 }
 
-tmp="$(mktemp -d)"
 trap cleanup EXIT
 
 mkdir -p "$tmp"/etc
@@ -53,9 +56,6 @@ rc_add syslog boot
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
-
-tar -c -C "$tmp" etc | gzip -9n > $HOSTNAME.apkovl.tar.gz
-
 ###################################### STAL ALL THE SETUP ALPINE CODE INTO A TMP FILE
 mkdir -p "$tmp"/sbin/
 cat > "$tmp"/sbin/setup-alpine << EOF
@@ -402,8 +402,6 @@ EOF
 chmod +x "$tmp"/sbin/setup-alpine
 
 ############################# Now setup-k2
-tmp="$(mktemp -d)"
-trap 'rm -rf "$tmp"' EXIT
 mkdir -p "$tmp"/usr/local/bin
 cat > "$tmp"/usr/local/bin/setup-k2 << 'EOF'
 #!/bin/sh
@@ -421,4 +419,6 @@ rm -rf k2-alpine
 echo "K2 setup complete! Reboot and run set-up k2"
 EOF
 chmod +x "$tmp"/usr/local/bin/setup-k2
-tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
+
+#one tar with all files
+tar -c -C "$tmp" etc sbin usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
