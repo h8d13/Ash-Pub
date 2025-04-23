@@ -87,6 +87,6 @@ Example launch command for building.
 
 IMPORTANT:
 
-![image](https://github.com/user-attachments/assets/f7cba42b-b404-4519-8f6c-c015d72a317b)
+![image](https://github.com/user-attachments/assets/8f1480fa-a5af-4431-9e5e-011157f92061)
 
-Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. 
+Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. See above.
