@@ -4,7 +4,6 @@ profile_kalpine() {
     kernel_cmdline="unionfs_size=512M console=ttyS0,115200"
     syslinux_serial="0 115200"
     apks="$apks alpine-base git"
-    
     local _k _a
     for _k in $kernel_flavors; do
             apks="$apks linux-$_k"
@@ -13,8 +12,6 @@ profile_kalpine() {
             done
     done
     apks="$apks linux-firmware"
-    
-    # Include our custom overlay setup
     apkovl="aports/scripts/genapkovl-kalpine.sh"
 }
 
