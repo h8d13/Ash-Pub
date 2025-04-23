@@ -1,5 +1,10 @@
 #!/bin/sh -e
 #/scrips/genapkovl-k2alpine.sh
+tmp=$(mktemp -d) || exit 1
+trap 'rm -rf "$tmp"' EXIT
+
+HOSTNAME="k2alpine"
+
 HOSTNAME="$1"
 if [ -z "$HOSTNAME" ]; then
 	echo "usage: $0 hostname"
@@ -139,4 +144,4 @@ makefile root:root 0644 "$tmp"/etc/motd.d/k2-welcome <<EOF
 EOF
 
 # Build the overlay tarball
-tar -c -C "$tmp" etc usr | gzip -9n > $HOSTNAME.apkovl.tar.gz
+tar -c -C "$tmp" etc usr | gzip -9n
