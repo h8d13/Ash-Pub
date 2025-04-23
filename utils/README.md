@@ -22,10 +22,10 @@ Once Alpine is configured, proceed to `utils/bobw` module should be cloned on yo
 
 Run the appropriate `everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
 
-Run `kdepost.sh` after chrooting into Arch, when done type `exit`
+Run `arch-chroot` for any extra setup steps into Arch, when done type `exit`
 
-Run the `grub_host.sh` script on Alpine to add Arch to the boot menu of Alpine. 
-Reboot and test booting into Arch
+Follow GRUB to add Arch to the boot menu of Alpine.
+Reboot and test booting into Arch.
 
 > Gratz :) You are now double Linux masterace with coolest script around. 
 > Don't forget to change hardcoded passwords `Everest` for arch.
