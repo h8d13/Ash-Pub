@@ -5,6 +5,8 @@
 
 Follow the initial steps for prereqs. 
 
+export PROFILENAME=calpine
+
 Make sure to use the build profile and use `chmod 777` on a files that are causing issues if you started from your personal env.
 
 ```
