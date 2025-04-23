@@ -54,10 +54,10 @@ Little hack you can `set -x` int he `mkimage.sh` to get verbose outputs.
 Make sure heredocs `EOF` are expanded do not use `'EOF'`
 
 ```
-./mkimage.sh --profile calpine --outdir ~/out --repository https://dl-cdn.alpinelinux.org/latest-stable/main --arch x86_64
+./mkimage.sh --profile calpine --outdir ~/out --repository https://dl-cdn.alpinelinux.org/latest-stable/main --arch x86_64 --hostkeys
 ```
 
-Example launch command for building.
+Example launch command for building. Will not work if perms are wrong or key not gen'd.
 
 IMPORTANT:
 
