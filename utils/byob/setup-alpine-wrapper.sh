@@ -223,7 +223,7 @@ if [ -n "$CREATEANSWERFILE" ]; then
 fi
 
 printf "\n\n"
-print_heading1 " ALPINE LINUX INSTALL"
+print_heading1 "K2-ALPINE LINUX INSTALL"
 print_heading1 "----------------------"
 
 if [ "$ARCHIVE" ] ; then
