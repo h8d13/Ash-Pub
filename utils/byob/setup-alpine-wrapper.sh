@@ -50,6 +50,7 @@ rc_add modloop sysinit
 rc_add hwclock boot
 rc_add modules boot
 rc_add sysctl boot
+rc_add networking boot
 rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
@@ -259,7 +260,7 @@ else
 	echo
 	print_heading2 " Interface"
 	print_heading2 "-----------"
-	setup-interfaces ${quick:+-a} ${rst_if:+-r}
+	setup-interfaces -i ${quick:+-a} ${rst_if:+-r} ## -i force interactive
 fi
 
 # setup up dns if no dhcp was configured
