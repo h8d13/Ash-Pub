@@ -1,7 +1,6 @@
 #!/bin/sh
 export PROFILENAME=kalpine
 #/scripts/mkimg.kalpine.sh
-
 cat << EOF > ~/aports/scripts/mkimg.$PROFILENAME.sh
 profile_$PROFILENAME() {
         profile_standard
@@ -19,10 +18,8 @@ profile_$PROFILENAME() {
         apks="\$apks linux-firmware"
         
         # Include our custom overlay setup
-        apkovl="aports/scripts/genapkovl-kalpine.sh"
+        apkovl="genapkovl-kalpine.sh"
 }
 EOF
-
 chmod +x ~/aports/scripts/mkimg.$PROFILENAME.sh
-
 
