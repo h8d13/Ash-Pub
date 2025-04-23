@@ -13,6 +13,6 @@ profile_kalpine() {
                     apks="$apks $_a-$_k"
             done
     done
-    apkovl="aports/scripts/genapkovl-kalpine.sh"
+    apkovl="genapkovl-kalpine.sh"
 }
 
