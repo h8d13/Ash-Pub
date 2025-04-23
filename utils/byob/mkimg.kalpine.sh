@@ -1,6 +1,6 @@
 #!/bin/sh
 export PROFILENAME=kalpine
-#/scripts/mkimg.kakpine.sh
+#/scripts/mkimg.kalpine.sh
 
 cat << EOF > ~/aports/scripts/mkimg.$PROFILENAME.sh
 profile_$PROFILENAME() {
