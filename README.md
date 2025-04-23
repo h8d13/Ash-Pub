@@ -16,12 +16,14 @@ I wanted to see how how much a single setup script can do. As the essential of d
 
 [Alpine ISOs](https://www.alpinelinux.org/downloads/) 
 > Select the right architecture (usually x86_64)
-> Flash to a USB. See [Rufus](https://rufus.ie/en/) 
+> Flash to a USB (dd mode & check bios for UEFI vs BIOS, GPT vs MBR) . See [Rufus](https://rufus.ie/en/) 
+
+Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation)
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
 
-> Make the pw different from root. lowercase usernames (I used k2 & hill).
+> Make the pw different from root. Lowercase usernames.
 
 ## Desktop Env 
 
