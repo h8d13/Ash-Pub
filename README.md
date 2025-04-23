@@ -75,7 +75,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 
 ---
 
-## ⌛ - 7 Minutes Installation vs 2 Hours Setting-up
+## ⌛ -  03:31m Installation vs 2 Hours Setting-up
 > That on a mini-pc with horrible hardware!
 
 Inital `setup-alpine`, follow prompts, reboot to hardisk. 
