@@ -61,8 +61,14 @@ Make sure heredocs `EOF` are expanded do not use `'EOF'`
 
 Example launch command for building. Will not work if perms are wrong or key not gen'd.
 
+Check you are on right profile `whoami`
+
 IMPORTANT:
 
 ![image](https://github.com/user-attachments/assets/8f1480fa-a5af-4431-9e5e-011157f92061)
 
 Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. See above.
+
+---
+
+"Coffee stained teeth, the gods want blood, may they be merciful" 
