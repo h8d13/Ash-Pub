@@ -85,3 +85,7 @@ Make sure heredocs `EOF` are expanded do not use `'EOF'`
 
 Example launch command for building.
 
+IMPORTANT:
+![image](https://github.com/user-attachments/assets/f7cba42b-b404-4519-8f6c-c015d72a317b)
+
+Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. 
