@@ -32,14 +32,7 @@ makefile root:root 0644 "$tmp"/etc/hostname <<EOF
 $HOSTNAME
 EOF
 
-mkdir -p "$tmp"/etc/network
-makefile root:root 0644 "$tmp"/etc/network/interfaces <<EOF
-auto lo
-iface lo inet loopback
-
-auto eth0
-iface eth0 inet dhcp
-EOF
+## Remove auto network hopefully brings up prompt again. 
 
 mkdir -p "$tmp"/etc/apk
 makefile root:root 0644 "$tmp"/etc/apk/world <<EOF
