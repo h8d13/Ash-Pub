@@ -1,4 +1,5 @@
 #!/bin/sh -e
+#/scrips/genapkovl-k2alpine.sh
 HOSTNAME="$1"
 if [ -z "$HOSTNAME" ]; then
 	echo "usage: $0 hostname"
