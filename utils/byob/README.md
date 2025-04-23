@@ -1,5 +1,5 @@
 # Bring Your Own Booze
-> Create your own ISOs and collaborate on K2 
+> Create your own ISOs and collaborate on K2. Instead of "recreating the wheel" steal all the beautiful code and add to it to make a Lambo. 
 
 [AlpineWiki](https://wiki.alpinelinux.org/wiki/How_to_make_a_custom_ISO_image_with_mkimage)
 
