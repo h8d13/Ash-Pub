@@ -1,6 +1,6 @@
 # Why this project ? 
 
-> My personal KDE reverse enginner project from the user's perspective. Bridging between an Alpine dev env to gaming. 
+> My personal KDE reverse enginner project from the user's perspective. The only DE that competes visually with Apple/Microsoft.
 
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
