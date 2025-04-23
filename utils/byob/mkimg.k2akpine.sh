@@ -1,5 +1,5 @@
 #!/bin/sh
-#export PROFILENAME=k2alpine
+export PROFILENAME=k2alpine
 #/scripts/mkimg.k2akpine.sh
 
 cat << EOF > ~/aports/scripts/mkimg.$PROFILENAME.sh
