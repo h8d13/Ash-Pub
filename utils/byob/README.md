@@ -19,8 +19,7 @@ Also as build user `mkdir -p out`
 
 Explore the dirs a little. They contain 90% of what you'll need. 
 
-Once you feel you are ready to try your first ISO ``
-
+### Attempt 001 
 Create an example profile:
 `touch mkimg.calpine.sh`
 
