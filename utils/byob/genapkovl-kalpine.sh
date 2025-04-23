@@ -1,5 +1,5 @@
 #!/bin/sh -e
-
+#/scripts/genapkovl-kalpine.sh
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
