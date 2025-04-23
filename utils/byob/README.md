@@ -63,6 +63,8 @@ Example launch command for building. Will not work if perms are wrong or key not
 
 Check you are on right profile `whoami`
 
+You can also add --simulate but I've found it to just return silent errors this is more useful for debug: `set -x` at the beginning of mkimg.sh                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+
 IMPORTANT:
 
 ![image](https://github.com/user-attachments/assets/8f1480fa-a5af-4431-9e5e-011157f92061)
