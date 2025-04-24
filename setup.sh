@@ -12,6 +12,7 @@ username=$(whoami)
 echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
+echo "Setting up Repos..." 
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
@@ -19,6 +20,7 @@ apk update
 apk upgrade
 setup-desktop plasma
 ## Debloating
+echo "Setting up Debloat..." 
 apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
@@ -26,6 +28,7 @@ apk del plasma-welcome discover discover-backend-apk kate kate-common
 ## OPTIONAL: Switch default login shell to zsh globally
 #chsh -s /bin/zsh root
 ########################################## FIX LOGIN KB
+echo "Setting up Keyboard..." 
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
@@ -38,6 +41,7 @@ LayoutList=$KB_LAYOUT
 Use=True
 EOF
 ######################################### FIX SESSIONS
+echo "Setting up KDE Files..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
@@ -54,12 +58,14 @@ LockGrace=300
 Timeout=15
 EOF
 ########################################## MORE SYSTEM TWEAKS
+echo "Setting up System..." 
 # remove login default  (Shell already does this.) 
 rc-update del sddm default
 # for start /stop commands 
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar
 ########################################## DIRS
+echo "Setting up Directories..." 
 ## Admin
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/ash"
@@ -72,6 +78,7 @@ mkdir -p "$HOME/.zsh/plugins"
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
+echo "Setting up Micro..." 
 cat > "$HOME/.config/micro/settings.json" << EOF
 {
     "sucmd": "doas"
@@ -84,6 +91,7 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
 }
 EOF
 ########################################## CREATE THE KONSOLE PROFILE 
+echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
@@ -96,6 +104,7 @@ Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
 ########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
+echo "Setting up KDE..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
 cat > /home/$TARGET_USER/Desktop/k2-os/runme_asuser.sh << EOF
 #!/bin/sh
@@ -119,12 +128,13 @@ Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
 ########################################## Clone utils only
+echo "Setting up Github/K2..." 
 wget https://github.com/h8d13/k2-alpine/archive/master.tar.gz -O /tmp/k2-alpine.tar.gz
 tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
 mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
-
 ########################################## Firefox profile
+echo "Setting up firefox..." 
 mkdir -p /usr/lib/firefox/distribution
 cat > /usr/lib/firefox/distribution/policies.json << EOF
 {
@@ -144,6 +154,7 @@ cat > /usr/lib/firefox/distribution/policies.json << EOF
 }
 EOF
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT 
+echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
@@ -167,6 +178,7 @@ EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
 ########################################## SHARED (ASH & ZSH) ALIASES
+echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Main alias
@@ -203,6 +215,7 @@ if [ -f "$HOME/.config/ash/profile" ]; then
 fi
 EOF
 ########################################## ASH
+echo "Setting up ASH..." 
 chmod +x /etc/profile.d/profile.sh
 # Create ~/.config/ash/profile and add basic style 
 echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
@@ -217,6 +230,7 @@ if [ -f "$HOME/.config/aliases" ]; then
 fi
 EOF
 ########################################## ZSH 
+echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
 apk add zsh-autosuggestions \
       zsh-history-substring-search \
@@ -295,12 +309,14 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 ########################################## SYSTEM HARDENING
+echo "Temp clean up..." 
 cat > /etc/periodic/daily/clean-tmp << 'EOF'
 #!/bin/sh
 find /tmp -type f -atime +10 -delete
 EOF
 chmod +x /etc/periodic/daily/clean-tmp
 
+echo "Security fixes..." 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
 # Network performance and security
@@ -402,5 +418,5 @@ chmod +x /etc/profile.d/welcome.sh
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
 
-echo "K2 SETUP. DONE. Reboot, use "startde."
+echo "K2 SETUP. DONE. Reboot, use 'startde.'"
 echo "All set." 
