@@ -55,11 +55,10 @@ count_file="/etc/boot_c"
 log_file="/etc/bc_log"
 touch "$log_file"
 BC=$(cat "$count_file")
-fi
-echo "BC: ${BC} - $(date) >> "$log_file"
+echo "BC: ${BC} - $(date)" >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
-mkdir -p "$temp"/etc/profile.d
+mkdir -p "$tmp"/etc/profile.d
 makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
