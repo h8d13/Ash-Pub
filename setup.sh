@@ -144,7 +144,7 @@ EOF
 ########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
 echo "Setting up KDE..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
-cat > /home/$TARGET_USER/k2-os/etc/kpost.sh << EOF
+cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
@@ -171,10 +171,9 @@ URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
 ########################################## Clone utils only
 echo "Setting up Github/K2..." 
-wget https://github.com/h8d13/k2-alpine/archive/master.tar.gz -O /tmp/k2-alpine.tar.gz
-tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
-mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
-rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
+git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
+mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
+rm -rf /tmp/k2-alpine
 ########################################## Firefox profile
 echo "Setting up firefox..."
 mkdir -p /usr/lib/firefox/distribution
