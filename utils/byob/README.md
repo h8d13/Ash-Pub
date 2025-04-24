@@ -74,6 +74,9 @@ IMPORTANT:
 
 Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. See above.
 
+[WikipediaLubburnia](https://en.wikipedia.org/wiki/Libburnia) 
+[Xorriso-Libburnia](https://dev.lovelyhq.com/libburnia/web/wiki#news)
+
 ---
 
 "Coffee stained teeth, the gods want blood, may they be merciful" 
