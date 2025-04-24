@@ -33,17 +33,19 @@ alpine-base
 git
 EOF
 mkdir -p "$tmp"/etc/local.d
+## Increment
 makefile root:root 0644 "$tmp"/etc/local.d/k2-bc.start <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
 if [ ! -f "$count_file" ]; then
-  echo "0" > "$count_file"
+  echo "-1" > "$count_file"
 fi
 BC=$(<"$count_file")
-BC=$((BC+1))
-echo "$BC" > "$count_file"
+NBC=$((BC+1))
+echo "$NBC" > "$count_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
+## Log bcs 
 makefile root:root 0644 "$tmp"/etc/local.d/k2-bc-log.start <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
@@ -56,21 +58,6 @@ if [ "$BC" = "1" ]; then
 fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
-
-makefile root:root 0644 "$tmp"/etc/local.d/k2-bc.start <<'EOF'
-#!/bin/sh
-count_file="/etc/boot_c"
-log_file="/var/log/bc_log"
-touch "$log_file"
-BC=$(<"$count_file")
-echo $BC > "$count_file"
-echo "BC: $BC - $(date) - ${USER:-system} - PID:$$" >> "$log_file"
-if [ "$BC" = "1" ]; then
-  echo "SYSTEM READY FOR SETUP" >> "$log_file"
-fi
-EOF
-chmod +x "$tmp"/etc/local.d/k2-bc.start
-
 ## K2 Setup pre-config # Folder already exists
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
