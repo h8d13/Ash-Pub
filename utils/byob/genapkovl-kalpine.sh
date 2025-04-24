@@ -40,7 +40,7 @@ count_file="/etc/boot_c"
 if [ ! -f "$count_file" ]; then
   echo "0" > "$count_file"
 fi
-BC=$(<"$count_file")
+BC=$(cat "$count_file")
 NBC=$((BC+1))
 echo "$NBC" > "$count_file"
 EOF
@@ -51,7 +51,7 @@ makefile root:root 0644 "$tmp"/etc/local.d/k2-bc-log.start <<'EOF'
 count_file="/etc/boot_c"
 log_file="/var/log/bc_log"
 touch "$log_file"
-BC=$(<"$count_file")
+BC=$(cat "$count_file")
 echo "BC: $BC - $(date) - ${USER:-system} - PID:$$" >> "$log_file"
 if [ "$BC" = "1" ]; then
   echo "SYSTEM READY FOR SETUP" >> "$log_file"
