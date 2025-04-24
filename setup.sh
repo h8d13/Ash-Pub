@@ -37,7 +37,6 @@ else
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 fi
 echo "Repositories added successfully!"
-cat > /etc/apk/repositories
 sleep 3
 
 apk update
