@@ -46,6 +46,12 @@ if mount | grep -E '/dev/[sh]d[a-z][0-9]' > /dev/null || mount | grep -E '/dev/n
   NBC=$((BC+1))
   echo "$NBC" > "$count_file"
 fi
+# if boot count is 0, then we are running on ramdisk
+# if boot is 1, add to motd install instructions
+if [ "$BC" -eq 1 ]; then
+  echo "Use '. /etc/setup-k2' to install desktop environment." >> /etc/motd
+  echo "Then reboot again." >> /etc/motd
+fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
 ## Log bcs 
@@ -88,10 +94,8 @@ EOF
 chmod +x "$tmp"/etc/setup-k2
 ## motd for installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
-Welcome to K2_OS!
+Welcome to K2_OS! Love <3 H8D13.
 Use "setup-alpine". Then reboot to hardisk.
-To install DE: ". /etc/setup-k2"
-Love <3 H8D13.
 EOF
 ## init/boot/shutdown/default
 rc_add local default
