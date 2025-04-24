@@ -88,18 +88,7 @@ For `/etc/init.d`:
 [RC Docs](https://github.com/OpenRC/openrc/blob/master/service-script-guide.md)
 
 For `/etc/local.d`
-```
-#!/bin/sh
-touch /etc/boot_c
-count_file="/etc/boot_c"
-if [ ! -f "$count_file" ]; then
-  echo -1 > "$count_file"
-fi
-BC=$(<"$count_file")
-BC=$((BC+1))
-echo $BC > "$count_file"
-echo "Boot count: $BC - $(date)"
-```
+Regular shell scripts.
 
 ---
 
