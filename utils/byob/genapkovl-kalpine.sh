@@ -54,13 +54,9 @@ makefile root:root 0644 "$tmp"/etc/local.d/k2-bc-log.start <<'EOF'
 count_file="/etc/boot_c"
 log_file="/etc/bc_log"
 touch "$log_file"
-CURRENT_USER=${USER:-"unknown"}
-if [ -f "$count_file" ]; then
-  BC=$(cat "$count_file")
-else
-  BC=0
+BC=$(cat "$count_file")
 fi
-echo "BC: ${BC} - $(date) - ${CURRENT_USER}" >> "$log_file"
+echo "BC: ${BC} - $(date) >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
 mkdir -p "$temp"/etc/profile.d
