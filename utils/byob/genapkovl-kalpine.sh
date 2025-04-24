@@ -35,15 +35,19 @@ EOF
 mkdir -p "$tmp"/etc/local.d
 makefile root:root 0644 "$tmp"/etc/local.d/k2-bc.start <<'EOF'
 #!/bin/sh
-touch /etc/boot_c
 count_file="/etc/boot_c"
+log_file="/var/log/bc_log"
+touch "$count_file"
+touch "$log_file"
 if [ ! -f "$count_file" ]; then
   echo -1 > "$count_file"
 fi
 BC=$(<"$count_file")
 BC=$((BC+1))
 echo $BC > "$count_file"
-echo "Boot count: $BC - $(date)"
+if [ ! -f "$log_file" ]; then
+  echo "BC: $BC - $(date) - $USER >> /var/log/bc_log"
+fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
 
