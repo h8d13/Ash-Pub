@@ -2,6 +2,7 @@
 #### NO MORE CONFIG ALL AUTOMATED.
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
+ALPINE_VERSION=$(cat /etc/alpine-release)
 #### Should return "us" "fr" "de" "it" "es" etc 
 # Exit if no TARGET_USER found
 if [ -z "$TARGET_USER" ]; then
@@ -12,11 +13,25 @@ username=$(whoami)
 echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
-ALPINE_VERSION=$(cat /etc/alpine-release | cut -d '.' -f 1,2)
-echo "Setting up Repos $ALPINE_VERSION..." 
-echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
-echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
-echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+# Get Alpine version
+echo "Detected Alpine version: $ALPINE_VERSION"
+sleep 1
+# Check if running on edge
+if echo "$ALPINE_VERSION" | grep -q "edge"; then
+    echo "Setting up repositories for Alpine edge..."
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+else
+    # Extract major.minor version (e.g., "3.21")
+    VERSION_NUM=$(echo "$ALPINE_VERSION" | cut -d '.' -f 1,2)
+    echo "Setting up repositories for Alpine v$VERSION_NUM..."
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+fi
+
+echo "Repositories added successfully!"
 apk update
 apk upgrade
 setup-desktop plasma
