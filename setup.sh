@@ -469,5 +469,4 @@ chmod +x /etc/profile.d/welcome.sh
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
 echo "All set." 
-
-echo "K2 SETUP. DONE. Reboot, use 'startde.'"
+echo "K2 SETUP. DONE. Reboot, login, then use 'startde.'"
