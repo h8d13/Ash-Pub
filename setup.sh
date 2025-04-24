@@ -90,9 +90,10 @@ LockGrace=300
 Timeout=15
 EOF
 echo "Setting up KDE Shortcuts..." 
+# Setup Konsole shortcut for usershell 
 CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
 cat >> "$CONFIG_FILE4" << EOF
-[services][net.local.konsole-2.desktop]
+[services][net.local.konsole.desktop]
 _launch=Ctrl+Alt+Y
 EOF
 ########################################## MORE SYSTEM TWEAKS
