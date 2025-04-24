@@ -64,22 +64,29 @@ makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
 count_file="/etc/boot_c"
 BC=$(cat "$count_file")
 if [ "$BC" -eq 1 ]; then
+  echo "Welcome again to K2_OS!" > /etc/motd
   echo "Use '. /etc/setup-k2' to install desktop environment."
-  echo "Then reboot again."
+  echo "Then reboot again... Sorry."
 fi
 EOF
 chmod +x "$tmp"/etc/profile.d/k2-instruct.sh
 # if boot count is 0, then we are running on ramdisk
-# if boot is 1, add to motd install instructions
 ## K2 Setup pre-config # Folder already exists
+# check minimum one boot so that no live installs, we here to stay.
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
-## Do not let live installers. Make sure we are post setup-alpine.
-if mount | grep -q "/dev/loop0"; then
-  echo "Please run this after installing to disk and rebooting."
+count_file="/etc/boot_c"
+if [ -f "$count_file" ]; then
+  BC=$(cat "$count_file")
+  if [ "$BC" -lt 1 ]; then
+    echo "Please run this after installing to disk and rebooting."
+    exit 1
+  fi
+else
+  echo "Boot count file not found. Please run this after installing to disk and rebooting."
   exit 1
 fi
-# or continue
+# continue with setup
 echo "Setting up K2 for Alpine Linux..."
 apk add --no-cache git 
 echo "Cloning then move..."
