@@ -62,9 +62,9 @@ chmod +x "$tmp"/etc/setup-k2.sh
 ## motd for installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
 Welcome to K2_OS!
-Use setup-alpine. Then reboot.
-To install K2 after reboot: ./etc/setup-k2.sh
+Use setup-alpine. Then reboot to hardisk.
 EOF
+
 ## init/boot/shutdown
 rc_add devfs sysinit
 rc_add dmesg sysinit
