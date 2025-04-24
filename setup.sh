@@ -152,7 +152,7 @@ URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
 ########################################## Clone utils only
 echo "Setting up Github/K2..." 
-wget https://github.com/h8d13/k2-alpine/archive/master.tar.gz -O /tmp/k2-alpine.tar.gz
+wget https://github.com/h8d13/k2-alpine.git/archive/master.tar.gz -O /tmp/k2-alpine.tar.gz
 tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
 mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
