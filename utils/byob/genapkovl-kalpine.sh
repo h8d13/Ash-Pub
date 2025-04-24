@@ -40,27 +40,33 @@ count_file="/etc/boot_c"
 if [ ! -f "$count_file" ]; then
   echo "0" > "$count_file"
 fi
-BC=$(cat "$count_file")
-NBC=$((BC+1))
-echo "$NBC" > "$count_file"
+# hacky way of knowing when to start counting boots #running on ram at first 
+if mount | grep -E '/dev/[sh]d[a-z][0-9]' > /dev/null || mount | grep -E '/dev/nvme[0-9]n[0-9]p[0-9]' > /dev/null; then
+  BC=$(cat "$count_file")
+  NBC=$((BC+1))
+  echo "$NBC" > "$count_file"
+fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
 ## Log bcs 
 makefile root:root 0644 "$tmp"/etc/local.d/k2-bc-log.start <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
-log_file="/var/log/bc_log"
+log_file="/etc/bc_log"
 touch "$log_file"
 BC=$(cat "$count_file")
-echo "BC: $BC - $(date) - ${USER:-system} - PID:$$" >> "$log_file"
-if [ "$BC" = "1" ]; then
-  echo "SYSTEM READY FOR SETUP" >> "$log_file"
-fi
+echo "BC: $BC - $(date) - $USER" >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
 ## K2 Setup pre-config # Folder already exists
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
+## Do not let live installers. Make sure we are post setup-alpine.
+if mount | grep -q "/dev/loop0 on / "; then
+  echo "Please run this after installing to disk and rebooting."
+  exit 1
+fi
+# or continue
 echo "Setting up K2 for Alpine Linux 3.21..."
 apk add --no-cache git 
 echo "Cloning then move..."
