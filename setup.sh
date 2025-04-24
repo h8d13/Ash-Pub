@@ -15,9 +15,15 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
 echo "Detected Alpine version: $ALPINE_VERSION"
-sleep 1
+
 # Check if running on edge
 if echo "$ALPINE_VERSION" | grep -q "edge"; then
+    echo "Detected EDGE expect bugs."
+    cp /etc/apk/repositories /etc/apk/repositories.bak
+    echo "Original repositories backed up to /etc/apk/repositories.bak"
+	# Clear the current repositories file
+    echo "Clearing current repositories..."
+    > /etc/apk/repositories
     echo "Setting up repositories for Alpine edge..."
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
@@ -30,8 +36,10 @@ else
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 fi
-
 echo "Repositories added successfully!"
+cat > /etc/apk/repositories
+sleep 3
+
 apk update
 apk upgrade
 setup-desktop plasma
