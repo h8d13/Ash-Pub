@@ -41,9 +41,13 @@ else
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 fi
-echo "Repositories added successfully! Ready? or CTRL + C within 3 seconds"
-sleep 3
-
+echo "Repositories added successfully! Ready?"
+echo "Starting setup..."
+echo "3..."
+sleep 1
+echo "2..."
+sleep 1
+echo "1..."
 apk update
 apk upgrade
 setup-desktop plasma
@@ -84,6 +88,12 @@ cat <<EOF > $CONFIG_FILE3
 [Daemon]
 LockGrace=300
 Timeout=15
+EOF
+# Shortcut to open a user shell
+CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
+cat >> "$CONGIG_FILE4" << EOF
+[services][net.local.konsole-2.desktop]
+_launch=Ctrl+Alt+Y
 EOF
 ########################################## MORE SYSTEM TWEAKS
 echo "Setting up System..." 
@@ -133,20 +143,24 @@ Parent=FALLBACK/
 EOF
 ########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
 echo "Setting up KDE..." 
-mkdir -p "/home/$TARGET_USER/Desktop/k2-os"
-cat > /home/$TARGET_USER/Desktop/k2-os/runme_asuser.sh << EOF
+mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
+cat > /home/$TARGET_USER/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file kdeglobals --group General --key AccentColor "27,94,209"
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell > /dev/null 2>&1 && kstart5 plasmashell > /dev/null 2>&1 &
-exit 0
+killall plasmashell && kstart5 plasmashell
 EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
+cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
+#!/bin/sh
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
 [Desktop Entry]
@@ -162,7 +176,7 @@ tar -xzf /tmp/k2-alpine.tar.gz -C /tmp/
 mv /tmp/k2-alpine-master/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine.tar.gz /tmp/k2-alpine-master
 ########################################## Firefox profile
-echo "Setting up firefox..." 
+echo "Setting up firefox..."
 mkdir -p /usr/lib/firefox/distribution
 cat > /usr/lib/firefox/distribution/policies.json << EOF
 {
@@ -174,9 +188,12 @@ cat > /usr/lib/firefox/distribution/policies.json << EOF
     "DisablePrivateBrowsing": false,
     "ExtensionSettings": {
       "support@adguard.com": {
-        "installation_mode": "normal_installed",
+        "installation_mode": "force_installed",
         "install_url": "https://addons.mozilla.org/firefox/downloads/file/4466075/adguard_adblocker-5.1.72.xpi"
       }
+    },
+    "SearchEngines": {
+      "Default": "DuckDuckGo"
     }
   }
 }
@@ -376,8 +393,6 @@ sysctl -p
 ufw default deny incoming
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
-See <https://wiki.alpinelinux.org> for more info.
-
 Apk sources /etc/apk/repositories
 Change this message by editing /etc/motd
 Change the pre-login message /etc/issue
@@ -388,25 +403,22 @@ Use . ~/.config/aliases if you added something
 
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
-"startde/stopde" for Desktop Env. 
-Can also use micro or mc for friendly editing.
-
-Custom with <3 by H8D13. 
+Use "startde" to start the desktop environment.  
 EOF
 
-## Pre login splash art
+## Pre login splash art ## That i stole from the internet. And edit sometimes for fun :D
 cat > /etc/issue << 'EOF'
 ##################################################################################################################################################
                                                                                                                                                   
-                                                      ▒▒▒▒░░░░                                                                                    
+                                                       ▒▒▒▓▓▒░░                                                                                    
                                                       ▓▓  ░░  ░░                                                                                  
                                                   ▒▒▓▓▓▓    ░░  ▒▒                           #########                                                     
                                               ░░▓▓▓▓▓▓░░    ░░    ▒▒                         # 8611m #                                                 
-                                          ▓▓▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█▓▓▓               #########                                                     
-                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒▒▒             # 1.3.1 #                                                    
+                                           ▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█                   #########                                                     
+                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒               # 1.3.1 #                                                    
                                         ▓▓▓█▓▓▒▒▓█▓▓          ░░▒▒    ░░▓▓▓▓▓▓░░             #########                                                    
-                                      ░░▓█▓▓▒▒▒▓▓▓▓█▒▒       ░  ▒▒░░    ░░▓▓█▓                                          ▒▒▓█▒▒                    
-                                      ▓█▓▓▓▓▒▒▓▓▓▓█▓▓▓▓▓        ▒▒░░      ▒▒▓▓░░▒▒                                    ▓▓▓▓    ▒▒                  
+                                      ░░▓█▓▓▒▒▒▓▓▓▓█▒▒       ░  ▒▒░░    ░░▓▓█▓                                          ▒█▒▓▒▒                    
+                                     █▓█▓▓▓▓▒▒▓▓▓▓█▓▓▓▓▓        ▒▒░░      ▒▒▓▓░░▒▒                                    ▓▓▓▓    ▒▒                  
                                 ▒▒▓▓▓▓▓▓█▓▒▒▒▒▒▓▓▓▓█▓▓▓▓░░    ░░▒▒▒▒   ░    ▓█▓▓  ▒                                 ▓▓▓█▓▓  ░   ░                  
                           ░░▒▒▓▓▓▓█▓▓█▓▓▒▒▒▒▒░▓▓▓▓█▓▓▓▓▓▒▒    ░░▒▒▒▒░░      ▒▒█▓░░░░ ▒                            ▒▒▓▓▓▓▒▓░░  ░░▒▒                
                       ▓▓▓▓█▓▓▓▓▓▓▓▓█▒▒▒▒▒▒░▓▓▓▓▓██▓▓▓▓▓▓▓      ▒▒░░▒▒░░      ▓▓█▓▒▒    ░░                      ▓▓▓▓▓▓▓▒▓▓▓▓  ░░  ░░░░            
@@ -435,9 +447,8 @@ cat > /etc/issue << 'EOF'
 # Kernel \r on \m #
 
 EOF
-
-cat > /etc/profile.d/welcome.sh << 'EOF'
-echo -e '\e[1;31mWelcome to Alpine K2.\e[0m'
+cat > /etc/profile.d/welcome.sh << EOF
+echo -e '\e[1;31mWelcome to Alpine $ALPINE_VERSION K2.\e[0m'
 echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
 EOF
 chmod +x /etc/profile.d/welcome.sh
