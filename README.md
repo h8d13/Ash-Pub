@@ -1,6 +1,6 @@
 # Why this project ? 
 
-> My personal KDE reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft.
+> My personal KDE reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft. 
 
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
@@ -9,10 +9,13 @@ This project aims to do exactly this. Eliminate quirks by programatically solvin
 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 This mini-service philosophy makes it versatile, efficient and secure. 
+> I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
+> Which brings us to today. Where I'm daily driving it for coding. 
 
 **But again more difficult to set-up for a beginner?**
 
-I wanted to see how how much a single setup script can do. As the essential of dev is doing things faster than the other person.
+Removing that issue with a single setup script (and soon a custom ISO).
+As the essential of dev is doing things faster than the other person.
 
 [Alpine ISOs](https://www.alpinelinux.org/downloads/) 
 > Select the right architecture (usually x86_64)
@@ -98,7 +101,7 @@ You should find a program called `Konsole` This is your new best friend.
 I've also included `micro` for friendly terminal editor. 
 
 ## Also updated Konsole profile to match our setup :) 
-> To go back to a user shell you can simply right click this:
+> To go back to a user shell you can simply right click this: Or `CTRL + ALT + Y`
 
 ![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
 
@@ -106,9 +109,8 @@ I've also included `micro` for friendly terminal editor.
 
 ## Video Tutorial + Wiki
 
-https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
-
 ### Read our Wiki: [K2-ALPINE-WIKI](https://github.com/h8d13/k2-alpine/wiki)
+https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 ## Further reading
 
