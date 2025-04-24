@@ -85,7 +85,7 @@ if mount | grep -q "/dev/loop0"; then
   exit 1
 fi
 # or continue
-echo "Setting up K2 for Alpine Linux 3.21..."
+echo "Setting up K2 for Alpine Linux..."
 apk add --no-cache git 
 echo "Cloning then move..."
 git clone https://github.com/h8d13/k2-alpine && cd k2-alpine
