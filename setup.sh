@@ -13,8 +13,9 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
 echo "Setting up Repos..." 
-echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community" >> /etc/apk/repositories
-echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main" >> /etc/apk/repositories
+ALPINE_VERSION=$(cat /etc/alpine-release | cut -d '.' -f 1,2)
+echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
+echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 apk update
 apk upgrade
