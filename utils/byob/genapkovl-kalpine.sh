@@ -46,12 +46,6 @@ if mount | grep -E '/dev/[sh]d[a-z][0-9]' > /dev/null || mount | grep -E '/dev/n
   NBC=$((BC+1))
   echo "$NBC" > "$count_file"
 fi
-# if boot count is 0, then we are running on ramdisk
-# if boot is 1, add to motd install instructions
-if [ "$BC" -eq 1 ]; then
-  echo "Use '. /etc/setup-k2' to install desktop environment." >> /etc/motd
-  echo "Then reboot again." >> /etc/motd
-fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
 ## Log bcs 
@@ -69,6 +63,19 @@ fi
 echo "BC: ${BC} - $(date) - ${CURRENT_USER}" >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
+
+makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
+#!/bin/sh
+count_file="/etc/boot_c"
+BC=$(cat "$count_file")
+if [ "$BC" -eq 1 ]; then
+  echo "Use '. /etc/setup-k2' to install desktop environment." >> /etc/motd
+  echo "Then reboot again." >> /etc/motd
+fi
+EOF
+chmod +x "$tmp"/etc/profile.d/k2-instruct.sh
+# if boot count is 0, then we are running on ramdisk
+# if boot is 1, add to motd install instructions
 ## K2 Setup pre-config # Folder already exists
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
@@ -92,9 +99,9 @@ rm -rf k2-alpine
 echo "K2 setup complete!"
 EOF
 chmod +x "$tmp"/etc/setup-k2
-## motd for installing
+## motd for standard installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
-Welcome to K2_OS! Love <3 H8D13.
+Welcome to K2_OS!
 Use "setup-alpine". Then reboot to hardisk.
 EOF
 ## init/boot/shutdown/default
@@ -114,5 +121,5 @@ rc_add syslog boot
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
-
+#compress archive and add it as overlay
 tar -c -C "$tmp" etc | gzip -9n > $HOSTNAME.apkovl.tar.gz
