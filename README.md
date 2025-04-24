@@ -21,7 +21,7 @@ As the essential of dev is doing things faster than the other person.
 > Select the right architecture (usually x86_64)
 > Flash to a USB (dd mode & check bios for UEFI vs BIOS, GPT vs MBR) . See [Rufus](https://rufus.ie/en/) 
 
-Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation)
+Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation.)
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
