@@ -12,8 +12,8 @@ username=$(whoami)
 echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
-echo "Setting up Repos..." 
 ALPINE_VERSION=$(cat /etc/alpine-release | cut -d '.' -f 1,2)
+echo "Setting up Repos $ALPINE_VERSION..." 
 echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/main" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/v$ALPINE_VERSION/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
