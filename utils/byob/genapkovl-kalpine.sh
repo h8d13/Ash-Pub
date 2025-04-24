@@ -54,8 +54,13 @@ makefile root:root 0644 "$tmp"/etc/local.d/k2-bc-log.start <<'EOF'
 count_file="/etc/boot_c"
 log_file="/etc/bc_log"
 touch "$log_file"
-BC=$(cat "$count_file")
-echo "BC: $BC - $(date) - $USER" >> "$log_file"
+CURRENT_USER=${USER:-"unknown"}
+if [ -f "$count_file" ]; then
+  BC=$(cat "$count_file")
+else
+  BC=0
+fi
+echo "BC: ${BC} - $(date) - ${CURRENT_USER}" >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
 ## K2 Setup pre-config # Folder already exists
