@@ -62,7 +62,7 @@ chmod +x "$tmp"/etc/local.d/k2-bc-log.start
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
 ## Do not let live installers. Make sure we are post setup-alpine.
-if mount | grep -q "/dev/loop0 on / "; then
+if mount | grep -q "/dev/loop0"; then
   echo "Please run this after installing to disk and rebooting."
   exit 1
 fi
