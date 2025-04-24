@@ -65,8 +65,8 @@ makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
 count_file="/etc/boot_c"
 BC=$(cat "$count_file")
 if [ "$BC" -eq 1 ]; then
-  echo "Use '. /etc/setup-k2' to install desktop environment." >> /etc/motd
-  echo "Then reboot again." >> /etc/motd
+  echo "Use '. /etc/setup-k2' to install desktop environment."
+  echo "Then reboot again."
 fi
 EOF
 chmod +x "$tmp"/etc/profile.d/k2-instruct.sh
