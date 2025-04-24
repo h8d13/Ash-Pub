@@ -120,13 +120,15 @@ mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 echo "Setting up Micro..." 
 cat > "$HOME/.config/micro/settings.json" << EOF
 {
-    "sucmd": "doas"
+    "sucmd": "doas",
+    "clipboard": "external"
 }
 EOF
 ## Do the same for the user.
 cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
 {
-    "sucmd": "doas"
+    "sucmd": "doas", 
+    "clipboard": "external"
 }
 EOF
 ########################################## CREATE THE KONSOLE PROFILE 
@@ -164,13 +166,28 @@ konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ########################################## Show K2-Wiki Entry
-cat > /home/$TARGET_USER/Desktop/k2-os/wiki-k2.desktop << 'EOF'
+cat > /home/$TARGET_USER/Desktop/k2-os/wikik2.desktop << 'EOF'
 [Desktop Entry]
 Icon=alienarena
-Name=wiki-k2
+Name=wikik2
 Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
+########################################## Clone utils only
+[Desktop Entry]
+Comment=
+Exec=konsole --builtin-profile
+GenericName=
+Icon=amarok_scripts
+MimeType=
+Name=Link to Application
+Path=
+StartupNotify=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
 ########################################## Clone utils only
 echo "Setting up Github/K2..." 
 git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
@@ -199,7 +216,6 @@ if [ -z "$1" ]; then
 fi
 apk list --installed | grep "$1"
 EOF
-
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
 ########################################## SHARED (ASH & ZSH) ALIASES
@@ -207,7 +223,6 @@ echo "Setting up aliases..."
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Main alias
-alias mc="micro"
 alias startde="rc-service sddm start"
 alias stopde="service sddm stop"
 alias restartde="service sddm restart"
