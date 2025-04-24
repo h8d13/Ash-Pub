@@ -45,12 +45,9 @@ fi
 BC=$(<"$count_file")
 BC=$((BC+1))
 echo $BC > "$count_file"
-if [ ! -f "$log_file" ]; then
-  echo "BC: $BC - $(date) - $USER >> /var/log/bc_log"
-fi
+echo "BC: $BC - $(date) - $USER >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
-
 ## K2 Setup pre-config # Folder already exists
 makefile root:root 0644 "$tmp"/etc/setup-k2 <<'EOF'
 #!/bin/sh
