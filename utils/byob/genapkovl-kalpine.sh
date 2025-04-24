@@ -45,10 +45,9 @@ fi
 BC=$(<"$count_file")
 BC=$((BC+1))
 echo $BC > "$count_file"
-echo "BC: $BC - $(date) - $USER" >> "$log_file"
+echo "BC: $BC - $(date) - ${USER:-system} - PID:$$" >> "$log_file"
 if [ "$BC" = "1" ]; then
   echo "SYSTEM READY FOR SETUP" >> "$log_file"
-  echo "SYSTEM READY FOR SETUP - Run '. /etc/setup-k2' to complete DE installation." > /etc/motd
 fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
@@ -73,6 +72,7 @@ chmod +x "$tmp"/etc/setup-k2
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
 Welcome to K2_OS!
 Use "setup-alpine". Then reboot to hardisk.
+To install DE: ". /etc/setup-k2"
 Love <3 H8D13.
 EOF
 ## init/boot/shutdown/default
