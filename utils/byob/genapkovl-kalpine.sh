@@ -33,8 +33,7 @@ makefile root:root 0644 "$tmp"/etc/apk/world <<EOF
 alpine-base
 git
 EOF
-## K2 Setup pre-config
-mkdir -p "$tmp"/etc/setup-k2.sh
+## K2 Setup pre-config # Folder already exists
 cat > "$tmp"/etc/setup-k2.sh <<EOF
 #!/bin/sh
 echo "Setting up K2 for Alpine Linux 3.21..."
@@ -50,9 +49,10 @@ echo "Cleaning up."
 rm -rf k2-alpine
 echo "K2 setup complete!"
 EOF
-# give to root
-makefile root:root 0644 "$tmp"/etc/setup-k2.sh
+# give to root make exec
 chmod +x "$tmp"/etc/setup-k2.sh
+makefile root:root 0644 "$tmp"/etc/setup-k2.sh
+
 ## motd for installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
 Welcome to K2_OS!
@@ -71,7 +71,6 @@ rc_add sysctl boot
 rc_add hostname boot
 rc_add bootmisc boot
 rc_add syslog boot
-rc_add git boot
 rc_add mount-ro shutdown
 rc_add killprocs shutdown
 rc_add savecache shutdown
