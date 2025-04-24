@@ -34,7 +34,8 @@ alpine-base
 git
 EOF
 ## K2 Setup pre-config # Folder already exists
-cat > "$tmp"/etc/setup-k2.sh <<EOF
+# Do this BEFORE calling makefile:
+cat > "$tmp"/etc/setup-k2.sh <<'EOF'
 #!/bin/sh
 echo "Setting up K2 for Alpine Linux 3.21..."
 apk add --no-cache git 
@@ -49,6 +50,11 @@ echo "Cleaning up."
 rm -rf k2-alpine
 echo "K2 setup complete!"
 EOF
+
+# THEN fix perms/ownership
+makefile root:root 0644 "$tmp"/etc/setup-k2.sh
+chmod +x "$tmp"/etc/setup-k2.sh
+
 # give to root THEN make exec
 makefile root:root 0644 "$tmp"/etc/setup-k2.sh
 chmod +x "$tmp"/etc/setup-k2.sh
