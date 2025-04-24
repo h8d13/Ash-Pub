@@ -176,28 +176,7 @@ git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
 mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
 ########################################## Firefox profile
-echo "Setting up firefox..."
-mkdir -p /usr/lib/firefox/distribution
-cat > /usr/lib/firefox/distribution/policies.json << EOF
-{
-  "policies": {
-    "Homepage": {
-      "URL": "https://duckduckgo.com",
-      "Locked": false
-    },
-    "DisablePrivateBrowsing": false,
-    "ExtensionSettings": {
-      "support@adguard.com": {
-        "installation_mode": "force_installed",
-        "install_url": "https://addons.mozilla.org/firefox/downloads/file/4466075/adguard_adblocker-5.1.72.xpi"
-      }
-    },
-    "SearchEngines": {
-      "Default": "DuckDuckGo"
-    }
-  }
-}
-EOF
+#TODO
 ########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT 
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
