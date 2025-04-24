@@ -77,6 +77,9 @@ Make sure to properly eject using this little menu. For example when devices are
 
 [WikipediaLubburnia](https://en.wikipedia.org/wiki/Libburnia) 
 [Xorriso-Libburnia](https://dev.lovelyhq.com/libburnia/web/wiki#news)
+[GentooRC](https://wiki.alpinelinux.org/wiki/Writing_Init_Scripts) 
+[AlpineRC](https://wiki.gentoo.org/wiki/Handbook:X86/Working/Initscripts#Writing_initscripts)
+[RC Docs](https://github.com/OpenRC/openrc/blob/master/service-script-guide.md)
 
 ---
 
