@@ -49,9 +49,9 @@ echo "Cleaning up."
 rm -rf k2-alpine
 echo "K2 setup complete!"
 EOF
-# give to root make exec
-chmod +x "$tmp"/etc/setup-k2.sh
+# give to root THEN make exec
 makefile root:root 0644 "$tmp"/etc/setup-k2.sh
+chmod +x "$tmp"/etc/setup-k2.sh
 
 ## motd for installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
