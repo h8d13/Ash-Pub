@@ -31,12 +31,17 @@ if echo "$ALPINE_VERSION" | grep -q "alpha"; then
 else
     # Extract major.minor version (e.g., "3.21")
     VERSION_NUM=$(echo "$ALPINE_VERSION" | cut -d '.' -f 1,2)
+    cp /etc/apk/repositories /etc/apk/repositories.bak
+    echo "Original repositories backed up to /etc/apk/repositories.bak"
+    # Clear the current repositories file
+    echo "Clearing current repositories..."
+    > /etc/apk/repositories
     echo "Setting up repositories for Alpine v$VERSION_NUM..."
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 fi
-echo "Repositories added successfully!"
+echo "Repositories added successfully! Ready? or CTRL + C within 3 seconds"
 sleep 3
 
 apk update
