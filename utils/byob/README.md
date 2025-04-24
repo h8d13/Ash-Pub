@@ -66,7 +66,7 @@ Example launch command for building. Will not work if perms are wrong or key not
 
 Check you are on right profile `whoami`
 
-You can also add --simulate but I've found it to just return silent errors this is more useful for debug: `set -x` at the beginning of mkimg.sh                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+You can also add --simulate but I've found it to just return silent errors this is more useful for debug: `set -x` at the beginning of mkimg.sh                                                                                                                                                                                                                                                                                                                                                                                                                         > Notes: Naming needs to be consistent as the final tar archive is what gets appended is kept post-install (setup-alpine). 
 
 IMPORTANT:
 
