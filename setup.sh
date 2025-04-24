@@ -154,6 +154,7 @@ plasma-apply-desktoptheme breeze-dark
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
 killall plasmashell && kstart5 plasmashell
+service sddm restart
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
 cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
