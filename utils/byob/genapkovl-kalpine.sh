@@ -45,7 +45,7 @@ fi
 BC=$(<"$count_file")
 BC=$((BC+1))
 echo $BC > "$count_file"
-echo "BC: $BC - $(date) - $USER >> "$log_file"
+echo "BC: $BC - $(date) - $USER" >> "$log_file"
 if [ "$BC" = "1" ]; then
   echo "SYSTEM READY FOR SETUP" >> "$log_file"
   echo "SYSTEM READY FOR SETUP - Run '. /etc/setup-k2' to complete DE installation." > /etc/motd
