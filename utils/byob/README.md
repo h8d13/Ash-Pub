@@ -11,15 +11,13 @@ You can also `apk add gnome-disk-utils` as it's a good program quick formatting.
 
 export PROFILENAME=calpine
 
-Make sure to use the build profile and use `chmod 777` on a files that are causing issues if you started from your personal env.
-
 ```
 git clone https://gitlab.alpinelinux.org/alpine/aports.git
 git clone https://gitlab.alpinelinux.org/alpine/alpine-conf.git
 ```
 
 Follow the instruction in the wiki for temp.
-Also as build user `mkdir -p out`
+Also as build user `mkdir -p ~/out`
 
 ![image](https://github.com/user-attachments/assets/2ba8cf03-bda6-4289-b6b9-c389957844d2)
 
@@ -57,7 +55,9 @@ profile_calpine() {
 
 Little hack you can `set -x` int he `mkimage.sh` to get verbose outputs. 
 
-Make sure heredocs `EOF` are expanded do not use `'EOF'`
+Make sure heredocs `EOF` are expanded do not use `'EOF'` Variable expansion is tricky in these scripts. 
+
+And so is perms: `makefile root:root 0644 "$tmp"/etc/local.d/k2-bc.start`
 
 ```
 ./mkimage.sh --profile calpine --outdir ~/out --repository https://dl-cdn.alpinelinux.org/latest-stable/main --arch x86_64 --hostkeys
