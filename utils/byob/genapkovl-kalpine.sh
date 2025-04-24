@@ -63,7 +63,7 @@ fi
 echo "BC: ${BC} - $(date) - ${CURRENT_USER}" >> "$log_file"
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc-log.start
-
+mkdir -p "$temp"/etc/profile.d
 makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
