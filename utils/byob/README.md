@@ -67,7 +67,7 @@ Example launch command for building. Will not work if perms are wrong or key not
 
 Check you are on right profile `whoami`
 
-You can also add --simulate but I've found it to just return silent errors this is more useful for debug: `set -x` at the beginning of mkimg.sh                                                                                                                                                                                                                                                                                                                                                                                                                         > Notes: Naming needs to be consistent as the final tar archive is what gets appended is kept post-install (setup-alpine). 
+You can also add --simulate but I've found it to just return silent errors this is more useful for debug: `set -x` at the beginning of mkimg.sh                                                                                                                                                                                                                                                                                                                                                                                                                       > Notes: Naming needs to be consistent as the final tar archive is what gets appended and is kept post-install (setup-alpine). 
 
 IMPORTANT:
 
@@ -75,11 +75,31 @@ IMPORTANT:
 
 Make sure to properly eject using this little menu. For example when devices are still wrtiting files this will avoid corruption. See above.
 
+## ISO Making
+
 [WikipediaLubburnia](https://en.wikipedia.org/wiki/Libburnia) 
 [Xorriso-Libburnia](https://dev.lovelyhq.com/libburnia/web/wiki#news)
+
+## OpenRC 
+
+For `/etc/init.d`: 
 [GentooRC](https://wiki.alpinelinux.org/wiki/Writing_Init_Scripts) 
 [AlpineRC](https://wiki.gentoo.org/wiki/Handbook:X86/Working/Initscripts#Writing_initscripts)
 [RC Docs](https://github.com/OpenRC/openrc/blob/master/service-script-guide.md)
+
+For `/etc/local.d`
+```
+#!/bin/sh
+touch /etc/boot_c
+count_file="/etc/boot_c"
+if [ ! -f "$count_file" ]; then
+  echo -1 > "$count_file"
+fi
+BC=$(<"$count_file")
+BC=$((BC+1))
+echo $BC > "$count_file"
+echo "Boot count: $BC - $(date)"
+```
 
 ---
 
