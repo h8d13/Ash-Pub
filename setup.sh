@@ -211,7 +211,7 @@ alias startde="rc-service sddm start"
 alias stopde="service sddm stop"
 alias restartde="service sddm restart"
 # Base alias
-alias cdu= "cd /home/$TARGET_USER/"
+alias cdu="cd /home/$TARGET_USER/"
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
