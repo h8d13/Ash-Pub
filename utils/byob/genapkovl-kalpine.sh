@@ -46,6 +46,10 @@ BC=$(<"$count_file")
 BC=$((BC+1))
 echo $BC > "$count_file"
 echo "BC: $BC - $(date) - $USER >> "$log_file"
+if [ "$BC" = "1" ]; then
+  echo "SYSTEM READY FOR SETUP" >> "$log_file"
+  echo "SYSTEM READY FOR SETUP - Run '. /etc/setup-k2' to complete DE installation." > /etc/motd
+fi
 EOF
 chmod +x "$tmp"/etc/local.d/k2-bc.start
 ## K2 Setup pre-config # Folder already exists
@@ -68,9 +72,8 @@ chmod +x "$tmp"/etc/setup-k2
 ## motd for installing
 makefile root:root 0644 "$tmp"/etc/motd <<EOF
 Welcome to K2_OS!
-Use setup-alpine. Then reboot to hardisk.
-After reboot:
-". /etc/setup-k2"
+Use "setup-alpine". Then reboot to hardisk.
+Love <3 H8D13.
 EOF
 ## init/boot/shutdown/default
 rc_add local default
