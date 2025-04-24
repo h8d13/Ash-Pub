@@ -4,7 +4,8 @@
 [AlpineWiki-CreateYourIso](https://wiki.alpinelinux.org/wiki/How_to_make_a_custom_ISO_image_with_mkimage)
 
 Follow the initial steps for prereqs. 
-> This is a good practice in general, as it will make your paths cleaners, permissions, etc. 
+> This is a good practice in general, as it will make your paths cleaners, permissions, etc.
+> Create a user give it permissions, got clone to /home/user root
 
 You can also `apk add gnome-disk-utils` as it's a good program quick formatting. 
 
