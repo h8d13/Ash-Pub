@@ -89,9 +89,9 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=15
 EOF
-# Shortcut to open a user shell
+echo "Setting up KDE Shortcuts..." 
 CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
-cat >> "$CONGIG_FILE4" << EOF
+cat >> "$CONFIG_FILE4" << EOF
 [services][net.local.konsole-2.desktop]
 _launch=Ctrl+Alt+Y
 EOF
@@ -387,9 +387,23 @@ net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
 EOF
 
-# Apply settings + UFW
-sysctl -p
+# Apply settings
+sysctl -p >/dev/null 2>&1
+
+apk add ip6tables --nocache
 ufw default deny incoming
+
+## Examples stolen from the internet # uncomment if using these
+#ufw limit SSH         # open SSH port and protect against brute-force login attacks
+#ufw allow out 123/udp # allow outgoing NTP (Network Time Protocol)
+#ufw allow out DNS     # allow outgoing DNS
+#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
+ufw allow out 443/tcp 
+#ufw allow 51820/udp
+rc-update add ufw   
+ufw enable
+#apk add bash
+
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
 Apk sources /etc/apk/repositories
@@ -452,9 +466,8 @@ echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
 EOF
 chmod +x /etc/profile.d/welcome.sh
 ################################################################################################################################################### 
-
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
+echo "All set." 
 
 echo "K2 SETUP. DONE. Reboot, use 'startde.'"
-echo "All set." 
