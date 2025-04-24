@@ -38,7 +38,7 @@ makefile root:root 0644 "$tmp"/etc/local.d/k2-bc.start <<'EOF'
 #!/bin/sh
 count_file="/etc/boot_c"
 if [ ! -f "$count_file" ]; then
-  echo "-1" > "$count_file"
+  echo "0" > "$count_file"
 fi
 BC=$(<"$count_file")
 NBC=$((BC+1))
