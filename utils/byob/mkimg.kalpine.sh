@@ -3,7 +3,7 @@ profile_kalpine() {
     profile_standard
     kernel_cmdline="unionfs_size=512M console=ttyS0,115200"
     syslinux_serial="0 115200"
-    apks="$apks alpine-base"
+    apks="$apks alpine-base git"
     boot_addons="amd-ucode intel-ucode"
 	initrd_ucode="/boot/amd-ucode.img /boot/intel-ucode.img"
     local _k _a
@@ -13,7 +13,6 @@ profile_kalpine() {
                     apks="$apks $_a-$_k"
             done
     done
-    apks="$apks git"
     apkovl="genapkovl-kalpine.sh"
 }
 
