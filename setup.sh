@@ -36,7 +36,7 @@ else
     # Clear the current repositories file
     echo "Clearing current repositories..."
     > /etc/apk/repositories
-    echo "Setting up repositories for Alpine v$VERSION_NUM..."
+    echo "Setting up repositories for Alpine..."
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
