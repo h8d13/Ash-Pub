@@ -17,7 +17,7 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 echo "Detected Alpine version: $ALPINE_VERSION"
 
 # Check if running on edge
-if echo "$ALPINE_VERSION" | grep -q "edge"; then
+if echo "$ALPINE_VERSION" | grep -q "alpha"; then
     echo "Detected EDGE expect bugs."
     cp /etc/apk/repositories /etc/apk/repositories.bak
     echo "Original repositories backed up to /etc/apk/repositories.bak"
