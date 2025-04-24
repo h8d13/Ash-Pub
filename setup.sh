@@ -390,7 +390,7 @@ EOF
 # Apply settings
 sysctl -p >/dev/null 2>&1
 
-apk add ip6tables --nocache
+apk add --no-cache ip6tables
 ufw default deny incoming
 
 ## Examples stolen from the internet # uncomment if using these
