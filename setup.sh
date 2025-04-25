@@ -1,4 +1,5 @@
 #!/bin/sh
+#set -e
 #### NO MORE CONFIG ALL AUTOMATED.
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
@@ -429,6 +430,8 @@ ufw allow out 443/tcp
 rc-update add ufw   
 ufw enable
 #apk add bash
+
+rm -rf /var/cache/apk/*
 
 ########################################## INFO STUFF
 cat > /etc/motd << 'EOF'
