@@ -121,7 +121,6 @@ EOF
 ########################################## MORE SYSTEM TWEAKS
 echo "Setting up System..." 
 # remove sddm login default  (Shell already does this.) # for start /stop commands 
-rc-update del sddm default
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
@@ -252,10 +251,6 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-# Main alias
-alias startde="rc-service sddm start"
-alias stopde="service sddm stop"
-alias restartde="service sddm restart"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias clr="clear"
