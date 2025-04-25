@@ -64,7 +64,7 @@ makefile root:root 0644 "$tmp"/etc/profile.d/k2-instruct.sh <<'EOF'
 count_file="/etc/boot_c"
 BC=$(cat "$count_file")
 if [ "$BC" -eq 1 ]; then
-  echo "Welcome again to K2_OS!" > /etc/motd
+  echo "Welcome again to K2_OS!"
   echo "Use '. /etc/setup-k2' to install desktop environment."
   echo "Then reboot again... Sorry."
 fi
