@@ -52,7 +52,6 @@ apk add gcompat
 echo "Setting up graphical manager..." 
 echo "Please choose an option:"
 echo "w - Install Wayland"
-echo "x - Install Xorg"
 echo "b - Install both Wayland and Xorg"
 read -r choice
 
@@ -61,17 +60,13 @@ case "$choice" in
     echo "Installing Wayland base packages..."
     setup-wayland-base
     ;;
-  x|X)
-    echo "Installing Xorg base packages..."
-    setup-xorg-base
-    ;;
   b|B)
     echo "Installing both Wayland and Xorg base packages..."
     setup-wayland-base 
     setup-xorg-base
     ;;
   *)
-    echo "Invalid choice. Please enter 'w' for Wayland, 'x' for Xorg, or 'b' for both."
+    echo "Invalid choice. Please enter 'y' for Wayland, or 'b' for both."
     exit 1
     ;;
 esac
@@ -90,7 +85,7 @@ echo "Setting up Debloat..."
 apk del plasma-welcome discover-backend-apk kate kate-common
 ########################################## NECESSARY RUNLEVEL EXTRAS
 rc-update add dbus
-rc-update add elogind
+rc-update add elogind polkit-elogind
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
