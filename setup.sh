@@ -15,7 +15,32 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
 echo "Detected Alpine version: $ALPINE_VERSION"
+echo "Setting up graphical manager..." 
+echo "Please choose an option:"
+echo "w - Install Wayland"
+echo "x - Install Xorg"
+echo "b - Install both Wayland and Xorg"
+read -r choice
 
+case "$choice" in
+  w|W)
+    echo "Installing Wayland base packages..."
+    setup-wayland-base
+    ;;
+  x|X)
+    echo "Installing Xorg base packages..."
+    setup-xorg-base
+    ;;
+  b|B)
+    echo "Installing both Wayland and Xorg base packages..."
+    setup-wayland-base 
+    setup-xorg-base
+    ;;
+  *)
+    echo "Invalid choice. Please enter 'w' for Wayland, 'x' for Xorg, or 'b' for both."
+    exit 1
+    ;;
+esac
 # Check if running on edge
 if echo "$ALPINE_VERSION" | grep -q "alpha"; then
     echo "Detected EDGE expect bugs."
@@ -48,6 +73,9 @@ sleep 1
 echo "2..."
 sleep 1
 echo "1..."
+sleep 1
+echo "Go!"
+
 apk update
 apk upgrade
 setup-desktop plasma
@@ -173,7 +201,8 @@ Name=wikik2
 Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
-########################################## Clone utils only
+########################################## Show UserShell
+cat > /home/$TARGET_USER/Desktop/k2-os/usershell.desktop << 'EOF'
 [Desktop Entry]
 Comment=
 Exec=konsole --builtin-profile
@@ -188,6 +217,7 @@ TerminalOptions=
 Type=Application
 X-KDE-SubstituteUID=false
 X-KDE-Username=
+EOF
 ########################################## Clone utils only
 echo "Setting up Github/K2..." 
 git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
@@ -195,7 +225,7 @@ mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
 ########################################## Firefox profile
 #TODO
-########################################## Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT 
+#### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
