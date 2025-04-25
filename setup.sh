@@ -133,6 +133,7 @@ echo "Setting up System..."
 # remove sddm login default  (Shell already does this.) # for start /stop commands 
 rc-update del sddm default
 ########################################## MORE Noice to haves
+echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar
 ########################################## DIRS
@@ -237,6 +238,7 @@ chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 #touch /var/run/utmp
 #chmod 644 /var/run/utmp
 ########################################## LOCAL BIN THE GOAT <3
+echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
 if [ -d "$HOME/.local/bin" ]; then
@@ -286,6 +288,7 @@ alias apkd="apk del"
 alias apks="apk search"
 EOF
 ########################################## Auto source
+echo "Setting up Profile..." 
 # Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
 cat > /etc/profile.d/profile.sh << 'EOF'
 if [ -f "$HOME/.config/ash/profile" ]; then
@@ -387,7 +390,7 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 ########################################## SYSTEM HARDENING
-echo "Security fixes..." 
+echo "Setting up Security fixes..." 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
 # Network performance and security
@@ -417,6 +420,7 @@ EOF
 # Apply settings
 sysctl -p >/dev/null 2>&1
 
+echo "Setting up UFW & Ip6Tables..." 
 apk add --no-cache ip6tables
 ufw default deny incoming
 
@@ -427,10 +431,12 @@ ufw default deny incoming
 #ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
 ufw allow out 443/tcp 
 #ufw allow 51820/udp
-rc-update add ufw   
 ufw enable
+rc-update add ufw   
+
 #apk add bash
 
+echo "Cleaning cache..." 
 rm -rf /var/cache/apk/*
 
 ########################################## INFO STUFF
