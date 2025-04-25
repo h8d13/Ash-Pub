@@ -227,6 +227,11 @@ rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
+########################################## Fix UTMPX
+#apk add busybox-extras --no-cache
+#mkdir -p /var/run/utmp
+#touch /var/run/utmp
+#chmod 644 /var/run/utmp
 ########################################## LOCAL BIN THE GOAT <3
 # Add local bin to PATH if it exists
 cat > "$HOME/.config/environment" << 'EOF'
