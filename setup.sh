@@ -83,7 +83,7 @@ echo "Go!"
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
-apk del plasma-welcome discover-backend-apk kate kate-common
+apk del plasma-welcome discover discover-backend-apk kate kate-common
 ########################################## NECESSARY RUNLEVEL EXTRAS
 rc-update add dbus
 rc-update add elogind polkit-elogind
