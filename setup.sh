@@ -39,7 +39,10 @@ else
     echo "Setting up repositories for Alpine..."
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/testing" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+
 fi
 echo "Repositories added successfully! Ready?"
 apk update
@@ -57,8 +60,9 @@ apk add btrfs-compsize \
 	linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
-	openssl \
-	wpa_supplicant 
+	wpa_supplicant \
+ 	dbus 
+
 echo "Starting setup..."
 echo "3..."
 sleep 1
@@ -72,16 +76,23 @@ setup-desktop plasma
 echo "Setting up Debloat..." 
 apk del plasma-welcome kate kate-common
 
-apk add elogind
-apk add pipewire wireplumber pipewire-pulse pipewire-jack pipewire-alsa
+########################################## AUIO
+apk add elogind polkit polkit-elogind
+apk add pipewire wireplumber pipewire-pulse pipewire-jack 
+#apk add pipewire-alsa
+########################################## NECESSARY RUNLEVEL EXTRAS
 
-
+rc-update add dbus 
+rc-update add elogind 
+rc-update add piprewire
+rc-update add wireplumber 
 ########################################## NECESSARY RUNLEVEL EXTRAS
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## OPTIONAL: Switch default login shell to zsh globally
 #chsh -s /bin/zsh root
+#apk add bash fish
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
@@ -419,7 +430,6 @@ ufw allow out 443/tcp
 ufw enable
 rc-update add ufw   
 
-#apk add bash
 
 echo "Cleaning cache..." 
 rm -rf /var/cache/apk/*
