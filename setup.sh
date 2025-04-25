@@ -47,30 +47,23 @@ apk upgrade
 
 echo "Setting up graphics drivers..." 
 apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa 
-echo "Setting up nice to haves..." 
-apk add gcompat
-
+apk add btrfs-compsize \
+	btrfs-progs \
+	busybox-mdev-openrc \
+	chrony \
+	doas \
+	e2fsprogs \
+	iw \
+	linux-firmware-i915 \
+	linux-firmware-other \
+	linux-lts \
+	openssl \
+	wpa_supplicant 
 echo "Setting up graphical manager..." 
 echo "Please choose an option:"
 echo "w - Install Wayland"
 echo "b - Install both Wayland and Xorg"
 read -r choice
-
-case "$choice" in
-  w|W)
-    echo "Installing Wayland base packages..."
-    setup-wayland-base
-    ;;
-  b|B)
-    echo "Installing both Wayland and Xorg base packages..."
-    setup-wayland-base 
-    setup-xorg-base
-    ;;
-  *)
-    echo "Invalid choice. Please enter 'y' for Wayland, or 'b' for both."
-    exit 1
-    ;;
-esac
 
 echo "Starting setup..."
 echo "3..."
@@ -83,10 +76,8 @@ echo "Go!"
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
-apk del plasma-welcome discover discover-backend-apk kate kate-common
+apk del plasma-welcome kate kate-common
 ########################################## NECESSARY RUNLEVEL EXTRAS
-rc-update add dbus
-rc-update add elogind polkit-elogind
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -232,7 +223,7 @@ rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-########################################## Fix UTMPX maybe?? Or its udev/elogind or idk
+########################################## Fix UTMPX maybe?? Or its udev
 #apk add busybox-extras --no-cache
 #mkdir -p /var/run/utmp
 #touch /var/run/utmp
