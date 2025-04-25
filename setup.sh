@@ -15,6 +15,9 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
 echo "Detected Alpine version: $ALPINE_VERSION"
+echo "Setting up graphics drivers..." 
+apk add mesa-va-gallium mesa-dri-gallium
+
 echo "Setting up graphical manager..." 
 echo "Please choose an option:"
 echo "w - Install Wayland"
@@ -81,7 +84,7 @@ apk upgrade
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
-apk del plasma-welcome discover discover-backend-apk kate kate-common
+apk del plasma-welcome discover-backend-apk kate kate-common
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -118,12 +121,12 @@ LockGrace=300
 Timeout=15
 EOF
 echo "Setting up KDE Shortcuts..." 
-# Setup Konsole shortcut for usershell 
-CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
-cat >> "$CONFIG_FILE4" << EOF
-[services][net.local.konsole.desktop]
-_launch=Ctrl+Alt+Y
-EOF
+# Setup Konsole shortcut for usershell DOESNT WORK YET
+#CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
+#cat >> "$CONFIG_FILE4" << EOF
+#[services][net.local.konsole.desktop]
+#_launch=Ctrl+Alt+Y
+#EOF
 ########################################## MORE SYSTEM TWEAKS
 echo "Setting up System..." 
 # remove login default  (Shell already does this.) 
