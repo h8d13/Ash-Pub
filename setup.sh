@@ -194,7 +194,7 @@ EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
 cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
 #!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && sleep 1 && service sddm restart
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && doas service sddm restart
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ########################################## Show K2-Wiki Entry
