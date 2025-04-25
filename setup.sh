@@ -15,8 +15,39 @@ echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYO
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
 echo "Detected Alpine version: $ALPINE_VERSION"
+# Check if running on edge
+if echo "$ALPINE_VERSION" | grep -q "alpha"; then
+    echo "Detected EDGE expect bugs."
+    cp /etc/apk/repositories /etc/apk/repositories.bak
+    echo "Original repositories backed up to /etc/apk/repositories.bak"
+	# Clear the current repositories file
+    echo "Clearing current repositories..."
+    > /etc/apk/repositories
+    echo "Setting up repositories for Alpine edge..."
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+else
+    # Extract major.minor version (e.g., "3.21")
+    VERSION_NUM=$(echo "$ALPINE_VERSION" | cut -d '.' -f 1,2)
+    cp /etc/apk/repositories /etc/apk/repositories.bak
+    echo "Original repositories backed up to /etc/apk/repositories.bak"
+    # Clear the current repositories file
+    echo "Clearing current repositories..."
+    > /etc/apk/repositories
+    echo "Setting up repositories for Alpine..."
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
+    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+fi
+echo "Repositories added successfully! Ready?"
+apk update
+apk upgrade
+
 echo "Setting up graphics drivers..." 
-apk add mesa-va-gallium mesa-dri-gallium
+apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa 
+echo "Setting up nice to haves..." 
+apk add gcompat
 
 echo "Setting up graphical manager..." 
 echo "Please choose an option:"
@@ -44,32 +75,7 @@ case "$choice" in
     exit 1
     ;;
 esac
-# Check if running on edge
-if echo "$ALPINE_VERSION" | grep -q "alpha"; then
-    echo "Detected EDGE expect bugs."
-    cp /etc/apk/repositories /etc/apk/repositories.bak
-    echo "Original repositories backed up to /etc/apk/repositories.bak"
-	# Clear the current repositories file
-    echo "Clearing current repositories..."
-    > /etc/apk/repositories
-    echo "Setting up repositories for Alpine edge..."
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-else
-    # Extract major.minor version (e.g., "3.21")
-    VERSION_NUM=$(echo "$ALPINE_VERSION" | cut -d '.' -f 1,2)
-    cp /etc/apk/repositories /etc/apk/repositories.bak
-    echo "Original repositories backed up to /etc/apk/repositories.bak"
-    # Clear the current repositories file
-    echo "Clearing current repositories..."
-    > /etc/apk/repositories
-    echo "Setting up repositories for Alpine..."
-    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-fi
-echo "Repositories added successfully! Ready?"
+
 echo "Starting setup..."
 echo "3..."
 sleep 1
@@ -78,13 +84,13 @@ sleep 1
 echo "1..."
 sleep 1
 echo "Go!"
-
-apk update
-apk upgrade
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
 apk del plasma-welcome discover-backend-apk kate kate-common
+########################################## NECESSARY RUNLEVEL EXTRAS
+rc-update add dbus
+rc-update add elogind
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -104,7 +110,7 @@ LayoutList=$KB_LAYOUT
 Use=True
 EOF
 ######################################### FIX SESSIONS
-echo "Setting up KDE Files..." 
+echo "Setting up KDE Config Files..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
@@ -112,7 +118,6 @@ echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
 cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
 mv "$TMP_FILE" "$CONFIG_FILE2"
 # Basiclally just makes it so that new sessions are fresh. 
-
 # Simple override the whole file for 15 min lockout and 5 min password grace. 
 CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
@@ -120,7 +125,7 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=15
 EOF
-echo "Setting up KDE Shortcuts..." 
+#echo "Setting up KDE Shortcuts..."
 # Setup Konsole shortcut for usershell DOESNT WORK YET
 #CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
 #cat >> "$CONFIG_FILE4" << EOF
@@ -129,9 +134,9 @@ echo "Setting up KDE Shortcuts..."
 #EOF
 ########################################## MORE SYSTEM TWEAKS
 echo "Setting up System..." 
-# remove login default  (Shell already does this.) 
+# remove sddm login default  (Shell already does this.) # for start /stop commands 
 rc-update del sddm default
-# for start /stop commands 
+########################################## MORE Noice to haves
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar
 ########################################## DIRS
@@ -206,9 +211,9 @@ EOF
 ########################################## Show UserShell
 cat > /home/$TARGET_USER/Desktop/k2-os/usershell.desktop << 'EOF'
 [Desktop Entry]
-Comment=
+Comment=Open a usershell quickly
 Exec=konsole --builtin-profile
-GenericName=
+GenericName=UserShell
 Icon=amarok_scripts
 MimeType=
 Name=Link to Application
@@ -230,7 +235,7 @@ rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-########################################## Fix UTMPX
+########################################## Fix UTMPX maybe?? Or its udev/elogind or idk
 #apk add busybox-extras --no-cache
 #mkdir -p /var/run/utmp
 #touch /var/run/utmp
@@ -386,13 +391,6 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
 ########################################## SYSTEM HARDENING
-echo "Temp clean up..." 
-cat > /etc/periodic/daily/clean-tmp << 'EOF'
-#!/bin/sh
-find /tmp -type f -atime +10 -delete
-EOF
-chmod +x /etc/periodic/daily/clean-tmp
-
 echo "Security fixes..." 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
