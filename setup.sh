@@ -45,7 +45,7 @@ echo "Repositories added successfully! Ready?"
 apk update
 apk upgrade
 
-echo "Setting up graphics drivers..." 
+echo "Setting up drivers..." 
 apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa 
 apk add btrfs-compsize \
 	btrfs-progs \
@@ -59,12 +59,6 @@ apk add btrfs-compsize \
 	linux-lts \
 	openssl \
 	wpa_supplicant 
-echo "Setting up graphical manager..." 
-echo "Please choose an option:"
-echo "w - Install Wayland"
-echo "b - Install both Wayland and Xorg"
-read -r choice
-
 echo "Starting setup..."
 echo "3..."
 sleep 1
@@ -77,6 +71,11 @@ setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
 apk del plasma-welcome kate kate-common
+
+apk add elogind
+apk add pipewire wireplumber pipewire-pulse pipewire-jack pipewire-alsa
+
+
 ########################################## NECESSARY RUNLEVEL EXTRAS
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
