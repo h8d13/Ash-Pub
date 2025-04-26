@@ -48,10 +48,6 @@ fi
 echo "Repositories added successfully! Ready?"
 apk update
 apk upgrade
-
-echo "Setting up drivers..." 
-apk add mesa-dri-gallium #mesa-va-gallium 
-
 echo "Starting setup..."
 echo "3..."
 sleep 1
@@ -60,16 +56,20 @@ sleep 1
 echo "1..."
 sleep 1
 echo "Go!"
+########################################## VIDEO
+echo "Setting up drivers..." 
+apk add mesa-dri-gallium #mesa-va-gallium intel-media-driver libva-intel-driver xf86-video-vesa
+## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
 echo "..." 
 apk del kate kate-common
-########################################## AUDIO
-echo "Setting up audio/video/drivers..." 
-# thnx to lagan 
+########################################## AUDIO # thnx to klagan.
+echo "Setting up drivers..." 
 apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmware alsa-utils alsaconf
 #apk add pipewire-alsa?
+########################################## ESSENTIALS
 apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
