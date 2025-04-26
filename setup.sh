@@ -53,12 +53,13 @@ apk add btrfs-compsize \
 	btrfs-progs \
 	busybox-mdev-openrc \
 	busybox-extras \
+ 	sddm \
 	e2fsprogs \
 	linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
 	wpa_supplicant \
- dbus 
+ 	dbus 
 
 echo "Starting setup..."
 echo "3..."
@@ -260,6 +261,9 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
+alias startde="rc-service sddm start"
+alias stopde="rc-service sddm stop"
+alias resde="rc-service sddm restart"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias clr="clear"
