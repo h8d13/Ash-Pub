@@ -79,12 +79,12 @@ apk add linux-firmware-i915 \
 echo "Setting services..."
 rc-update add dbus 
 rc-update add elogind 
+rc-update add sddm
 rc-update add piprewire
 rc-update add piprewire-pulse
 rc-update add wireplumber 
 ########################################## OTHERS
 #rc-update del sddm default
-rc-update add sddm
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -94,7 +94,7 @@ rc-update add sddm
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
+cat > /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
 chmod +x /usr/share/sddm/scripts/Xsetup
