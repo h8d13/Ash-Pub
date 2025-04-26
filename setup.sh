@@ -45,9 +45,7 @@ apk update
 apk upgrade
 
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium \
-	#mesa-va-gallium \
-	xf86-video-vesa 
+apk add mesa-dri-gallium #mesa-va-gallium 
 
 echo "Starting setup..."
 echo "3..."
