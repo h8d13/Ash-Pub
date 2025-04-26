@@ -53,7 +53,6 @@ apk add btrfs-compsize \
 	btrfs-progs \
 	busybox-mdev-openrc \
 	busybox-extras \
- 	sddm \
 	e2fsprogs \
 	linux-firmware-i915 \
 	linux-firmware-other \
