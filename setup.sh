@@ -63,11 +63,18 @@ setup-desktop plasma
 echo "..." 
 apk del kate kate-common
 ########################################## AUDIO
-echo "Setting up audio/video inputs..." 
+echo "Setting up audio/video/drivers..." 
 # thnx to lagan 
 apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack 
 #apk add pipewire-alsa
+apk add linux-firmware-i915 \
+	linux-firmware-other \
+	linux-lts \
+ 	sddm \
+	wpa_supplicant \
+ 	doas \
+ 	dbus 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add dbus 
@@ -77,12 +84,7 @@ rc-update add piprewire-pulse
 rc-update add wireplumber 
 ########################################## OTHERS
 #rc-update del sddm default
-apk add linux-firmware-i915 \
-	linux-firmware-other \
-	linux-lts \
-	wpa_supplicant \
- 	doas \
- 	dbus 
+rc-update add sddm
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
@@ -91,6 +93,7 @@ apk add linux-firmware-i915 \
 #apk add bash fish
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
+mkdir -p "/usr/share/sddm/scripts/"
 cat >> /usr/share/sddm/scripts/Xsetup << EOF
 setxkbmap "$KB_LAYOUT"
 EOF
