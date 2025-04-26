@@ -45,16 +45,11 @@ Do the standard `setup-alpine`
 
 For a better view [Project Tree](https://github.com/h8d13/k2-alpine/blob/master/utils/tests/TreeStruc.md)
 
-### Make a DE an option not an obligation. 
-
-That's right you terminal nerds. 
-`startde`, `restartde` and `stopde` commands.
-
 ### One place for admin configs
 > So that if you create several users down the line they can all have their own configs. 
 
 ### Auto-add main/community repos
-> Giving you access to 30 000+ packages through apk 
+> Giving you access to 50 000+ packages through apk 
 
 ### Basic /etc confs 
 > System hardening, not a router stuff etc
