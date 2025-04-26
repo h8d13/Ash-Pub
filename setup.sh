@@ -4,7 +4,6 @@
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
 ALPINE_VERSION=$(cat /etc/alpine-release)
-KDE_VERSION=$(apk search libplasma | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
 # Exit if not root
 if [ "$(whoami)" != "root" ]; then
     echo "This script must be run as root. Exiting."
@@ -16,7 +15,7 @@ if [ -z "$TARGET_USER" ]; then
     echo "ERROR: No user with /home directory found. Exiting."
     exit 1
 fi
-echo "KDE_VERSION set to: $KDE_VERSION - TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
+echo "TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
@@ -101,7 +100,7 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
-########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired :)
+########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired.
 # Mine is black theme, only konsole in taskbar and ofc mountain bg. 
 echo "Setting up KdePost..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
@@ -130,7 +129,7 @@ TMP_FILE="$(mktemp)"
 echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
 cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
 mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basiclally just makes it so that new sessions are fresh. 
+# Basiclally just makes it so that new sessions are fresh (something that I always thought was a stupid default value... 
 # Simple override the whole file for 15 min lockout and 5 min password grace. 
 CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
@@ -487,3 +486,4 @@ chmod +x /etc/profile.d/welcome.sh
 . "$HOME/.config/environment" 
 echo "All set." 
 echo "K2 SETUP. DONE. Reboot"
+echo "KDE Plasma Version: 6.2.4"
