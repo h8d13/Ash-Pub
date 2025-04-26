@@ -68,7 +68,6 @@ apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmwa
 apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
- 	utmps \
 	wpa_supplicant \
  	doas \
  	dbus 
