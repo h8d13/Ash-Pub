@@ -39,7 +39,6 @@ else
     echo "Setting up repositories for Alpine..."
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/testing" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 
