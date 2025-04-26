@@ -74,17 +74,18 @@ echo "Go!"
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
-apk del plasma-welcome discover discover-backend kate kate-common
-
+apk del plasma-welcome kate kate-common
 ########################################## AUDIO
 echo "Setting up audio/video inputs..." 
+# thnx to lagan 
 apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack 
 #apk add pipewire-alsa
-########################################## NECESSARY RUNLEVEL EXTRAS
+########################################## NECESSARY RUNLEVEL EXTRAS 
 rc-update add dbus 
 rc-update add elogind 
 rc-update add piprewire
+rc-update add piprewire-pulse
 rc-update add wireplumber 
 ########################################## NECESSARY RUNLEVEL EXTRAS
 ########################################## OPTIONAL SYSTEM TWEAKS
