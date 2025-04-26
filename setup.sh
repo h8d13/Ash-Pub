@@ -49,16 +49,6 @@ apk upgrade
 
 echo "Setting up drivers..." 
 apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa 
-apk add btrfs-compsize \
-	btrfs-progs \
-	busybox-mdev-openrc \
-	busybox-extras \
-	e2fsprogs \
-	linux-firmware-i915 \
-	linux-firmware-other \
-	linux-lts \
-	wpa_supplicant \
- 	dbus 
 
 echo "Starting setup..."
 echo "3..."
@@ -71,7 +61,7 @@ echo "Go!"
 setup-desktop plasma
 ## Debloating
 echo "..." 
-apk del plasma-welcome kate kate-common
+apk del kate kate-common
 ########################################## AUDIO
 echo "Setting up audio/video inputs..." 
 # thnx to lagan 
@@ -85,8 +75,14 @@ rc-update add elogind
 rc-update add piprewire
 rc-update add piprewire-pulse
 rc-update add wireplumber 
-########################################## NECESSARY RUNLEVEL EXTRAS
+########################################## OTHERS
 #rc-update del sddm default
+apk add linux-firmware-i915 \
+	linux-firmware-other \
+	linux-lts \
+	wpa_supplicant \
+ 	doas \
+ 	dbus 
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
