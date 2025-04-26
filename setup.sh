@@ -53,10 +53,9 @@ apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa
 apk add btrfs-compsize \
 	btrfs-progs \
 	busybox-mdev-openrc \
-	chrony \
-	doas \
+	busybox-extras \
+ 	doas \
 	e2fsprogs \
-	iw \
 	linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
@@ -73,7 +72,7 @@ sleep 1
 echo "Go!"
 setup-desktop plasma
 ## Debloating
-echo "Setting up Debloat..." 
+echo "..." 
 apk del plasma-welcome kate kate-common
 ########################################## AUDIO
 echo "Setting up audio/video inputs..." 
@@ -82,6 +81,7 @@ apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack 
 #apk add pipewire-alsa
 ########################################## NECESSARY RUNLEVEL EXTRAS 
+echo "Setting services..."
 rc-update add dbus 
 rc-update add elogind 
 rc-update add piprewire
@@ -108,7 +108,7 @@ LayoutList=$KB_LAYOUT
 Use=True
 EOF
 ######################################### FIX SESSIONS
-echo "Setting up KDE Config Files..." 
+echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
@@ -131,8 +131,7 @@ EOF
 #_launch=Ctrl+Alt+Y
 #EOF
 ########################################## MORE SYSTEM TWEAKS
-echo "Setting up System..." 
-# remove sddm login default  (Shell already does this.) # for start /stop commands 
+# remove sddm login default  (Shell already does this.) # for start /stop commands ex: rc-service start sddm 
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
