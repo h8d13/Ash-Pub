@@ -114,15 +114,8 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=15
 EOF
-#echo "Setting up KDE Shortcuts..."
-# Setup Konsole shortcut for usershell DOESNT WORK YET
-#CONFIG_FILE4="/home/$TARGET_USER/.config/kglobalshortcutsrc"
-#cat >> "$CONFIG_FILE4" << EOF
-#[services][net.local.konsole.desktop]
-#_launch=Ctrl+Alt+Y
-#EOF
 ########################################## MORE SYSTEM TWEAKS
-# remove sddm login default  (Shell already does this.) # in case user prefers shell manual start
+# remove sddm login default  (tty already does this.) # in case user prefers shell manual start
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
@@ -168,26 +161,6 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
-########################################## KPost script fix KDE Quirks. We assume total generation of files takes about 30 seconds.
-echo "Setting up KDE..." 
-mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
-cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
-#!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-# Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark
-# Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
-# Restart Plasma to apply changes
-killall plasmashell
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
-#!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && service sddm restart
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wikik2.desktop << 'EOF'
 [Desktop Entry]
