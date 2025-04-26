@@ -11,6 +11,12 @@ While the footprint of Alpine is super low (200mb), it is a bit of work to confi
 This mini-service philosophy makes it versatile, efficient and secure. 
 > I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
 > Which brings us to today. Where I'm daily driving it for coding. 
+How ?
+By making one simple easy to update system and storage on the side (I recommend putting work there, and being able to wipe without shame in 10 minutes.)
+> With the philosophy of isolation and clear service management this make it reproducible while quick:
+We can aim for 200mb base iso, 2-3 at most to download and 15-20 on disk meaning it's easy to maintain.
+Can run great on mini computers and laptops or even just on a usb/vm.
+This also lets you kind of "hack" other devices as you simply mount them with adapters and explore. 
 
 **But again more difficult to set-up for a beginner?**
 
@@ -77,7 +83,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 > That on a mini-pc with horrible hardware!
 
 Inital `setup-alpine`, follow prompts, reboot to hardisk. 
- Create a user, lowercase. Different pw than root. 
+Create a user, lowercase. Different pw than root. 
  
 Then `apk add git`
 `git clone https://github.com/h8d13/k2-alpine`
@@ -86,18 +92,13 @@ Then `apk add git`
 `chmod +x setup.sh`
 
 Run the script `./setup.sh`
-
-Once all is done, reboot again. `startde` to start SDDM & KDE. 
-
-![image](https://github.com/user-attachments/assets/300e8782-8506-4d96-b406-9e14e1f024be)
-
+Once all is done, reboot again. You are all done! 
 You should find a program called `Konsole` This is your new best friend. 
 
 I've also included `micro` for friendly terminal editor. 
 
 ## Also updated Konsole profile to match our setup :) 
-> To go back to a user shell you can simply right click this: Or `CTRL + ALT + Y`
-
+> To go back to a user shell you can simply right click this:
 ![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
 
 ----
@@ -131,6 +132,7 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 [Chimera-Linux](https://chimera-linux.org/docs/configuration/flatpak)
 
 This also uses apk and MUSL so here you will find golden trove of information ^^
+We havez also included a module to self mount Arch on another disk if you are running NVIDIA stuff. 
 
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
