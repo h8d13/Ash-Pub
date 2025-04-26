@@ -39,16 +39,15 @@ else
     echo "Setting up repositories for Alpine..."
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/main" >> /etc/apk/repositories
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-    echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
 fi
 echo "Repositories added successfully! Ready?"
 apk update
 apk upgrade
 
 echo "Setting up drivers..." 
-apk add mesa-va-gallium mesa-dri-gallium xf86-video-vesa 
+apk add mesa-dri-gallium \
+	#mesa-va-gallium \
+	xf86-video-vesa 
 
 echo "Starting setup..."
 echo "3..."
@@ -71,7 +70,6 @@ apk add pipewire wireplumber pipewire-pulse pipewire-jack
 apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
- 	sddm \
 	wpa_supplicant \
  	doas \
  	dbus 
@@ -80,8 +78,8 @@ echo "Setting services..."
 rc-update add dbus 
 rc-update add elogind 
 rc-update add sddm
-rc-update add piprewire
-rc-update add piprewire-pulse
+rc-update add pipewire
+rc-update add pipewire-pulse
 rc-update add wireplumber 
 ########################################## OTHERS
 #rc-update del sddm default
@@ -431,6 +429,10 @@ ufw allow out 443/tcp
 ufw enable
 rc-update add ufw   
 
+echo "Setting up edge repos..." 
+echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
+echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+apk update
 
 echo "Cleaning cache..." 
 rm -rf /var/cache/apk/*
