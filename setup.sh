@@ -183,12 +183,12 @@ plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
 # Restart Plasma to apply changes
-killall plasmashell && kstart5 plasmashell
+killall plasmashell
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
 cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
 #!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && doas service sddm restart
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && service sddm restart
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ########################################## Show K2-Wiki Entry
@@ -226,11 +226,6 @@ rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-########################################## Fix UTMPX maybe?? Or its udev
-#apk add busybox-extras --no-cache
-#mkdir -p /var/run/utmp
-#touch /var/run/utmp
-#chmod 644 /var/run/utmp
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
