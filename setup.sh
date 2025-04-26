@@ -99,6 +99,27 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
+########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired :)
+# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
+echo "Setting up KdePost..." 
+mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
+cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
+#!/bin/sh
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
+# Set dark theme for menu and taskbar
+plasma-apply-desktoptheme breeze-dark
+# Set dark theme for window styles
+plasma-apply-colorscheme BreezeDark
+# Reboot
+doas reboot
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
+cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
+#!/bin/sh
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
+EOF
+chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
 ######################################### FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
