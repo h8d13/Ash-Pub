@@ -74,14 +74,14 @@ echo "Go!"
 setup-desktop plasma
 ## Debloating
 echo "Setting up Debloat..." 
-apk del plasma-welcome kate kate-common
+apk del plasma-welcome discover discover-backend kate kate-common
 
-########################################## AUIO
+########################################## AUDIO
+echo "Setting up audio/video inputs..." 
 apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack 
 #apk add pipewire-alsa
 ########################################## NECESSARY RUNLEVEL EXTRAS
-
 rc-update add dbus 
 rc-update add elogind 
 rc-update add piprewire
@@ -446,7 +446,6 @@ Use . ~/.config/aliases if you added something
 
 Post login scripts can be added to /etc/profile.d
 Personal bin scripts in ~/.local/bin
-Use "startde" to start the desktop environment.  
 EOF
 
 ## Pre login splash art ## That i stole from the internet. And edit sometimes for fun :D
@@ -499,4 +498,4 @@ chmod +x /etc/profile.d/welcome.sh
 # Source the environment file in the current shell to make commands available
 . "$HOME/.config/environment" 
 echo "All set." 
-echo "K2 SETUP. DONE. Reboot, login, then use 'startde.'"
+echo "K2 SETUP. DONE. Reboot"
