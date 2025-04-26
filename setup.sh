@@ -68,13 +68,14 @@ apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmwa
 apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
+ 	utmps \
 	wpa_supplicant \
  	doas \
  	dbus 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
-rc-update add dbus 
 rc-update add elogind 
+
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
@@ -221,9 +222,9 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-alias startde="rc-service sddm start"
-alias stopde="rc-service sddm stop"
-alias resde="rc-service sddm restart"
+alias startde="rc-service start sddm"
+alias stopde="rc-service stop sddm"
+alias resde="rc-service restart sddm"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias clr="clear"
