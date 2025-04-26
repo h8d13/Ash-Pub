@@ -82,11 +82,12 @@ rc-update add wireplumber
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
+#apk add gcompat flatpak
+##chsh -s /bin/zsh root
+#apk add bash fish
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## OPTIONAL: Switch default login shell to zsh globally
-#chsh -s /bin/zsh root
-#apk add bash fish
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -125,7 +126,7 @@ EOF
 #_launch=Ctrl+Alt+Y
 #EOF
 ########################################## MORE SYSTEM TWEAKS
-# remove sddm login default  (Shell already does this.) # for start /stop commands ex: rc-service start sddm 
+# remove sddm login default  (Shell already does this.) # in case user prefers shell manual start
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
