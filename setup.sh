@@ -63,8 +63,8 @@ apk del kate kate-common
 echo "Setting up audio/video/drivers..." 
 # thnx to lagan 
 apk add elogind polkit polkit-elogind
-apk add pipewire wireplumber pipewire-pulse pipewire-jack 
-#apk add pipewire-alsa
+apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmware alsa-utils alsaconf
+#apk add pipewire-alsa?
 apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
@@ -75,10 +75,6 @@ apk add linux-firmware-i915 \
 echo "Setting services..."
 rc-update add dbus 
 rc-update add elogind 
-rc-update add sddm
-rc-update add pipewire
-rc-update add pipewire-pulse
-rc-update add wireplumber 
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
