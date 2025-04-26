@@ -54,13 +54,12 @@ apk add btrfs-compsize \
 	btrfs-progs \
 	busybox-mdev-openrc \
 	busybox-extras \
- 	doas \
 	e2fsprogs \
 	linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
 	wpa_supplicant \
- 	dbus 
+ dbus 
 
 echo "Starting setup..."
 echo "3..."
