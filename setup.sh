@@ -86,7 +86,7 @@ rc-update add piprewire
 rc-update add piprewire-pulse
 rc-update add wireplumber 
 ########################################## NECESSARY RUNLEVEL EXTRAS
-rc-update del sddm default
+#rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
