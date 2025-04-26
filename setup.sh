@@ -79,7 +79,7 @@ echo "Setting up audio/video inputs..."
 apk add elogind polkit polkit-elogind
 apk add pipewire wireplumber pipewire-pulse pipewire-jack 
 #apk add pipewire-alsa
-########################################## NECESSARY RUNLEVEL EXTRAS 
+########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add dbus 
 rc-update add elogind 
@@ -87,6 +87,7 @@ rc-update add piprewire
 rc-update add piprewire-pulse
 rc-update add wireplumber 
 ########################################## NECESSARY RUNLEVEL EXTRAS
+rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
