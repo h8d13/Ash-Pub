@@ -4,14 +4,19 @@
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
 ALPINE_VERSION=$(cat /etc/alpine-release)
+KDE_VERSION=$(apk search libplasma | grep -o '[0-9]\+\.[0-9]\+\.[0-9]\+')
+# Exit if not root
+if [ "$(whoami)" != "root" ]; then
+    echo "This script must be run as root. Exiting."
+    exit 1
+fi
 #### Should return "us" "fr" "de" "it" "es" etc 
 # Exit if no TARGET_USER found
 if [ -z "$TARGET_USER" ]; then
     echo "ERROR: No user with /home directory found. Exiting."
     exit 1
 fi
-username=$(whoami)
-echo "Hi $username : TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
+echo "KDE_VERSION set to: $KDE_VERSION - TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Will be root ^^
 # Community & main & Testing ############### vX.xX/Branch
 # Get Alpine version
@@ -69,12 +74,10 @@ apk add linux-firmware-i915 \
 	linux-firmware-other \
 	linux-lts \
 	wpa_supplicant \
- 	doas \
- 	dbus 
+ 	doas 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add elogind 
-
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
@@ -114,11 +117,11 @@ plasma-apply-colorscheme BreezeDark
 doas reboot
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme.sh << EOF
+cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
 #!/bin/sh
 konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
 EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme.sh
+chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
 ######################################### FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
@@ -212,8 +215,6 @@ echo "Setting up Github/K2..."
 git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
 mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
-########################################## Firefox profile
-#TODO
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
