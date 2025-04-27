@@ -57,8 +57,7 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium xf86-video-vesa #mesa-va-gallium #intel-media-driver libva-intel-driver
-# apk add xf86-video-intel intel-gmmlib mesa-va-gallium
+apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver
 ## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
@@ -75,6 +74,7 @@ apk add linux-firmware-other \
 	wpa_supplicant \
  	xorg-server \
   	xrandr \ #hmdi audio support
+   	inxi \ 
   	dbus-openrc \
    	mesa-gl \
     	mesa-gles \
@@ -84,6 +84,9 @@ apk add linux-firmware-other \
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
+rc-update add pipewire default
+rc-update add pipewire-pulse default
+rc-update add wireplumber default
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
