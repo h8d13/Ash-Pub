@@ -74,6 +74,7 @@ apk add linux-firmware-other \
   	dbus-openrc \
    	mesa-gl \
     	mesa-gles \
+     	busybox-extras \
  	doas 
 
 apk add elogind
