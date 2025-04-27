@@ -103,20 +103,6 @@ ctl.!default {
   type pulse
 }
 EOF
-cat > /etc/profile.d/xdg-runtime-dir.sh << 'EOF'
-#!/bin/sh
-if [ -z "$XDG_RUNTIME_DIR" ]; then
-    export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-    # Create the directory if it doesn't exist
-    if [ ! -d "$XDG_RUNTIME_DIR" ]; then
-        mkdir -p "$XDG_RUNTIME_DIR"
-        chmod 0700 "$XDG_RUNTIME_DIR"
-        chown "$(id -u):$(id -g)" "$XDG_RUNTIME_DIR"
-    fi
-fi
-EOF
-# Make it executable
-chmod +x /etc/profile.d/xdg-runtime-dir.sh
 ########################################## OPTIONAL SYSTEM TWEAKS
 #rc-update del sddm default
 #apk add gcompat flatpak
