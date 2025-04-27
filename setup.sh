@@ -81,7 +81,7 @@ apk add linux-firmware-other \
      	busybox-extras \
  	doas 
 
-apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse 
+apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add pipewire default
@@ -90,6 +90,14 @@ rc-update add wireplumber default
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
+cat > ~/home/$TARGET_USER/.asoundrc << EOF
+pcm.!default {
+  type pulse
+}
+ctl.!default {
+  type pulse
+}
+EOF
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
 #apk add gcompat flatpak
