@@ -57,7 +57,7 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium intel-media-driver libva-intel-driver xf86-video-vesa #mesa-va-gallium 
+apk add mesa-dri-gallium xf86-video-vesa #mesa-va-gallium #intel-media-driver libva-intel-driver
 ## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
@@ -77,15 +77,9 @@ apk add linux-firmware-other \
      	busybox-extras \
  	doas 
 
-apk add elogind
-apk add pipewire pipewire-pulse wireplumber alsa-utils alsaconf pavucontrol sof-firmware
+apk add pavucontrol sof-firmware
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
-rc-update add elogind default 
-rc-update add dbus default 
-rc-update add pipewire default
-rc-update add pipewire-pulse default
-rc-update add wireplumber default
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
