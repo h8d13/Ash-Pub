@@ -10,9 +10,13 @@ This project aims to do exactly this. Eliminate quirks by programatically solvin
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 This mini-service philosophy makes it versatile, efficient and secure. 
 > I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
-> Which brings us to today. Where I'm daily driving it for coding. 
+> Which brings us to today. Where I'm daily driving it for coding.
+
 How ?
 By making one simple easy to update system and storage on the side (I recommend putting work there, and being able to wipe without shame in 10 minutes.)
+
+## Brickable 🧱👷
+
 > With the philosophy of isolation and clear service management this make it reproducible while quick:
 We can aim for 200mb base iso, 2-3 at most to download and 15-20 on disk meaning it's easy to maintain.
 Can run great on mini computers and laptops or even just on a usb/vm.
