@@ -57,7 +57,7 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver xf86-video
+apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver
 ## Check the wiki if using older hardware :3 
 setup-xorg-base
 setup-wayland-base
