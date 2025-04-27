@@ -57,8 +57,9 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver
+apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver xf86-video
 ## Check the wiki if using older hardware :3 
+setup-xorg-base
 setup-desktop plasma
 ## Debloating
 echo "..." 
@@ -79,7 +80,10 @@ apk add linux-firmware-other \
    	mesa-gl \
     	mesa-gles \
      	busybox-extras \
- 	doas 
+ 	doas \
+  	kbd \
+    	xf86-input-evdev \ 
+      	xf86-input-libinput
 
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils 
 ########################################## NECESSARY RUNLEVEL
