@@ -50,10 +50,9 @@ Do the standard `setup-alpine`
 > RAM Usage: > 1GB~ Idle
 
 ## Config 
-> ⚙ All automated. You could add your desired software to line 45 like `vscodium` or do it later. 😎
-
+> ⚙ All automated. Altho there is a bit to understand for specific hardware (more recent x86_64 should work out of the box). 😎
+I recommend jumping at least through the beginning of the script that setups firmware, graphics drivers, etc. 
 ---
-
 ## What exactly: 
 
 ### One place for admin configs
