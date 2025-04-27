@@ -65,7 +65,6 @@ echo "..."
 apk del kate kate-common
 ########################################## AUDIO # thnx to klagan and more fixes i think.
 echo "Setting up drivers..." 
-apk add pavucontrol sof-firmware
 ########################################## ESSENTIALS
 apk add linux-firmware-other \
  	linux-firmware \
@@ -78,7 +77,7 @@ apk add linux-firmware-other \
  	doas 
 
 apk add elogind
-apk add pipewire pipewire-pulse wireplumber alsa-utils
+apk add pipewire pipewire-pulse wireplumber alsa-utils alsaconf pavucontrol sof-firmware
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add elogind default 
