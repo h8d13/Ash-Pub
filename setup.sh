@@ -76,9 +76,11 @@ apk add linux-firmware-i915 \
  	doas 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
-rc-update add elogind 
-rc-update add pipewire default
-rc-update add wireplumber default
+rc-update add elogind
+rc-update add dbus
+rc-update add pipewire
+rc-update add pipewire-pulse 
+rc-update add wireplumber
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
@@ -144,7 +146,8 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar font-noto ttf-dejavu 
+
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
@@ -244,9 +247,6 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
-alias startde="rc-service start sddm"
-alias stopde="rc-service stop sddm"
-alias resde="rc-service restart sddm"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias clr="clear"
