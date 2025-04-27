@@ -57,7 +57,7 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium #mesa-va-gallium intel-media-driver libva-intel-driver xf86-video-vesa
+apk add mesa-dri-gallium intel-media-driver libva-intel-driver xf86-video-vesa#mesa-va-gallium 
 ## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
@@ -66,7 +66,7 @@ apk del kate kate-common
 ########################################## AUDIO # thnx to klagan.
 echo "Setting up drivers..." 
 apk add elogind polkit polkit-elogind
-apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmware alsa-utils alsaconf
+apk add pipewire wireplumber pipewire-pulse pipewire-jack pavucontrol sof-firmware alsa-utils alsaconf alsa-ucm-conf
 #apk add pipewire-alsa?
 ########################################## ESSENTIALS
 apk add linux-firmware-i915 \
@@ -77,6 +77,8 @@ apk add linux-firmware-i915 \
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 rc-update add elogind 
+rc-update add pipewire default
+rc-update add wireplumber default
 ########################################## OTHERS
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
