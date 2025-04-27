@@ -5,7 +5,7 @@
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
-This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SOC (Separation of Concerns). 
+This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SOC (Separation of Concerns) & EUI (End-User Interaction). 
 
 ![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)
 
@@ -22,8 +22,7 @@ How ?
 ## Brickable 🧱👷
 
 > With the philosophy of isolation and clear service management this make it reproducible while quick:
-We can aim for 200mb base iso, 2-3 at most to download and 15-20 on disk meaning it's easy to maintain.
-Can run great on mini computers and laptops or even just on a usb/vm.
+We can aim for 200mb base iso, 2-3 at most to download and not too much on disk depending on extras/firmware, meaning it's (easier) to maintain.Can run great on mini computers and laptops or even just on a usb/vm.
 This also lets you kind of "hack" other devices as you simply mount them with adapters and explore. 
 
 **But again more difficult to set-up for a beginner?**
