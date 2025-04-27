@@ -117,8 +117,8 @@ fi
 EOF
 # Make it executable
 chmod +x /etc/profile.d/xdg-runtime-dir.sh
-#rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
+#rc-update del sddm default
 #apk add gcompat flatpak
 ##chsh -s /bin/zsh root
 #apk add bash fish
