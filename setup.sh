@@ -66,10 +66,11 @@ apk del kate kate-common
 ########################################## AUDIO # thnx to klagan and more fixes i think.
 echo "Setting up drivers..." 
 apk add elogind polkit polkit-elogind
-apk add pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber alsa-utils alsa-plugins-pulse pavucontrol sof-firmware alsa-ucm-conf#apk add pipewire-alsa?
+apk add pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber alsa-utils alsa-plugins-pulse pavucontrol sof-firmware alsa-ucm-conf
 ########################################## ESSENTIALS
 apk add linux-firmware-i915 \
 	linux-firmware-other \
+ 	linux-firmware \
 	linux-lts \
 	wpa_supplicant \
  	doas 
