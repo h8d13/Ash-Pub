@@ -13,7 +13,8 @@ This mini-service philosophy makes it versatile, efficient and secure.
 > Which brings us to today. Where I'm daily driving it for coding.
 
 How ?
-By making one simple easy to update system and storage on the side (I recommend putting work there, and being able to wipe without shame in 10 minutes.)
+**By making one simple easy to update system and have storage on the side.**
+(I recommend putting work there, and being able to wipe without shame in 10 minutes, with the latest Alpine updates.)
 
 ## Brickable 🧱👷
 
