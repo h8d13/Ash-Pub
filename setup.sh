@@ -77,7 +77,7 @@ apk add linux-firmware-other \
      	busybox-extras \
  	doas 
 
-apk add pavucontrol sof-firmware
+apk add pavucontrol sof-firmware alsaconf alsa-utils
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 ########################################## OTHERS
