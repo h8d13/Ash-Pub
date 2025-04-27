@@ -68,8 +68,7 @@ echo "Setting up drivers..."
 apk add elogind polkit polkit-elogind
 apk add pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber alsa-utils alsa-plugins-pulse pavucontrol sof-firmware alsa-ucm-conf
 ########################################## ESSENTIALS
-apk add linux-firmware-i915 \
-	linux-firmware-other \
+apk add linux-firmware-other \
  	linux-firmware \
 	linux-lts \
 	wpa_supplicant \
@@ -221,6 +220,8 @@ mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
+addgroup $TARGET_USER audio
+addgroup $TARGET_USER video
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
