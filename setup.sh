@@ -72,6 +72,7 @@ apk add linux-firmware-other \
  	linux-firmware \
 	linux-lts \
 	wpa_supplicant \
+ 	xorg-server \
  	doas 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
