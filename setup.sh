@@ -69,17 +69,17 @@ apk del kate kate-common
 echo "Setting up drivers..." 
 ########################################## ESSENTIALS
 apk add linux-firmware-other \
- 	linux-firmware \
+ 	linux-firmware \  #might differ
 	linux-lts \
  	intel-ucode \ #amd-ucode
   	pciutils \
 	wpa_supplicant \
  	xorg-server \
   	xrandr \ #hmdi audio support
-   	inxi \ 
+   	inxi \
   	dbus-openrc \
-   	mesa-gl \
-    	mesa-gles \
+   	mesa-gl \ # needed for most apps
+    	mesa-gles \ # same
      	busybox-extras \
  	doas \
   	kbd \
@@ -87,6 +87,17 @@ apk add linux-firmware-other \
       	xf86-input-libinput
 
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils 
+apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils 
+########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
+#apk add gtkmm3 glibmm gcompat flatpak
+#apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
+### apk add docker docker-compose podman ## Ideally create a user for a service
+#rc-update del sddm default
+##chsh -s /bin/zsh root
+#apk add bash fish
+## Parralel boot 
+#sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
+## OPTIONAL: Switch default login shell to zsh globally
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 # Add necessary services here
@@ -103,14 +114,6 @@ ctl.!default {
   type pulse
 }
 EOF
-########################################## OPTIONAL SYSTEM TWEAKS
-#rc-update del sddm default
-#apk add gcompat flatpak
-##chsh -s /bin/zsh root
-#apk add bash fish
-## Parralel boot 
-#sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
-## OPTIONAL: Switch default login shell to zsh globally
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -167,7 +170,7 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar font-noto ttf-dejavu 
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw font-noto ttf-dejavu 
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
