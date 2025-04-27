@@ -56,10 +56,15 @@ echo "1..."
 sleep 1
 echo "Go!"
 ########################################## VIDEO
-echo "Setting up drivers..." 
-apk add mesa-dri-gallium xf86-video-vesa xf86-video-intel intel-gmmlib mesa-va-gallium intel-media-driver libva-intel-driver
-## Check the wiki if using older hardware :3 
-setup-xorg-base
+echo "Setting up video/drivers..." 
+apk add xf86-video-vesa xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver
+apk add mesa mesa-gl mesa-gles mesa-glesv2 mesa-dri-vmwgfx libva-mesa-driver mesa-va-gallium mesa-vulkan-intel mesa-dri-gallium
+apk add intel-ucode#amd-ucode
+apk add linux-firmware-intel #might differ##
+
+## Check the wiki if using older hardware/AMD :3 
+# xf86-video-amdgpu # mesa-vulkan-radeon 
+#setup-xorg-base
 setup-wayland-base
 setup-desktop plasma
 ## Debloating
@@ -71,30 +76,28 @@ echo "Setting up drivers..."
 apk add linux-firmware-other \
  	linux-firmware \  #might differ
 	linux-lts \
- 	intel-ucode \ #amd-ucode
   	pciutils \
 	wpa_supplicant \
- 	xorg-server \
-  	xrandr \ #hmdi audio support
-   	inxi \
   	dbus-openrc \
-   	mesa-gl \ # needed for most apps
-    	mesa-gles \ # same
-     	busybox-extras \
+     	busybox-extras \ 
  	doas \
-  	kbd \
+ 	kbd \
+  	xorg-server \ # X11 stuff can be commented out if going wayland only
+  	xrandr \ 
+   	inxi \
     	xf86-input-evdev \ 
       	xf86-input-libinput
 
-apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils 
+apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
+# use alsamixer > f6 select card unmute devices :) 
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils 
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
-#apk add gtkmm3 glibmm gcompat flatpak
+#apk add gtkmm3 glibmm gcompat
 #apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
 ### apk add docker docker-compose podman ## Ideally create a user for a service
 #rc-update del sddm default
 ##chsh -s /bin/zsh root
-#apk add bash fish
+#apk add bash fish nix
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## OPTIONAL: Switch default login shell to zsh globally
