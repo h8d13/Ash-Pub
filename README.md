@@ -54,8 +54,6 @@ Do the standard `setup-alpine`
 
 ## What exactly: 
 
-For a better view [Project Tree](https://github.com/h8d13/k2-alpine/blob/master/utils/tests/TreeStruc.md)
-
 ### One place for admin configs
 > So that if you create several users down the line they can all have their own configs. 
 
@@ -117,7 +115,7 @@ https://github.com/user-attachments/assets/b488e808-174d-4a6b-ad7e-fc3dccdbbca1
 
 | Resource | Description |
 |----------|-------------|
-| [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | Official documentation and guides for Alpine Linux |
+| [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | **Official documentation** and guides for Alpine Linux |
 | [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
 | [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
 | [Bash](https://www.gnu.org/software/bash/manual/bash.html) | Lightweight shell included in BusyBox, Alpine's default shell |
