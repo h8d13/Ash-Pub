@@ -89,13 +89,13 @@ apk add linux-firmware-other \
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
-rc-update add pipewire default
-rc-update add pipewire-pulse default
-rc-update add wireplumber default
+# Add necessary services here
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
-cat > ~/home/$TARGET_USER/.asoundrc << EOF
+
+mkdir -p "/home/$TARGET_USER/
+cat > /home/$TARGET_USER/.asoundrc << EOF
 pcm.!default {
   type pulse
 }
