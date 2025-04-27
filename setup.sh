@@ -58,6 +58,7 @@ echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
 apk add mesa-dri-gallium xf86-video-vesa #mesa-va-gallium #intel-media-driver libva-intel-driver
+# apk add xf86-video-intel intel-gmmlib mesa-va-gallium
 ## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
@@ -69,15 +70,18 @@ echo "Setting up drivers..."
 apk add linux-firmware-other \
  	linux-firmware \
 	linux-lts \
+ 	intel-ucode \ #amd-ucode
+  	pciutils \
 	wpa_supplicant \
  	xorg-server \
+  	xrandr \ #hmdi audio support
   	dbus-openrc \
    	mesa-gl \
     	mesa-gles \
      	busybox-extras \
  	doas 
 
-apk add pavucontrol sof-firmware alsaconf alsa-utils
+apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 ########################################## OTHERS
