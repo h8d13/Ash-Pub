@@ -76,9 +76,16 @@ apk add linux-firmware-other \
    	mesa-gl \
     	mesa-gles \
  	doas 
+
+apk add elogind
+apk add pipewire pipewire-pulse wireplumber alsa-utils
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
+rc-update add elogind default 
 rc-update add dbus default 
+rc-update add pipewire default
+rc-update add pipewire-pulse default
+rc-update add wireplumber default
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
