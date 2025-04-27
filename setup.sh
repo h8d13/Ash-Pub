@@ -57,7 +57,7 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up drivers..." 
-apk add mesa-dri-gallium intel-media-driver libva-intel-driver xf86-video-vesa#mesa-va-gallium 
+apk add mesa-dri-gallium intel-media-driver libva-intel-driver xf86-video-vesa #mesa-va-gallium 
 ## Check the wiki if using older hardware :3 
 setup-desktop plasma
 ## Debloating
