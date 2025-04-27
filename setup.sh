@@ -65,23 +65,23 @@ echo "..."
 apk del kate kate-common
 ########################################## AUDIO # thnx to klagan and more fixes i think.
 echo "Setting up drivers..." 
-apk add elogind polkit polkit-elogind
-apk add pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber alsa-utils alsa-plugins-pulse pavucontrol sof-firmware alsa-ucm-conf
+apk add pavucontrol sof-firmware
 ########################################## ESSENTIALS
 apk add linux-firmware-other \
  	linux-firmware \
 	linux-lts \
 	wpa_supplicant \
  	xorg-server \
+  	dbus-openrc \
+   	mesa-gl \
+    	mesa-gles \
  	doas 
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
-rc-update add elogind
-rc-update add dbus
-rc-update add pipewire
-rc-update add pipewire-pulse 
-rc-update add wireplumber
+rc-update add dbus default 
 ########################################## OTHERS
+addgroup $TARGET_USER audio
+addgroup $TARGET_USER video
 #rc-update del sddm default
 ########################################## OPTIONAL SYSTEM TWEAKS
 #apk add gcompat flatpak
@@ -147,7 +147,6 @@ EOF
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
 apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw util-linux dolphin wget tar font-noto ttf-dejavu 
-
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
@@ -221,8 +220,6 @@ mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
-addgroup $TARGET_USER audio
-addgroup $TARGET_USER video
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
