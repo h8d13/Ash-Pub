@@ -4,6 +4,11 @@
 # Modify default Konsole profile to use su -l directly. 
 # Modify default bg & start icon 
 
+#!/bin/bash
+
+# Search for plasma packages and extract version numbers
+apk search plasma | grep -o "plasma-[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/'
+
 #plasma-apply-desktoptheme breeze-dark
 #plasma-apply-colorscheme BreezeDark
 #plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
