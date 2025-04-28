@@ -1,1 +1,1 @@
-doas su - hadeaneon -c 'export DISPLAY=:0; export $(cat /proc/$(pgrep -u hadeaneon plasmashell)/environ | grep -z XAUTHORITY); export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep plasmashell)/environ 2>/dev/null | cut -d= -f2-); command_to_run'
+doas su - username -c 'export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/$(id -u); command_to_run'
