@@ -7,7 +7,7 @@ Then it becomes a whole other story when you have to work with 100 different und
 
 This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SOC (Separation of Concerns) & EUI (End-User Interaction). 
 
-![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)
+![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)  © _K2-alpine v1.0.3_
 
 While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
 This mini-service philosophy makes it versatile, efficient and secure. 
