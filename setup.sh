@@ -522,4 +522,6 @@ chmod +x /etc/profile.d/welcome.sh
 . "$HOME/.config/environment" 
 echo "All set." 
 echo "K2 SETUP. DONE. Reboot"
-echo "KDE Plasma Version: 6.2.4"
+
+PLASMA_VERSION=$(apk search plasma-welcome-lang | grep -o "plasma[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/')
+echo "KDE Plasma Version: $PLASMA_VERSION"
