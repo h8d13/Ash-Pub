@@ -9,8 +9,9 @@ This project aims to do exactly this. Eliminate quirks by programatically solvin
 
 ![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)  © _K2-alpine v1.0.3_
 
-While the footprint of Alpine is super low (200mb), it is a bit of work to configure. 
-This mini-service philosophy makes it versatile, efficient and secure. 
+While the footprint of Alpine is low (200mb), it is a bit of work to configure. 
+**This mini-service philosophy makes it versatile, efficient and secure.**
+
 > I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
 > Which brings us to today. Where I'm daily driving it for coding/general browsing.
 On a mini-pc bellow the TV and a desktop.
