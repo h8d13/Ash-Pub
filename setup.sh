@@ -93,9 +93,9 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #apk add cpufrequtils
 #rc-update add cpufreq
 ## OPTIONAL: Switch default login shell to zsh globally
-########################################## EXTRA SERVICES
+########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
-#apk add flatpack
+#apk add flatpak
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
