@@ -295,7 +295,7 @@ cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
-alias aus="doas su - $TARGET_USER -c "export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/\$(id -u); $*"
+alias aus="su $TARGET_USER -c" 
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
