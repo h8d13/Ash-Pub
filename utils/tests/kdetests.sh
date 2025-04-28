@@ -8,8 +8,7 @@
 
 # Search for plasma package extract version
 apk search plasma-welcome-lang | grep -o "plasma[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/'
-doas su - username -c 'export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep plasmashell)/environ 2>/dev/null | cut -d= -f2-); command_to_run'
-#plasma-apply-desktoptheme breeze-dark
+doas su - hadeaneon -c 'export DISPLAY=:0; export XAUTHORITY=$HOME/.Xauthority; export XDG_RUNTIME_DIR=/run/user/$(id -u); export DBUS_SESSION_BUS_ADDRESS=$(grep -z DBUS_SESSION_BUS_ADDRESS /proc/$(pgrep plasmashell)/environ 2>/dev/null | cut -d= -f2-); command_to_run'#plasma-apply-desktoptheme breeze-dark
 #plasma-apply-colorscheme BreezeDark
 #plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
 
