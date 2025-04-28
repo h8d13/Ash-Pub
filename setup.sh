@@ -313,6 +313,7 @@ alias apklean="apk clean cache"
 alias apka="apk add"
 alias apkd="apk del"
 alias apks="apk search"
+alias aus="doas su - "$TARGET_USER" -c "export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/\$(id -u); $*"
 EOF
 ########################################## Auto source
 echo "Setting up Profile..." 
