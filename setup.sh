@@ -295,6 +295,7 @@ cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
+alias aus="doas su - $TARGET_USER -c "export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/\$(id -u); $*"
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
@@ -313,7 +314,6 @@ alias apklean="apk clean cache"
 alias apka="apk add"
 alias apkd="apk del"
 alias apks="apk search"
-alias aus="doas su - "$TARGET_USER" -c "export DISPLAY=:0; export XDG_RUNTIME_DIR=/run/user/\$(id -u); $*"
 EOF
 ########################################## Auto source
 echo "Setting up Profile..." 
