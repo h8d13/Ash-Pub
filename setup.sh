@@ -57,11 +57,12 @@ sleep 1
 echo "Go!"
 ########################################## VIDEO
 echo "Setting up video/drivers..." 
-apk add xf86-video-vesa xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver
-apk add mesa mesa-gl mesa-gles mesa-glesv2 mesa-dri-vmwgfx libva-mesa-driver mesa-va-gallium mesa-vulkan-intel mesa-dri-gallium
+apk add xf86-video-vesa 
+apk add mesa mesa-gl mesa-gles mesa-glesv2 libva-mesa-driver mesa-va-gallium mesa-dri-gallium
+#mesa-dri-vmwgfx
 apk add intel-ucode#amd-ucode
-apk add linux-firmware-intel #might differ##
-
+apk add linux-firmware-intel#amd
+apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
 ## Check the wiki if using older hardware/AMD :3 
 # xf86-video-amdgpu # mesa-vulkan-radeon 
 #setup-xorg-base
@@ -82,7 +83,7 @@ apk add linux-firmware-other \
      	busybox-extras \ 
  	doas \
  	kbd \
-  	xorg-server \ # X11 stuff can be commented out if going wayland only
+  	xorg-server \ ### X11 stuff can be commented out if going wayland only
   	xrandr \ 
    	inxi \
     	xf86-input-evdev \ 
