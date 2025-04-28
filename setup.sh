@@ -59,7 +59,7 @@ echo "Go!"
 echo "Setting up video/drivers..." 
 apk add xf86-video-vesa 
 apk add mesa mesa-gl mesa-gles mesa-glesv2 libva-mesa-driver mesa-va-gallium mesa-dri-gallium
-#mesa-dri-vmwgfx
+#mesa-dri-vmwgfx ## # mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
 apk add linux-firmware-intel #amd
 apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
@@ -89,20 +89,19 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 #apk add gtkmm3 glibmm gcompat
 #apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
-### apk add docker docker-compose podman ## Ideally create a user for a service
 #rc-update del sddm default
 ##chsh -s /bin/zsh root
 #apk add bash fish nix
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## OPTIONAL: Switch default login shell to zsh globally
-########################################## NECESSARY RUNLEVEL
-echo "Setting services..."
-# Add necessary services here
+########################################## EXTRA SERVICES
+#apk add docker docker-compose podman ## Ideally create a user for said service
+#apk add flatpack
+#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
-
 mkdir -p "/home/$TARGET_USER/
 cat > /home/$TARGET_USER/.asoundrc << EOF
 pcm.!default {
@@ -112,6 +111,26 @@ ctl.!default {
   type pulse
 }
 EOF
+########################################## Security
+echo "Setting up UFW & Ip6Tables..." 
+apk add --no-cache ip6tables
+ufw default deny incoming
+ufw allow out 443/tcp  
+
+## Examples stolen from the internet # uncomment if using these
+#ufw limit SSH         # open SSH port and protect against brute-force login attacks
+#ufw allow out DNS     # allow outgoing DNS
+#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
+#ufw allow 3389        # remote desktop on xorg
+#ufw allow 21          # ftp
+#ufw allow 22	       # sftp
+#ufw allow 51820/udp   # wireguard
+#ufw allow 1194/udp    # openvpn
+ufw enable
+########################################## NECESSARY RUNLEVEL
+echo "Setting services..."
+# Add necessary services here
+rc-update add ufw
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -421,20 +440,6 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
-
-echo "Setting up UFW & Ip6Tables..." 
-apk add --no-cache ip6tables
-ufw default deny incoming
-
-## Examples stolen from the internet # uncomment if using these
-#ufw limit SSH         # open SSH port and protect against brute-force login attacks
-#ufw allow out 123/udp # allow outgoing NTP (Network Time Protocol)
-#ufw allow out DNS     # allow outgoing DNS
-#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
-ufw allow out 443/tcp 
-#ufw allow 51820/udp
-ufw enable
-rc-update add ufw   
 
 echo "Setting up edge repos..." 
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
