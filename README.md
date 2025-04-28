@@ -9,8 +9,9 @@ This project aims to do exactly this. Eliminate quirks by programatically solvin
 
 ![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)  © _K2-alpine v1.0.3_
 
-While the footprint of Alpine is low (200mb), it is a bit of work to configure. 
-**This mini-service philosophy makes it versatile, efficient and secure.**
+While the footprint of Alpine is low (200mb), it can be hell to configure manually.
+
+**But this service-oriented philosophy makes it versatile, efficient and secure.**
 
 > I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
 > Which brings us to today. Where I'm daily driving it for coding/general browsing.
@@ -20,11 +21,11 @@ How ?
 **By making one simple easy to update system and have storage on the side.**
 (I recommend putting work there, and being able to wipe without shame in 10 minutes, with the latest Alpine updates.)
 
-## Brickable 🧱👷
+## Brickable 🧱🔧👷
 
-> With the philosophy of isolation and clear service management this make it reproducible while quick:
+> Using alpine's core isolation and clear service management, we can make reproducible installs whilst being quick:
 
-We can aim for 200mb base iso, 2-3 at most to download and not too much on disk depending on extras/firmware, meaning it's (easier) to maintain. Can run great on mini computers and laptops or even just on a usb/vm.
+We can aim for 200mb base iso, 2-3gb at most to download and not too much on disk depending on extras/firmware, meaning it's (easier) to maintain. Can run great on mini computers and laptops or even just on a usb/vm.
 This also lets you kind of "hack" other devices as you simply mount them with adapters and explore. 
 
 **But again more difficult to set-up for a beginner?**
