@@ -30,7 +30,7 @@ This also lets you kind of "hack" other devices as you simply mount them with ad
 
 **But again more difficult to set-up for a beginner?**
 
-Removing that issue with a single setup script (and soon a custom ISO).
+Removing that issue with a single setup script.
 As the essential of dev is doing things faster than the other person.
 
 [Alpine ISOs](https://www.alpinelinux.org/downloads/) 
@@ -44,6 +44,11 @@ Do the standard `setup-alpine`
 
 > Make the pw different from root. Lowercase usernames.
 
+## Config 
+> ⚙ All automated. Altho there is a bit to understand for specific hardware (more recent x86_64 Intel should work out of the box). 😎
+I recommend jumping at least through the beginning of the script that setups firmware, graphics drivers, etc. 
+---
+
 ## Desktop Env 
 
 - KDE because it's beautiful and reliable. (x11 + Wayland enabled)
@@ -52,10 +57,6 @@ Do the standard `setup-alpine`
 
 > RAM Usage: > 1GB~ Idle
 
-## Config 
-> ⚙ All automated. Altho there is a bit to understand for specific hardware (more recent x86_64 should work out of the box). 😎
-I recommend jumping at least through the beginning of the script that setups firmware, graphics drivers, etc. 
----
 ## What exactly: 
 
 ### One place for admin configs
