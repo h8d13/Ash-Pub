@@ -1,7 +1,8 @@
 #!/bin/sh
 ## /* SPDX-FileCopyrightText: 2025 
-# Eihdran L. <hadean-eon-dev@proton.me>
-# Lagan S. <sarbjitsinghsandhu509@gmail.com>
+# (O) Eihdran L. <hadean-eon-dev@proton.me>
+# (C) Lagan S. <sarbjitsinghsandhu509@gmail.com>
+# Desc: Extended Install.
 ##  SPDX-License-Identifier: MIT */
 #set -e
 #set -x
