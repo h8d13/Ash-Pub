@@ -86,6 +86,9 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #chsh -s /bin/zsh root
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
+## CPU Freq
+#apk add cpufrequtils
+#rc-update add cpufreq
 ## OPTIONAL: Switch default login shell to zsh globally
 ########################################## EXTRA SERVICES
 #apk add docker docker-compose podman ## Ideally create a user for said service
@@ -93,7 +96,8 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
-apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
+apk add pulseaudio-alsa alsa-plugins-pulse alsa-utils
+apk add sof-firmware
 # use alsamixer > f6 select card and M to unmute devices :) 
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
@@ -188,7 +192,7 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu 
+apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu 
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
