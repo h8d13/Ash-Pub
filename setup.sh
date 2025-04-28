@@ -60,12 +60,13 @@ echo "Setting up video/drivers..."
 apk add xf86-video-vesa 
 apk add mesa mesa-gl mesa-gles mesa-glesv2 libva-mesa-driver mesa-va-gallium mesa-dri-gallium
 #mesa-dri-vmwgfx
-apk add intel-ucode#amd-ucode
-apk add linux-firmware-intel#amd
+apk add intel-ucode #amd-ucode
+apk add linux-firmware-intel #amd
 apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
 ## Check the wiki if using older hardware/AMD :3 
 # xf86-video-amdgpu # mesa-vulkan-radeon 
 #setup-xorg-base
+#apk add kbd xorg-server xrandr inxi xf86-input-evdev xf86-input-libinput
 setup-wayland-base
 setup-desktop plasma
 ## Debloating
@@ -80,14 +81,7 @@ apk add linux-firmware-other \
   	pciutils \
 	wpa_supplicant \
   	dbus-openrc \
-     	busybox-extras \ 
- 	doas \
- 	kbd \
-  	xorg-server \ ### X11 stuff can be commented out if going wayland only
-  	xrandr \ 
-   	inxi \
-    	xf86-input-evdev \ 
-      	xf86-input-libinput
+     	busybox-extras 
 
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
 # use alsamixer > f6 select card unmute devices :) 
