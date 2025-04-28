@@ -76,7 +76,7 @@ apk add linux-firmware-other \
         zsh \
 	micro \ 
  	ufw \
-  	ip6tables \
+  	ip6tables 
    
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
 # use alsamixer > f6 select card unmute devices :) 
