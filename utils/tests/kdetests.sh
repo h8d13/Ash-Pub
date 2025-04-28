@@ -6,8 +6,8 @@
 
 #!/bin/bash
 
-# Search for plasma packages and extract version numbers
-apk search plasma | grep -o "plasma-[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/'
+# Search for plasma package extract version
+apk search plasma-welcome-lang | grep -o "plasma-welcome-lang[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/'
 
 #plasma-apply-desktoptheme breeze-dark
 #plasma-apply-colorscheme BreezeDark
