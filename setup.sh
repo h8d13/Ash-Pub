@@ -45,26 +45,17 @@ else
     echo "https://dl-cdn.alpinelinux.org/alpine/v$VERSION_NUM/community" >> /etc/apk/repositories
 fi
 echo "Repositories added successfully! Ready?"
-apk update
-apk upgrade
-echo "Starting setup..."
-echo "3..."
-sleep 1
-echo "2..."
-sleep 1
-echo "1..."
-sleep 1
-echo "Go!"
+apk update && apk upgrade
 ########################################## VIDEO
 echo "Setting up video/drivers..." 
 apk add xf86-video-vesa 
 apk add mesa mesa-gl mesa-gles mesa-glesv2 libva-mesa-driver mesa-va-gallium mesa-dri-gallium
 #mesa-dri-vmwgfx ## # mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
-apk add linux-firmware-intel #amd
+apk add linux-firmware-intel #-amd
 apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
 ## Check the wiki if using older hardware/AMD :3 
-# xf86-video-amdgpu # mesa-vulkan-radeon 
+# xf86-video-amdgpu # mesa-vulkan-radeon ...
 #setup-xorg-base
 #apk add kbd xorg-server xrandr inxi xf86-input-evdev xf86-input-libinput
 setup-wayland-base
@@ -76,13 +67,17 @@ apk del kate kate-common
 echo "Setting up drivers..." 
 ########################################## ESSENTIALS
 apk add linux-firmware-other \
- 	linux-firmware \  #might differ
+ 	linux-firmware \
 	linux-lts \
   	pciutils \
 	wpa_supplicant \
   	dbus-openrc \
-     	busybox-extras 
-
+     	busybox-extras \
+        zsh \
+	micro \ 
+ 	ufw \
+  	ip6tables \
+   
 apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
 # use alsamixer > f6 select card unmute devices :) 
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils 
@@ -90,8 +85,8 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #apk add gtkmm3 glibmm gcompat
 #apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
 #rc-update del sddm default
-##chsh -s /bin/zsh root
 #apk add bash fish nix
+#chsh -s /bin/zsh root
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## OPTIONAL: Switch default login shell to zsh globally
@@ -99,7 +94,7 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #apk add docker docker-compose podman ## Ideally create a user for said service
 #apk add flatpack
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-########################################## OTHERS
+########################################## OTHERS SOUND
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
 mkdir -p "/home/$TARGET_USER/
@@ -113,7 +108,6 @@ ctl.!default {
 EOF
 ########################################## Security
 echo "Setting up UFW & Ip6Tables..." 
-apk add --no-cache ip6tables
 ufw default deny incoming
 ufw allow out 443/tcp  
 
@@ -131,6 +125,15 @@ ufw enable
 echo "Setting services..."
 # Add necessary services here
 rc-update add ufw
+########################################## COUNTDOWN Bellow more specifics.
+echo "Starting setup..."
+echo "3..."
+sleep 1
+echo "2..."
+sleep 1
+echo "1..."
+sleep 1
+echo "Go!"
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -182,12 +185,10 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=15
 EOF
-########################################## MORE SYSTEM TWEAKS
-# remove sddm login default  (tty already does this.) # in case user prefers shell manual start
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales zsh micro ufw font-noto ttf-dejavu 
+apk add --no-cache tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu 
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
