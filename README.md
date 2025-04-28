@@ -1,6 +1,7 @@
 # Why this project ? 
 
-> My personal KDE reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft. 
+> My personal KDE/Alpine/Arch reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft user-spaces. 
+> Ample personalization, widgets, tools, and a rich eco-system. Props to KDE devs.
 
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
