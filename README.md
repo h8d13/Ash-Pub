@@ -116,6 +116,16 @@ I've also included `micro` for friendly terminal editor.
 
 ### Read our Wiki: [K2-ALPINE-WIKI](https://github.com/h8d13/k2-alpine/wiki)
 
+----
+
+## Previews
+![image](https://github.com/user-attachments/assets/c40f0701-6b63-4faf-9249-f075397fef24)
+![image2](https://github.com/user-attachments/assets/f0e66b6c-1c18-4952-9bad-b8c711f903e4)
+![image3](https://github.com/user-attachments/assets/3c2bd76a-2004-466c-9eb8-bea41387a48f)
+
+
+
+
 ## Further reading
 
 | Resource | Description |
@@ -134,13 +144,13 @@ I've also included `micro` for friendly terminal editor.
 | [Vi](https://docs.rockylinux.org/books/admin_guide/05-vi/) | Traditional Unix text editor available on most systems |
 | [Micro](https://github.com/zyedidia/micro) | Modern and intuitive terminal-based text editor with easy keybindings |
 
-> DONT LIKE KDE? You could modify the script to install any Desktop Env, but it would be quite a bit of work.
 
 > Note: But Hadie! I cannot game on Alpine... You absolutely can. And it works nice :) 
 [Chimera-Linux](https://chimera-linux.org/docs/configuration/flatpak)
 
 This also uses apk and MUSL so here you will find golden trove of information ^^
-We havez also included a module to self mount Arch on another disk if you are running NVIDIA stuff. 
+
+**BUT! We have also included a module to self mount Arch on another disk if you are running NVIDIA stuff/Old hardware.**
 
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
