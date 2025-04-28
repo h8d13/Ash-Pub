@@ -61,8 +61,7 @@ apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa
 #apk add kbd xorg-server xrandr inxi xf86-input-evdev xf86-input-libinput
 setup-wayland-base
 setup-desktop plasma
-## Debloating
-echo "..." 
+########################################## REMOVE STUFF
 apk del kate kate-common
 ########################################## ESSENTIALS
 echo "Setting up drivers..."
