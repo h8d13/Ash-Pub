@@ -75,8 +75,6 @@ apk add linux-firmware-other \
 	wpa_supplicant \
   	dbus-openrc \
      	busybox-extras \
-        zsh \
-	micro \ 
  	ufw \
   	ip6tables 
    
@@ -195,7 +193,7 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu 
+apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh micro
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
