@@ -56,6 +56,7 @@ apk add linux-firmware-intel #-amd
 apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
 ## Check the wiki if using older hardware/AMD :3 
 # xf86-video-amdgpu # mesa-vulkan-radeon ...
+########################################## DISPLAY SERVERS
 #setup-xorg-base
 #apk add kbd xorg-server xrandr inxi xf86-input-evdev xf86-input-libinput
 setup-wayland-base
@@ -63,9 +64,8 @@ setup-desktop plasma
 ## Debloating
 echo "..." 
 apk del kate kate-common
-########################################## AUDIO # thnx to klagan and more fixes i think.
-echo "Setting up drivers..." 
 ########################################## ESSENTIALS
+echo "Setting up drivers..."
 apk add linux-firmware-other \
  	linux-firmware \
 	linux-lts \
@@ -78,8 +78,6 @@ apk add linux-firmware-other \
  	ufw \
   	ip6tables 
    
-apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
-# use alsamixer > f6 select card unmute devices :) 
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils 
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 #apk add gtkmm3 glibmm gcompat
@@ -94,7 +92,10 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 #apk add docker docker-compose podman ## Ideally create a user for said service
 #apk add flatpack
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-########################################## OTHERS SOUND
+########################################## OTHERS SOUND (Thnx to Klagan)
+echo "Setting up sound..."
+apk add sof-firmware pulseaudio-alsa alsa-plugins-pulse alsa-utils
+# use alsamixer > f6 select card and M to unmute devices :) 
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
 mkdir -p "/home/$TARGET_USER/
