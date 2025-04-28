@@ -1,5 +1,10 @@
 #!/bin/sh
+## /* SPDX-FileCopyrightText: 2025 
+# Eihdran L. <hadean-eon-dev@proton.me>
+# Lagan S. <sarbjitsinghsandhu509@gmail.com>
+##  SPDX-License-Identifier: MIT */
 #set -e
+#set -x
 #### NO MORE CONFIG ALL AUTOMATED.
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
@@ -15,11 +20,8 @@ if [ -z "$TARGET_USER" ]; then
     echo "ERROR: No user with /home directory found. Exiting."
     exit 1
 fi
-echo "TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
-# Will be root ^^
+echo "Detected ALPINE v: $ALPINE_VERSION TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
 # Community & main & Testing ############### vX.xX/Branch
-# Get Alpine version
-echo "Detected Alpine version: $ALPINE_VERSION"
 # Check if running on edge
 if echo "$ALPINE_VERSION" | grep -q "alpha"; then
     echo "Detected EDGE expect bugs."
