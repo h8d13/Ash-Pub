@@ -129,7 +129,7 @@ ufw enable
 echo "Setting services..."
 # Add necessary services here
 rc-update add ufw
-rc-update add cpufreq
+#rc-update add cpufreq
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
