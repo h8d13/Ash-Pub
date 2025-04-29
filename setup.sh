@@ -52,7 +52,7 @@ apk update && apk upgrade
 ########################################## VIDEO
 echo "Setting up video/drivers..." 
 apk add xf86-video-vesa 
-apk add mesa mesa-gl mesa-gles mesa-glesv2 libva-mesa-driver mesa-va-gallium mesa-dri-gallium
+apk add mesa mesa-gl mesa-gles mesa-glesv2 mesa-va-gallium mesa-dri-gallium
 #mesa-dri-vmwgfx ## # mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
 apk add linux-firmware-intel #-amd
