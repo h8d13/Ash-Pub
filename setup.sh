@@ -90,27 +90,16 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## CPU Freq
 #apk add cpufrequtils
-
 ########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
 #apk add flatpak
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
-apk add pulseaudio-alsa alsa-plugins-pulse alsa-utils
-apk add sof-firmware
-# use alsamixer > f6 select card and M to unmute devices :) 
+apk add pulseaudio-alsa alsa-plugins-pulse alsa-utils sof-firmware
+# use alsamixer > f6 select card and M to unmute devices
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
-mkdir -p "/home/$TARGET_USER/"
-cat > /home/$TARGET_USER/.asoundrc << EOF
-pcm.!default {
-  type pulse
-}
-ctl.!default {
-  type pulse
-}
-EOF
 ########################################## Security
 echo "Setting up UFW & Ip6Tables..." 
 ufw default deny incoming
@@ -129,6 +118,7 @@ ufw enable
 echo "Setting services..."
 # Add necessary services here
 rc-update add ufw
+rc-update add alsa
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
