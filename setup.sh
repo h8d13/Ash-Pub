@@ -56,7 +56,8 @@ apk add mesa mesa-gl mesa-gles mesa-glesv2 mesa-va-gallium mesa-dri-gallium
 #mesa-dri-vmwgfx ## # mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
 apk add linux-firmware-intel #-amd
-apk add xf86-video-intel intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
+apk add intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
+# xf86-video-intel 
 ## Check the wiki if using older hardware/AMD :3 
 # xf86-video-amdgpu # mesa-vulkan-radeon ...
 ########################################## DISPLAY SERVERS
