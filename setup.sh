@@ -102,7 +102,7 @@ apk add sof-firmware
 # use alsamixer > f6 select card and M to unmute devices :) 
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
-mkdir -p "/home/$TARGET_USER/
+mkdir -p "/home/$TARGET_USER/"
 cat > /home/$TARGET_USER/.asoundrc << EOF
 pcm.!default {
   type pulse
