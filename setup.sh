@@ -78,7 +78,7 @@ apk add linux-firmware-other \
  	ufw \
   	ip6tables 
    
-apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils 
+apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 #apk add gtkmm3 glibmm gcompat
 #apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
@@ -114,7 +114,6 @@ EOF
 echo "Setting up UFW & Ip6Tables..." 
 ufw default deny incoming
 ufw allow out 443/tcp  
-
 ## Examples stolen from the internet # uncomment if using these
 #ufw limit SSH         # open SSH port and protect against brute-force login attacks
 #ufw allow out DNS     # allow outgoing DNS
