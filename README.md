@@ -20,7 +20,9 @@ On a mini-pc bellow the TV and a desktop.
 
 How ?
 **By making one simple easy to update system and have storage on the side.**
-(I recommend putting work there, and being able to wipe without shame in 10 minutes, with the latest Alpine updates.)
+
+I recommend putting work there, and being able to wipe without shame in 10 minutes, with the latest Alpine updates.
+That means an external USB stick or NVMe to USB adapter, preferably over USB-C or 3.x for faster read/write 😜
 
 ## Brickable 🧱🔧👷
 
