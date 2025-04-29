@@ -26,7 +26,7 @@ How ?
 
 > Using alpine's core isolation and clear service management, we can make reproducible installs whilst being quick:
 
-We can aim for 200mb base iso, 2-3gb at most to download and not too much on disk depending on extras/firmware, meaning it's (easier) to maintain. Can run great on mini computers and laptops or even just on a usb/vm.
+We can aim for 200mb base iso, 2-3gb at most to download and not too much on disk (about 15gb with some extras) depending on firmware, meaning it's (easier) to maintain. Can run great on mini computers and laptops or even just on a usb/vm.
 This also lets you kind of "hack" other devices as you simply mount them with adapters and explore. 
 
 **But again more difficult to set-up for a beginner?**
