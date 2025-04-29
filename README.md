@@ -61,10 +61,11 @@ Run the script `./setup.sh`
 Once all is done, reboot again. You are all done! 
 You should find a program called `Konsole` This is your new best friend. 
 
-I've also included `micro` for friendly terminal editor. 
+I've also included `micro` for friendly terminal editor and `alsamixer` so you can say your sound works on Linux 😆. 
 
 ## Also updated Konsole profile to match our setup :) 
-> To go back to a user shell you can simply right click this:
+
+> To go back to a user shell you can simply right click this and select Built-in:
 ![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
 
 ---
