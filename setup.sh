@@ -89,7 +89,7 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## CPU Freq
-apk add cpufrequtils
+#apk add cpufrequtils
 
 ########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
@@ -129,7 +129,6 @@ ufw enable
 echo "Setting services..."
 # Add necessary services here
 rc-update add ufw
-#rc-update add cpufreq
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
@@ -187,7 +186,7 @@ CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
 [Daemon]
 LockGrace=300
-Timeout=15
+Timeout=30
 EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
