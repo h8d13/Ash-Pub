@@ -154,7 +154,7 @@ Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
 
 
-My goal is to turn Konqi into Kodzilla.
+**My goal is to turn Konqi into Kodzilla.**
 
 ![vw398e3twkxe1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a8912369-a8cc-49be-af79-80994e8d2ab6)
 
