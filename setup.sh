@@ -88,9 +88,8 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ## CPU Freq
-#apk add cpufrequtils
-#rc-update add cpufreq
-## OPTIONAL: Switch default login shell to zsh globally
+apk add cpufrequtils
+
 ########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
 #apk add flatpak
@@ -130,6 +129,7 @@ ufw enable
 echo "Setting services..."
 # Add necessary services here
 rc-update add ufw
+rc-update add cpufreq
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
