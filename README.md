@@ -52,7 +52,7 @@ I recommend jumping at least through the beginning of the script that setups fir
 
 ## Desktop Env 
 
-- KDE because it's beautiful and reliable. (x11 + Wayland enabled)
+- KDE because it's beautiful and reliable. (Wayland + x11 enabled)
 > Also has many essentials pre-installed and is still relatively light (2.5GB/3GB Total with Wallpapers)
 > Much lighter on alpine (example BSD default KDE: 7.5Gb)
 
