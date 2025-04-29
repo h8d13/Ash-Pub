@@ -191,7 +191,7 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh micro
+apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
