@@ -36,9 +36,7 @@ As the essential of dev is doing things faster than the other person.
 
 [Alpine ISOs](https://www.alpinelinux.org/downloads/) 
 > Select the right architecture (usually x86_64)
-> Flash to a USB (dd mode & check bios for UEFI vs BIOS, GPT vs MBR) . See [Rufus](https://rufus.ie/en/) 
-
-Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation.)
+> Flash to a USB (dd mode & check bios for UEFI vs BIOS, GPT vs MBR) . See [Rufus](https://rufus.ie/en/)
 
 Do the standard `setup-alpine` 
 > ⚠️ IMPORTANT: You have to create a user (this will be useful for later).
@@ -47,7 +45,28 @@ Do the standard `setup-alpine`
 
 ## Config 
 > ⚙ All automated. Altho there is a bit to understand for specific hardware (more recent x86_64 Intel should work out of the box). 😎
+
 I recommend jumping at least through the beginning of the script that setups firmware, graphics drivers, etc. 
+But the rest pretty much done for you. 
+
+Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation.)
+
+Then `apk add git`
+`git clone https://github.com/h8d13/k2-alpine`
+
+`cd k2-alpine`
+`chmod +x setup.sh`
+
+Run the script `./setup.sh`
+Once all is done, reboot again. You are all done! 
+You should find a program called `Konsole` This is your new best friend. 
+
+I've also included `micro` for friendly terminal editor. 
+
+## Also updated Konsole profile to match our setup :) 
+> To go back to a user shell you can simply right click this:
+![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
+
 ---
 
 ## Desktop Env 
@@ -91,25 +110,6 @@ With an example script to search through your apps `iapps`: See example above ^^
 ## ⌛ -  03:31m Installation vs 2 Hours Setting-up
 > That on a mini-pc with horrible hardware!
 
-Inital `setup-alpine`, follow prompts, reboot to hardisk. 
-Create a user, lowercase. Different pw than root. 
- 
-Then `apk add git`
-`git clone https://github.com/h8d13/k2-alpine`
-
-`cd k2-alpine`
-`chmod +x setup.sh`
-
-Run the script `./setup.sh`
-Once all is done, reboot again. You are all done! 
-You should find a program called `Konsole` This is your new best friend. 
-
-I've also included `micro` for friendly terminal editor. 
-
-## Also updated Konsole profile to match our setup :) 
-> To go back to a user shell you can simply right click this:
-![image](https://github.com/user-attachments/assets/77d64ab3-5f74-47e9-885b-d086a4ca77ee)
-
 ----
 
 ## Wiki
@@ -122,9 +122,6 @@ I've also included `micro` for friendly terminal editor.
 ![image](https://github.com/user-attachments/assets/c40f0701-6b63-4faf-9249-f075397fef24)
 ![image2](https://github.com/user-attachments/assets/f0e66b6c-1c18-4952-9bad-b8c711f903e4)
 ![image3](https://github.com/user-attachments/assets/3c2bd76a-2004-466c-9eb8-bea41387a48f)
-
-
-
 
 ## Further reading
 
