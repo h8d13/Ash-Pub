@@ -62,6 +62,8 @@ Then `apk add git`
 `cd k2-alpine`
 `chmod +x setup.sh`
 
+> Here you could also edit for your preferences/firmware. 
+
 Run the script `./setup.sh`
 Once all is done, reboot again. You are all done! 
 You should find a program called `Konsole` This is your new best friend. 
