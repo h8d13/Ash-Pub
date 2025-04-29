@@ -165,11 +165,12 @@ kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containment
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
+doas reboot
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
 cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
 #!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh" && reboot
+konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
 ######################################### FIX SESSIONS
