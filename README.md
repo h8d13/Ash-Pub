@@ -22,7 +22,10 @@ How ?
 **By making one simple easy to update system and have storage on the side.**
 
 I recommend putting work there, and being able to wipe without shame in 10 minutes, with the latest Alpine updates.
-That means an external USB stick or NVMe to USB adapter, preferably over USB-C or 3.x for faster read/write 😜
+As LTT famously said the 3-2-1 rules: In this case: Some of your work probably on git/drives for cloud, external to prevent data loss and finally 1 being the system itself.
+
+That means an external USB stick or NVMe to USB adapter, preferably over USB-C or 3.x for faster read/write 😜 
+Or internal hardware :)
 
 ## Brickable 🧱🔧👷
 
