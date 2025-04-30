@@ -468,7 +468,7 @@ cat > /etc/issue << 'EOF'
                                                   ▒▒▓▓▓▓    ░░  ▒▒                           #########                                                     
                                               ░░▓▓▓▓▓▓░░    ░░    ▒▒                         # 8611m #                                                 
                                            ▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█                   #########                                                     
-                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒               # 1.3.1 #                                                    
+                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒               # 1.0.3 #                                                    
                                         ▓▓▓█▓▓▒▒▓█▓▓          ░░▒▒    ░░▓▓▓▓▓▓░░             #########                                                    
                                       ░░▓█▓▓▒▒▒▓▓▓▓█▒▒       ░  ▒▒░░    ░░▓▓█▓                                          ▒█▒▓▒▒                    
                                      █▓█▓▓▓▓▒▒▓▓▓▓█▓▓▓▓▓        ▒▒░░      ▒▒▓▓░░▒▒                                    ▓▓▓▓    ▒▒                  
@@ -511,5 +511,5 @@ chmod +x /etc/profile.d/welcome.sh
 echo "All set." 
 echo "K2 SETUP. DONE. Reboot"
 
-#PLASMA_VERSION=$(apk search plasma-welcome-lang | grep -o "plasma[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/')
-#echo "KDE Plasma Version: $PLASMA_VERSION"
+PLASMA_VERSION=$(apk search plasma-welcome-lang | grep -o "plasma[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/')
+echo "KDE Plasma Version: $PLASMA_VERSION"
