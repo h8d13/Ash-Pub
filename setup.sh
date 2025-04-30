@@ -93,8 +93,8 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
 ########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
-apk add flatpak
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+#apk add flatpak
+#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
 apk add alsaconf alsa-utils sof-firmware
@@ -510,6 +510,3 @@ chmod +x /etc/profile.d/welcome.sh
 . "$HOME/.config/environment" 
 echo "All set." 
 echo "K2 SETUP. DONE. Reboot"
-
-PLASMA_VERSION=$(apk search plasma-welcome-lang | grep -o "plasma[^[:space:]]*-[0-9][0-9\.]*-r[0-9]*" | sed -E 's/.*-([0-9][0-9\.]*-r[0-9]*)/\1/')
-echo "KDE Plasma Version: $PLASMA_VERSION"
