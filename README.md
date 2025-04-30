@@ -141,7 +141,7 @@ With an example script to search through your apps `iapps`: See example above ^^
 | [Alpine Linux Wiki](https://wiki.alpinelinux.org/wiki/Main_Page) | **Official documentation** and guides for Alpine Linux |
 | [BusyBox](https://www.busybox.net/) | Combines tiny versions of many common UNIX utilities into a single executable |
 | [Ash](https://linux.die.net/man/1/ash) | Lightweight shell included in BusyBox, Alpine's default shell |
-| [Bash](https://www.gnu.org/software/bash/manual/bash.html) | Lightweight shell included in BusyBox, Alpine's default shell |
+| [Bash](https://www.gnu.org/software/bash/manual/bash.html) | More scripting new shell stuff |
 | [Zsh](https://github.com/zsh-users/zsh) | Extended Bourne shell with improved features and customization |
 | [Musl](https://musl.libc.org/) | Lightweight C standard library alternative to glibc counterpart |
 | [FreeDesktop](https://gitlab.freedesktop.org) | Desktop utils KDE uses extensively  |
