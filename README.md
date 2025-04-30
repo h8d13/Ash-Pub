@@ -8,6 +8,8 @@ Then it becomes a whole other story when you have to work with 100 different und
 
 This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SOC (Separation of Concerns) & EUI (End-User Interaction). 
 
+**It's also my kind of solution to hardware, I didn't use anymore but could have been useful all along?**
+
 ![logo](https://github.com/user-attachments/assets/b4fa123f-f38b-4361-81b8-febd5c77fcd3)  © _K2-alpine v1.0.3_
 
 While the footprint of Alpine is low (200mb), it can be hell to configure manually.
