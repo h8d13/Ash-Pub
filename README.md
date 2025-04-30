@@ -54,7 +54,8 @@ Do the standard `setup-alpine`
 > ⚙ All automated. Altho there is a bit to understand for specific hardware (more recent x86_64 Intel should work out of the box). 😎
 
 I recommend jumping at least through the beginning of the script that setups firmware, graphics drivers, etc. 
-But the rest pretty much done for you. 
+
+> You can freely remove, edit sections to your liking. Altho you'd have to know some stuff. But the rest pretty much done for you. 
 
 Also [Preparation-Wiki](https://github.com/h8d13/k2-alpine/wiki/1.-Preperation.)
 
