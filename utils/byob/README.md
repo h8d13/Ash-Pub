@@ -87,9 +87,14 @@ For `/etc/init.d`:
 [AlpineRC](https://wiki.gentoo.org/wiki/Handbook:X86/Working/Initscripts#Writing_initscripts)
 [RC Docs](https://github.com/OpenRC/openrc/blob/master/service-script-guide.md)
 
+
 For `/etc/local.d`
 Regular shell scripts.
 
 ---
 
-"Coffee stained teeth, the gods want blood, may they be merciful" 
+
+## Testing
+
+I reommend some qemu scripts for quick testing or physical hardware when needed. 
+Stable debian base to host some of the dev work that get's ported to k2."Coffee stained teeth, the gods want blood, may they be merciful" 
