@@ -96,7 +96,7 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 #flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
-apk add pulseaudio-alsa alsa-plugins-pulse alsa-utils sof-firmware
+apk add alsaconf alsa-utils sof-firmware
 # use alsamixer > f6 select card and M to unmute devices
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
@@ -117,7 +117,7 @@ ufw enable
 ########################################## NECESSARY RUNLEVEL
 echo "Setting services..."
 # Add necessary services here
-rc-update add ufw
+rc-update add ufw 
 rc-update add alsa
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
