@@ -440,7 +440,6 @@ sysctl -p >/dev/null 2>&1
 echo "Setting up edge repos..." 
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
 echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-apk update
 
 echo "Cleaning cache..." 
 rm -rf /var/cache/apk/*
