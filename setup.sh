@@ -22,7 +22,7 @@ if [ -z "$TARGET_USER" ]; then
     exit 1
 fi
 echo "Detected ALPINE v: $ALPINE_VERSION TARGET_USER set to:$TARGET_USER : KB_LAYOUT set to:$KB_LAYOUT"
-# Community & main & Testing ############### vX.xX/Branch
+# Community & main & Testing ############### vX.xX/Branch # We want to remove original so we are in https :)
 # Check if running on edge
 if echo "$ALPINE_VERSION" | grep -q "alpha"; then
     echo "Detected EDGE expect bugs."
@@ -79,7 +79,7 @@ apk add linux-firmware-other \
  	ufw \
   	ip6tables 
    
-apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
+apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro bash
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 ## Packages
 #apk add gtkmm3 glibmm gcompat
@@ -87,7 +87,7 @@ apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 #apk add cpufrequtils
 #rc-update del sddm default
 ## Shells
-#apk add bash fish nix
+#apk add fish
 #chsh -s /bin/zsh root
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
