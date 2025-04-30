@@ -53,7 +53,7 @@ apk update && apk upgrade
 echo "Setting up video/drivers..." 
 apk add xf86-video-vesa 
 apk add mesa mesa-gl mesa-va-gallium mesa-dri-gallium
-#mesa-dri-vmwgfx ## # mesa-vulkan-layers vulkan-tools
+## mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
 apk add linux-firmware-intel #-amd
 apk add intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
@@ -81,19 +81,20 @@ apk add linux-firmware-other \
    
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
+## Packages
 #apk add gtkmm3 glibmm gcompat
 #apk add fuse libstdc++ dbus-x11 ##  modprobe fuse ### addgroup $USER fuse
+#apk add cpufrequtils
 #rc-update del sddm default
+## Shells
 #apk add bash fish nix
 #chsh -s /bin/zsh root
 ## Parralel boot 
 #sed -i 's/^rc_parallel="NO"/rc_parallel="YES"/' /etc/rc.conf
-## CPU Freq
-#apk add cpufrequtils
 ########################################## EXTRA SERVICES (OPTIONAL)
 #apk add docker docker-compose podman ## Ideally create a user for said service
-#apk add flatpak
-#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+apk add flatpak
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 ########################################## OTHERS SOUND (Thnx to Klagan)
 echo "Setting up sound..."
 apk add alsaconf alsa-utils sof-firmware
