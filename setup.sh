@@ -2,7 +2,7 @@
 ## /* SPDX-FileCopyrightText: 2025 
 # (O) Eihdran L. <hadean-eon-dev@proton.me>
 # (C) Lagan S. <sarbjitsinghsandhu509@gmail.com>
-# Desc: Extended Install Intel.
+# Desc: Extended Install Intel / Wayland (+Optionals).
 ##  SPDX-License-Identifier: MIT */
 #set -e
 #set -x
