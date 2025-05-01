@@ -4,7 +4,7 @@
 # Unzip the file in dir
 # Doas python3 run.py --rebuild
 ## Alpineception
-# Boom https webserver you can access from any device on your network. 
+# Boom https webserver you can access from any device on your network. use ip a to find out device adress and on any browser: https://<ip> 
 #### You can now freely customize. And change passwords in Dockerfile. 
 
 
