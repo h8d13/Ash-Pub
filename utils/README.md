@@ -1,7 +1,5 @@
 # How it all works together:
 
-Start with a fresh Alpin Linux latest installation.
-
 Do the standard `setup-alpine`
 Create a user during setup!
 > Make sure to use different strong passwords for root and user. Usernames lowercase.
@@ -16,11 +14,8 @@ chmod +x setup.sh
 ```
 Reboot
 
-Once Alpine is configured, proceed to `utils/bobw` module should be cloned on your desktop.
-
-
 ### If you want to game on Nvidia stuff. 
-Run the appropriate `everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
+Run the appropriate `legacy or modern/everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
 I use a second disk. 
 Run `arch-chroot` for any extra setup steps into Arch, when done type `exit`
 
@@ -31,6 +26,7 @@ Reboot and test booting into Arch.
 > Don't forget to change hardcoded passwords `Everest` for arch.
 
 > `passwd root` and `passwd joe`
+
 
 ## To do
 
