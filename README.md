@@ -6,7 +6,7 @@
 Most people hate documention, and even more having to do manual menial tasks. 
 Then it becomes a whole other story when you have to work with 100 different underlying components that each have their own unique quirks.
 
-This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SOC (Separation of Concerns) & EUI (End-User Interaction). 
+This project aims to do exactly this. Eliminate quirks by programatically solving issue with OoO (Order of Operations) & SoC (Separation of Concerns) & EUI (End-User Interaction). 
 
 **It's also my kind of solution to hardware, I didn't use anymore but could have been useful all along?**
 
@@ -17,8 +17,7 @@ While the footprint of Alpine is low (200mb), it can be hell to configure manual
 **But this service-oriented philosophy makes it versatile, efficient and secure.**
 
 > I also always wondered if it's used so much on servers, clusters, etc why not make it a fully operational system?
-> Which brings us to today. Where I'm daily driving it for coding/general browsing.
-On a mini-pc bellow the TV and a desktop.
+> Which brings us to today. Where I'm daily driving it for coding/general browsing but you can also extend quite quickly!
 
 How ?
 **By making one simple easy to update system and have storage on the side.**
