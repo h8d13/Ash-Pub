@@ -16,12 +16,12 @@ chmod +x setup.sh
 ```
 Reboot
 
-Test `startde` command
-
 Once Alpine is configured, proceed to `utils/bobw` module should be cloned on your desktop.
 
-Run the appropriate `everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
 
+### If you want to game on Nvidia stuff. 
+Run the appropriate `everest.sh` script (legacy MBR/BIOS or modern GPT/UEFI) depending on hardware (check bios if unsure).  
+I use a second disk. 
 Run `arch-chroot` for any extra setup steps into Arch, when done type `exit`
 
 Follow GRUB to add Arch to the boot menu of Alpine.
@@ -38,8 +38,6 @@ Al
 - Create info section on rc
 - Create containers info section
 - Fix restartde command
-
-
 
 Ar
 - Add user auto to arch install ☑️
