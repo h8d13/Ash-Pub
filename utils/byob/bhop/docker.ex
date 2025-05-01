@@ -1,4 +1,12 @@
-#################################### EXAMPLES
+# apk add docker docker-compose vscodium
+# rc-service docker start (or add it to boot rc-update add docker) 
+# git clone https://github.com/h8d13/Lighttpd-Steroids also download release ZIP. 
+# Unzip the file in dir
+# Doas python3 run.py --rebuild
+## Alpineception
+# Boom https webserver you can access from any device on your network. 
+
+ADVANCED #################################### EXAMPLES
 apk add docker docker-compose --no-cache
 rc-update add docker boot
 service docker start
