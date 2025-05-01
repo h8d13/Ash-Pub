@@ -1,6 +1,6 @@
 # How it all works together:
 
-Start with a fresh Alpine Linux 3.21 installation
+Start with a fresh Alpin Linux latest installation.
 
 Do the standard `setup-alpine`
 Create a user during setup!
