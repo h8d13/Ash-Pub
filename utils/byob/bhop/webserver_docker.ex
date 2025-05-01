@@ -8,7 +8,7 @@
 #### You can now freely customize. And change passwords in Dockerfile. 
 
 
-ADVANCED #################################### EXAMPLES
+# ADVANCED #################################### EXAMPLES
 #adduser -SDHs /sbin/nologin dockremap
 #addgroup -S dockremap
 #echo dockremap:$(cat /etc/passwd|grep dockremap|cut -d: -f3):65536 >> /etc/subuid
