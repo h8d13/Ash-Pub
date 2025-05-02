@@ -90,7 +90,7 @@ For `/etc/init.d`:
 [GentooRC](https://wiki.alpinelinux.org/wiki/Writing_Init_Scripts) 
 [AlpineRC](https://wiki.gentoo.org/wiki/Handbook:X86/Working/Initscripts#Writing_initscripts)
 [RC Docs](https://github.com/OpenRC/openrc/blob/master/service-script-guide.md)
-
+[RC Artix Docs](https://wiki.artixlinux.org/Main/OpenRC)
 
 For `/etc/local.d`
 Regular shell scripts.
