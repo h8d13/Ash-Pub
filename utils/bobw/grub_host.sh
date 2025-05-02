@@ -1,6 +1,6 @@
 #!/bin/sh
 # Install os-prober if needed ##  KEY DIFF is grub-bios package
-apk add os-prober grub-bios
+apk add os-prober 
 
 # Enable os-prober in GRUB config
 cat > /etc/default/grub << EOF
