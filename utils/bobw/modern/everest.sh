@@ -93,9 +93,6 @@ sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 # Install GRUB and essentials
 pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux
 
-# Enable NetworkManager & UFW stuff
-systemctl enable NetworkManager
-
 # Install GRUB to EFI partition
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
 # Generate GRUB configuration
