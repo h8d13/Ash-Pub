@@ -15,6 +15,7 @@ But in reality, it is much more, it's about being free, hacky way of 🖕 anythi
 
 That is proprietary stuff, privacy, and especially the ease of creating new stuff. 
 It's also the alternative... Taking the not so common path, while staying away from easy answers or trying to convince myself of X or Y. 
+That is also doing the hard part first as that solves a lot of issues later on. 
 
 Many open-source efforts follow this same line of thought, and I love the community for it. 
 But there is also pro-elitism, and a lot of it. In some people, stem a feeling of superiority because of using said or said accessbile things. 
