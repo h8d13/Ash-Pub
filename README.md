@@ -156,12 +156,13 @@ With an example script to search through your apps `iapps`: See example above ^^
 [Chimera-Linux](https://chimera-linux.org/docs/configuration/flatpak)
 
 This also uses apk and MUSL so here you will find golden trove of information ^^
+[Gcompat Docs](https://git.adelielinux.org/adelie/gcompat) 
 
 **BUT! We have also included a module to self mount Arch on another disk if you are running NVIDIA stuff/Old hardware.**
+Hopefully a version with RC ;)
 
 Special thanks to user @Calvince for this file:
 [Ubuntu terminal look like ParrotOS](https://gist.github.com/calvince/b4f1a321369ade869789d99a2604670f)
-
 
 **My goal is to turn Konqi into Kodzilla.**
 
