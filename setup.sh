@@ -69,8 +69,7 @@ setup-desktop plasma
 apk del kate kate-common
 ########################################## ESSENTIALS
 echo "Setting up drivers..."
-apk add linux-firmware-other \
- 	linux-firmware \
+apk add linux-firmware \
 	linux-lts \
   	pciutils \
 	wpa_supplicant \
