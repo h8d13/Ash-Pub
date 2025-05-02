@@ -72,4 +72,6 @@ The advantage of being both of these at the same time is that you will think of 
 Second part of this is to still try to realize that you do need patience and hard work to get there. So this is the philosophy that I adhere by to build this system for others: so they can just enjoy the final results. 
 
 
- 
+## OpenRC Arch 
+
+[Base OpenRC Version](https://artixlinux.org/download.php)
