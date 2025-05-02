@@ -123,10 +123,6 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=30
 EOF
-
-# Enable NetworkManager & UFW stuff
-systemctl enable NetworkManager
-
 # Install GRUB to EFI partition
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
 # Generate GRUB configuration
