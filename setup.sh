@@ -288,9 +288,10 @@ alias aus="su $TARGET_USER -c"
 alias clr="clear"
 alias cls="clr"
 alias sudo="doas"
-alias ll='ls -la'
-alias la='ls -a'
-alias l='ls -CF'
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -la'
+alias la='ls --color=auto -a'
+alias l='ls --color=auto -CF'
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
