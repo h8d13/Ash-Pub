@@ -3,6 +3,7 @@
 #### ALSO GPT / UEFI
 set -e  # Exit on error
 
+
 # Configuration variables
 TARGET_DISK="/dev/sdb" ### VERY CAREFULY LSBLK TO CHECK 
 TARGET_TIMEZONE="Europe/Paris" 
@@ -11,25 +12,20 @@ KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/
 TARGET_HOSTNAME=$(cat /etc/hostname)-arch
 TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
 SWAP_SIZE="4G" 
-
 # Install required packages
 echo "Installing required packages in Alpine..."
 apk add wget curl zstd dosfstools arch-install-scripts parted
-
 # Clean up previous files if canceled/failed install
 rm -rf /tmp/archlinux-bootstrap*
-
 # Ensure target mount point exists
 TARGET_MOUNT="/mnt/arch"
 mkdir -p "$TARGET_MOUNT"
-
 # Make sure nothing is mounted from the target disk
 echo "Unmounting any existing mounts..."
 for mnt in $(mount | grep ${TARGET_DISK} | awk '{print $1}'); do
   echo "Unmounting $mnt"
   umount -f "$mnt" || true
 done
-
 # Partitioning with three partitions: EFI, swap, and root
 echo "Partitioning $TARGET_DISK..."
 parted -s "$TARGET_DISK" mklabel gpt
@@ -37,20 +33,17 @@ parted -s "$TARGET_DISK" mkpart primary fat32 1MiB 512MiB
 parted -s "$TARGET_DISK" set 1 esp on
 parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
 parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
-
 # Format partitions
 echo "Formatting partitions..."
 mkfs.fat -F32 "${TARGET_DISK}1"  # EFI partition
 mkswap "${TARGET_DISK}2"        # Swap partition
 swapon "${TARGET_DISK}2"        # Enable swap
 mkfs.ext4 -F "${TARGET_DISK}3"  # Root partition
-
 # Mount filesystems
 echo "Mounting filesystems..."
 mount "${TARGET_DISK}3" "$TARGET_MOUNT"       # Mount root
 mkdir -p "$TARGET_MOUNT/boot/efi"
 mount "${TARGET_DISK}1" "$TARGET_MOUNT/boot/efi"  # Mount EFI
-
 # Download and extract Arch bootstrap
 echo "Downloading Arch Linux bootstrap..."
 cd /tmp
@@ -58,11 +51,9 @@ wget https://mirrors.edge.kernel.org/archlinux/iso/latest/archlinux-bootstrap-x8
 zstd -d archlinux-bootstrap-x86_64.tar.zst
 tar -xf archlinux-bootstrap-x86_64.tar -C /tmp
 cp -a /tmp/root.x86_64/* "$TARGET_MOUNT"/
-
 # Configure mirror
 echo "Configuring pacman..."
 echo 'Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch' > "$TARGET_MOUNT/etc/pacman.d/mirrorlist"
-
 # Configure chroot
 echo "Configuring chroot..."
 mount -t proc /proc "$TARGET_MOUNT/proc"
@@ -70,21 +61,17 @@ mount -t sysfs /sys "$TARGET_MOUNT/sys"
 mount -o bind /dev "$TARGET_MOUNT/dev"
 mount -o bind /dev/pts "$TARGET_MOUNT/dev/pts"
 cp /etc/resolv.conf "$TARGET_MOUNT/etc/"
-
 # Initialize pacman
 echo "Initializing pacman..."
 chroot "$TARGET_MOUNT" /bin/bash -c "pacman-key --init && pacman-key --populate archlinux"
-
 # Install base system
 echo "Installing base system..."
 chroot "$TARGET_MOUNT" /bin/bash -c "pacman -Sy base linux linux-firmware efibootmgr --noconfirm"
-
 # Generate fstab
 echo "Generating fstab..."
 genfstab -U "$TARGET_MOUNT" > "$TARGET_MOUNT/etc/fstab"
-
-# Basic system configuration - Fix nested heredocs by using a different delimiter for inner heredocs
-cat > "$TARGET_MOUNT/configure.sh" << 'OUTER_EOF'
+# Basic system configuration
+cat > "$TARGET_MOUNT/configure.sh" << EOF
 #!/bin/bash
 # Basic configuration
 ln -sf /usr/share/zoneinfo/$TARGET_TIMEZONE /etc/localtime
@@ -99,52 +86,23 @@ echo "::1 localhost" >> /etc/hosts
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 echo "root:$ROOT_PASSWORD" | chpasswd
-useradd -m -G wheel -s /bin/bash "$TARGET_USER"
+useradd -m -s /bin/bash -G wheel $TARGET_USER
 echo "$TARGET_USER:$ROOT_PASSWORD" | chpasswd
-echo "%wheel ALL=(ALL) ALL" > /etc/sudoers.d/wheel
-chmod 440 /etc/sudoers.d/wheel
+sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Install GRUB and essentials
-pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux plasma sddm konsole dolphin
-########################################## FIX LOGIN KB
-echo "Setting up Keyboard..." 
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << INNER_EOF1
-setxkbmap "$KB_LAYOUT"
-INNER_EOF1
-chmod +x /usr/share/sddm/scripts/Xsetup
-########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/kxkbrc" << INNER_EOF2
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-INNER_EOF2
-######################################### FIX SESSIONS
-echo "Setting up KDE Config..." 
-## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
-CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
-TMP_FILE="$(mktemp)"
-echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
-cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
-mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basiclally just makes it so that new sessions are fresh (something that I always thought was a stupid default value... 
-# Simple override the whole file for 15 min lockout and 5 min password grace. 
-CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
-cat <<INNER_EOF3 > $CONFIG_FILE3
-[Daemon]
-LockGrace=300
-Timeout=30
-INNER_EOF3
+pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux
+
+# Enable NetworkManager & UFW stuff
+systemctl enable NetworkManager
+
 # Install GRUB to EFI partition
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
 # Generate GRUB configuration
 grub-mkconfig -o /boot/grub/grub.cfg
-OUTER_EOF
-
+EOF
 chmod +x "$TARGET_MOUNT/configure.sh"
 chroot "$TARGET_MOUNT" /configure.sh
-
 # Cleanup with better handling
 echo "Cleaning up..."
 sync
