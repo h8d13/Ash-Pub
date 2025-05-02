@@ -124,7 +124,6 @@ LockGrace=300
 Timeout=30
 EOF
 # Install GRUB to EFI partition
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
 # Generate GRUB configuration
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
