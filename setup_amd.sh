@@ -71,12 +71,12 @@ apk del kate kate-common
 echo "Setting up drivers..."
 apk add linux-firmware \
 	linux-lts \
-  pciutils \
+ 	pciutils \
 	wpa_supplicant \
-  dbus-openrc \
-  busybox-extras \
+  	dbus-openrc \
+ 	busybox-extras \
  	ufw \
-  ip6tables 
+  	ip6tables 
    
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro bash
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
