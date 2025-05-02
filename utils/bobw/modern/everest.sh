@@ -93,7 +93,6 @@ chmod 440 /etc/sudoers.d/wheel
 # Install GRUB and essentials
 pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux
 pacman -S --noconfirm plasma sddm konsole dolphin
-systemctl enable sddm
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
