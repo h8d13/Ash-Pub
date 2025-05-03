@@ -173,7 +173,7 @@ Special thanks to user @Calvince for this file:
 ### 🤖 For raspi 4+ people!
 We have also included a debian version of the script:
 You can find here [Wiki RaspB Pi](https://github.com/h8d13/k2-alpine/wiki/Z.-Rasp-Pi-4)
-And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/utils/standalone/setup_deb.sh)
+And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/standalone/setup_deb.sh)
 
 ---
 Love <3 H8D13
