@@ -56,8 +56,8 @@ apk add mesa mesa-gl mesa-va-gallium mesa-dri-gallium
 apk add mesa-gl mesa-dri-kms
 apk add xf86-video-fbdev 
 ########################################## DISPLAY SERVERS
-setup-xorg-base
-apk add kbd xorg-server xrandr inxi xinit xf86-input-evdev xf86-input-libinput
+#setup-xorg-base
+#apk add kbd xorg-server xrandr inxi xinit xf86-input-evdev xf86-input-libinput
 setup-wayland-base
 setup-desktop plasma
 ########################################## REMOVE STUFF
