@@ -1,21 +1,5 @@
-TARGET_USER=hdeaneon
-KB_LAYOUT=us
+TARGET_USER=hadean
 
-
-########################################## FIX LOGIN KB
-echo "Setting up Keyboard..." 
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
-setxkbmap "$KB_LAYOUT"
-EOF
-chmod +x /usr/share/sddm/scripts/Xsetup
-########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-EOF
 ########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired.
 # Mine is black theme, only konsole in taskbar and ofc mountain bg. 
 echo "Setting up KdePost..." 
@@ -55,12 +39,11 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apt install tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh -y
+apt install tzdata font-noto-emoji font-noto ttf-dejavu zsh micro -y
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
 mkdir -p "$HOME/.config"
-mkdir -p "$HOME/.config/ash"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/micro/"
 mkdir -p "$HOME/.local/bin"
@@ -178,29 +161,6 @@ alias apka="apk add"
 alias apkd="apk del"
 alias apks="apk search"
 EOF
-########################################## Auto source
-echo "Setting up Profile..." 
-# Create /etc/profile.d/profile.sh to source user profile if it exists & Make exec
-cat > /etc/profile.d/profile.sh << 'EOF'
-if [ -f "$HOME/.config/ash/profile" ]; then
-    . "$HOME/.config/ash/profile"
-fi
-EOF
-########################################## ASH
-echo "Setting up ASH..." 
-chmod +x /etc/profile.d/profile.sh
-# Create ~/.config/ash/profile and add basic style 
-echo 'export ENV="$HOME/.config/ash/ashrc"' > "$HOME/.config/ash/profile"
-
-# Custom Ash blue
-cat > "$HOME/.config/ash/ashrc" << 'EOF'
-# Style
-export PS1='\033[0;34m┌──[\033[0;36m\t\033[0;34m]─[\033[0;39m\u\033[0;34m@\033[0;36m\h\033[0;34m]─[\033[0;32m\w\033[0;34m]\n\033[0;34m└──╼ \033[0;36m$ \033[0m'
-## Source aliases
-if [ -f "$HOME/.config/aliases" ]; then
-    . "$HOME/.config/aliases"
-fi
-EOF
 ########################################## ZSH 
 echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
@@ -311,26 +271,7 @@ EOF
 # Apply settings
 sysctl -p >/dev/null 2>&1
 
-echo "Setting up edge repos..." 
-echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories
-echo "https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-
-echo "Cleaning cache..." 
-rm -rf /var/cache/apk/*
-
 ########################################## INFO STUFF
-cat > /etc/motd << 'EOF'
-Apk sources /etc/apk/repositories
-Change this message by editing /etc/motd
-Change the pre-login message /etc/issue
-Change default shells /etc/passwd
-
-Find shared aliases ~/.config/aliases
-Use . ~/.config/aliases if you added something
-
-Post login scripts can be added to /etc/profile.d
-Personal bin scripts in ~/.local/bin
-EOF
 
 ## Pre login splash art ## That i stole from the internet. And edit sometimes for fun :D
 cat > /etc/issue << 'EOF'
