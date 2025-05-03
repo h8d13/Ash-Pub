@@ -12,7 +12,6 @@ mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
