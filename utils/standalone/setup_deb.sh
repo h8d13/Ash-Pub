@@ -44,8 +44,7 @@ echo "Setting up Bonuses..."
 ## Update package list first
 apt update
 ## Extended ascii support + Initial zsh (thank me later ;)
-apt install -y fonts-noto-emoji fonts-dejavu-core zsh micro ufw
-## Note: tzdata usually comes pre-installed on Ubuntu/Debian
+apt install -y zsh micro ufw
 
 ########################################## DIRS
 echo "Setting up Directories..." 
