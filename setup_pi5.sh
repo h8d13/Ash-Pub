@@ -70,7 +70,6 @@ apk add linux-firmware \
  	ip6tables 
 
 apk add raspberrypi-bootloader raspberrypi-kernel dtc
-apk add linux-firmware-broadcom
 apk add mesa-dri-vc4 
 apk add libdrm
 apk add linux-firmware-other
