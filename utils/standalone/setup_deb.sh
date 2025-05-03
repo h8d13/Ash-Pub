@@ -1,3 +1,7 @@
+TARGET_USER=hdeaneon
+KB_LAYOUT=us
+
+
 ########################################## FIX LOGIN KB
 echo "Setting up Keyboard..." 
 mkdir -p "/usr/share/sddm/scripts/"
@@ -51,7 +55,7 @@ EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
-apk add tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh
+apt install tzdata font-noto-emoji fontconfig musl-locales font-noto ttf-dejavu zsh -y
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
@@ -200,7 +204,7 @@ EOF
 ########################################## ZSH 
 echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
-apk add zsh-autosuggestions \
+apt install zsh-autosuggestions \
       zsh-history-substring-search \
       zsh-completions \
       zsh-syntax-highlighting
