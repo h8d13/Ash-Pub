@@ -51,7 +51,6 @@ echo "Repositories added successfully! Ready?"
 apk update && apk upgrade
 ########################################## VIDEO
 echo "Setting up video/drivers..." 
-apk add xf86-video-vesa 
 apk add mesa mesa-gl mesa-va-gallium mesa-dri-gallium
 ## mesa-vulkan-layers vulkan-tools
 apk add mesa-gl mesa-dri-kms
