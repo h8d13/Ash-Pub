@@ -295,17 +295,3 @@ EOF
 
 # Apply settings
 sysctl -p >/dev/null 2>&1
-
-ufw default deny incoming
-ufw allow out 443/tcp  
-
-## Examples stolen from the internet # uncomment if using these
-#ufw limit SSH         # open SSH port and protect against brute-force login attacks
-#ufw allow out DNS     # allow outgoing DNS
-#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
-#ufw allow 3389        # remote desktop on xorg
-#ufw allow 21          # ftp
-#ufw allow 22	       # sftp
-#ufw allow 51820/udp   # wireguard
-#ufw allow 1194/udp    # openvpn
-ufw enable
