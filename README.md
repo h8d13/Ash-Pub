@@ -170,7 +170,7 @@ Special thanks to user @Calvince for this file:
 ![vw398e3twkxe1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a8912369-a8cc-49be-af79-80994e8d2ab6)
 
 
-### 🤖 For raspi 4+ people!
+### 🤖 For raspi 4+ Debian people!
 We have also included a debian version of the script:
 You can find here [Wiki RaspB Pi](https://github.com/h8d13/k2-alpine/wiki/Z.-Rasp-Pi-4)
 And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/standalone/setup_deb.sh)
