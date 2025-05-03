@@ -68,10 +68,10 @@ apk add linux-firmware \
 	linux-lts \
  	pciutils \
 	wpa_supplicant \
-  dbus-openrc \
+  	dbus-openrc \
  	busybox-extras \
  	ufw \
-  ip6tables 
+ 	ip6tables 
 
 apk add raspberrypi-bootloader raspberrypi-kernel dtc
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro bash
@@ -96,10 +96,15 @@ apk add alsaconf alsa-utils sof-firmware
 # use alsamixer > f6 select card and M to unmute devices
 addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
+addgroup $TARGET_USER plugdev
+addgroup $TARGET_USER input
+addgroup sddm video
+addgroup sddm input
 
 cat >> /boot/config.txt << EOF
-# Enable KMS driver for better graphics
-dtoverlay=vc4-kms-v3d
+# For HDMI output
+hdmi_force_hotplug=1
+dtoverlay=vc4-kms-v3d-pi5
 max_framebuffers=2
 EOF
 ########################################## Security
@@ -121,6 +126,7 @@ echo "Setting services..."
 # Add necessary services here
 rc-update add ufw 
 rc-update add alsa
+rc-update add elogind boot
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
