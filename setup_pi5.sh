@@ -57,7 +57,7 @@ apk add mesa-gl xf86-video-fbdev
 #setup-xorg-base
 #apk add kbd xorg-server xrandr inxi xinit xf86-input-evdev xf86-input-libinput
 setup-xorg-base
-apk add xfce4 xfce4-goodies xfce4-terminal lightdm-gtk-greeter
+apk add xfce4 xfce4-terminal lightdm-gtk-greeter
 ########################################## ESSENTIALS
 echo "Setting up drivers..."
 apk add linux-firmware \
