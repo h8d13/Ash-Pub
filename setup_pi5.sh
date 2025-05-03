@@ -56,10 +56,8 @@ apk add mesa-gl xf86-video-fbdev
 ########################################## DISPLAY SERVERS
 #setup-xorg-base
 #apk add kbd xorg-server xrandr inxi xinit xf86-input-evdev xf86-input-libinput
-setup-wayland-base
-setup-desktop plasma
-########################################## REMOVE STUFF
-apk del kate kate-common
+setup-xorg-base
+apk add xfce4 xfce4-goodies xfce4-terminal lightdm-gtk-greeter
 ########################################## ESSENTIALS
 echo "Setting up drivers..."
 apk add linux-firmware \
@@ -72,6 +70,10 @@ apk add linux-firmware \
  	ip6tables 
 
 apk add raspberrypi-bootloader raspberrypi-kernel dtc
+apk add linux-firmware-broadcom
+apk add mesa-dri-vc4 
+apk add libdrm
+apk add linux-firmware-other
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro bash
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 ## Packages
@@ -96,15 +98,11 @@ addgroup $TARGET_USER audio
 addgroup $TARGET_USER video
 addgroup $TARGET_USER plugdev
 addgroup $TARGET_USER input
-addgroup sddm video
-addgroup sddm input
 
-cat >> /boot/config.txt << EOF
-# For HDMI output
-hdmi_force_hotplug=1
-dtoverlay=vc4-kms-v3d-pi5
-max_framebuffers=2
-EOF
+echo "dtoverlay=vc4-kms-v3d-pi5" >> /boot/config.txt
+echo "max_framebuffers=2" >> /boot/config.txt
+echo "gpu_mem=64" >> /boot/config.txt
+echo "dtoverlay=vc4-fkms-v3d" >> /boot/config.txt
 ########################################## Security
 echo "Setting up UFW & Ip6Tables..." 
 ufw default deny incoming
@@ -113,7 +111,7 @@ ufw allow out 443/tcp
 #ufw limit SSH         # open SSH port and protect against brute-force login attacks
 #ufw allow out DNS     # allow outgoing DNS
 #ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
-ufw allow 3389        # remote desktop on xorg
+#ufw allow 3389        # remote desktop on xorg
 #ufw allow 21          # ftp
 #ufw allow 22	       # sftp
 #ufw allow 51820/udp   # wireguard
@@ -124,7 +122,7 @@ echo "Setting services..."
 # Add necessary services here
 rc-update add ufw 
 rc-update add alsa
-rc-update add elogind boot
+rc-update add lightdm 
 ########################################## COUNTDOWN Bellow more specifics.
 echo "Starting setup..."
 echo "3..."
@@ -134,56 +132,6 @@ sleep 1
 echo "1..."
 sleep 1
 echo "Go!"
-########################################## FIX LOGIN KB
-echo "Setting up Keyboard..." 
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
-setxkbmap "$KB_LAYOUT"
-EOF
-chmod +x /usr/share/sddm/scripts/Xsetup
-########################################## FIX GLOBAL KB
-mkdir -p "/home/$TARGET_USER/.config"
-cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
-[Layout]
-LayoutList=$KB_LAYOUT
-Use=True
-EOF
-########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired.
-# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
-echo "Setting up KdePost..." 
-mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
-cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
-#!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-# Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark
-# Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
-doas reboot
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
-#!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
-######################################### FIX SESSIONS
-echo "Setting up KDE Config..." 
-## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
-CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
-TMP_FILE="$(mktemp)"
-echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
-cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
-mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basiclally just makes it so that new sessions are fresh (something that I always thought was a stupid default value... 
-# Simple override the whole file for 15 min lockout and 5 min password grace. 
-CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
-cat <<EOF > $CONFIG_FILE3
-[Daemon]
-LockGrace=300
-Timeout=30
-EOF
 ########################################## MORE Noice to haves
 echo "Setting up Bonuses..." 
 ## Extended ascii support + Inital zsh (thank me later ;)
