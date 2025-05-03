@@ -163,49 +163,7 @@ cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
     "clipboard": "external"
 }
 EOF
-########################################## CREATE THE KONSOLE PROFILE 
-echo "Setting up Konsole..." 
-cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
-[Desktop Entry]
-DefaultProfile=$TARGET_USER.profile
-EOF
-# Create the profile file with a .profile extension
-cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
-[General]
-Command=su -l
-Name=$TARGET_USER
-Parent=FALLBACK/
-EOF
-########################################## Show K2-Wiki Entry
-cat > /home/$TARGET_USER/Desktop/k2-os/wikik2.desktop << 'EOF'
-[Desktop Entry]
-Icon=alienarena
-Name=wikik2
-Type=Link
-URL[$e]=https://github.com/h8d13/k2-alpine/wiki
-EOF
-########################################## Show UserShell
-cat > /home/$TARGET_USER/Desktop/k2-os/usershell.desktop << 'EOF'
-[Desktop Entry]
-Comment=Open a usershell quickly
-Exec=konsole --builtin-profile
-GenericName=UserShell
-Icon=amarok_scripts
-MimeType=
-Name=UserShell
-Path=
-StartupNotify=false
-Terminal=false
-TerminalOptions=
-Type=Application
-X-KDE-SubstituteUID=false
-X-KDE-Username=
-EOF
 ########################################## Clone utils only
-echo "Setting up Github/K2..." 
-git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
-mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
-rm -rf /tmp/k2-alpine
 #### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
