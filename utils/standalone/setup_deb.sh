@@ -1,5 +1,5 @@
 #!/bin/bash
-
+## Script made for Rasp4+ (preferably on NVMe SSD if you want a responsive system) 
 TARGET_USER=hadean
 
 ########################################## KDE Post 3rd reboot but helps do quick setup
