@@ -1,12 +1,13 @@
+#!/bin/bash
+
 TARGET_USER=hadean
 
-########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired.
-# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
+########################################## KDE Post 3rd reboot but helps do quick setup
 echo "Setting up KdePost..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --General --key launchers "applications:org.kde.konsole.desktop"
 kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 # Set dark theme for menu and taskbar
 plasma-apply-desktoptheme breeze-dark
@@ -20,7 +21,8 @@ cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
 konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
-######################################### FIX SESSIONS
+
+########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
@@ -28,7 +30,7 @@ TMP_FILE="$(mktemp)"
 echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
 cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
 mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basiclally just makes it so that new sessions are fresh (something that I always thought was a stupid default value... 
+# Basically just makes it so that new sessions are fresh
 # Simple override the whole file for 15 min lockout and 5 min password grace. 
 CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
@@ -36,37 +38,44 @@ cat <<EOF > $CONFIG_FILE3
 LockGrace=300
 Timeout=30
 EOF
-########################################## MORE Noice to haves
+
+########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
-## Extended ascii support + Inital zsh (thank me later ;)
-apt install tzdata font-noto-emoji font-noto ttf-dejavu zsh micro -y
+## Update package list first
+apt update
+## Extended ascii support + Initial zsh (thank me later ;)
+apt install -y fonts-noto-emoji fonts-dejavu-core zsh micro ufw
+## Note: tzdata usually comes pre-installed on Ubuntu/Debian
+
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/zsh"
+mkdir -p "$HOME/.config/bash"
 mkdir -p "$HOME/.config/micro/"
 mkdir -p "$HOME/.local/bin"
-mkdir -p "$HOME/.zsh/plugins"
-mkdir -p "$HOME/.zsh/plugins"
 ## User
 mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
+
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 echo "Setting up Micro..." 
+# Replace 'doas' with 'sudo' for Debian-based systems
 cat > "$HOME/.config/micro/settings.json" << EOF
 {
-    "sucmd": "doas",
+    "sucmd": "sudo",
     "clipboard": "external"
 }
 EOF
 ## Do the same for the user.
 cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
 {
-    "sucmd": "doas", 
+    "sucmd": "sudo", 
     "clipboard": "external"
 }
 EOF
+
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -80,6 +89,7 @@ Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
+
 ########################################## Show K2-Wiki Entry
 cat > /home/$TARGET_USER/Desktop/k2-os/wikik2.desktop << 'EOF'
 [Desktop Entry]
@@ -88,6 +98,7 @@ Name=wikik2
 Type=Link
 URL[$e]=https://github.com/h8d13/k2-alpine/wiki
 EOF
+
 ########################################## Show UserShell
 cat > /home/$TARGET_USER/Desktop/k2-os/usershell.desktop << 'EOF'
 [Desktop Entry]
@@ -105,14 +116,19 @@ Type=Application
 X-KDE-SubstituteUID=false
 X-KDE-Username=
 EOF
+
 ########################################## Clone utils only
 echo "Setting up Github/K2..." 
+# Ensure git is installed
+apt install -y git
 git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
 mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
-#### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
+
+#### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
+
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
@@ -121,20 +137,22 @@ if [ -d "$HOME/.local/bin" ]; then
     export PATH="$HOME/.local/bin:$PATH"
 fi
 EOF
+
 ########################################## Example Script: Called "iapps" To search in installed packages. 
-# Create the script file
+# Create the script file - using dpkg instead of apk for apt-based systems
 cat > ~/.local/bin/iapps << 'EOF'
 #!/bin/sh
 # this script lets you search your installed packages easily
 if [ -z "$1" ]; then
-	echo "Missing search term"
-	exit 1
+    echo "Missing search term"
+    exit 1
 fi
-apk list --installed | grep "$1"
+dpkg -l | grep "$1"
 EOF
 # Make it executable ### Can now be called simply as iapps git
 chmod +x ~/.local/bin/iapps
-########################################## SHARED (ASH & ZSH) ALIASES
+
+########################################## SHARED (BASH & ZSH) ALIASES
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
@@ -143,7 +161,6 @@ alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER -c" 
 alias clr="clear"
 alias cls="clr"
-alias sudo="doas"
 alias ls='ls --color=auto'
 alias ll='ls --color=auto -la'
 alias la='ls --color=auto -a'
@@ -152,27 +169,54 @@ alias l='ls --color=auto -CF'
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
-alias logd="tail -f /var/log/messages"
+alias logd="tail -f /var/log/syslog"  # Changed from /var/log/messages to syslog for Debian-based
 alias logds="dmesg -r"
-# Apk alias
-alias updapc="apk update && doas apk upgrade"
-alias apklean="apk clean cache"
-alias apka="apk add"
-alias apkd="apk del"
-alias apks="apk search"
+# APT aliases (changed from apk)
+alias updapc="apt update && sudo apt upgrade"
+alias apklean="apt clean"
+alias apka="apt install"
+alias apkd="apt remove"
+alias apks="apt search"
 EOF
+
+########################################## BASH CONFIGURATION
+echo "Setting up Bash..." 
+# === Create ~/.config/bash/bashrc ===
+cat > "$HOME/.config/bash/bashrc" << 'EOF'
+# === Custom Bash Prompt Blue ===
+export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\t\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
+
+# === Source common aliases ===
+if [ -f "$HOME/.config/aliases" ]; then
+    . "$HOME/.config/aliases"
+fi
+EOF
+
+# Source environment file in bash
+cat >> "$HOME/.config/bash/bashrc" << 'EOF'
+# === Source environment file ===
+if [ -f "$HOME/.config/environment" ]; then
+    . "$HOME/.config/environment"
+fi
+EOF
+
+# === Ensure ~/.bashrc Sources the New Config ===
+# Create ~/.bashrc if it doesn't exist
+touch "$HOME/.bashrc"
+# Add source line if not already present
+grep -q "HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "$HOME/.config/bash/bashrc"' >> "$HOME/.bashrc"
+
 ########################################## ZSH 
 echo "Setting up ZSH..." 
 # Install ZSH plugins via package manager instead of git
-apt install zsh-autosuggestions \
-      zsh-history-substring-search \
-      zsh-completions \
-      zsh-syntax-highlighting
+apt install -y zsh-autosuggestions \
+              zsh-syntax-highlighting
+
 # === Create ~/.config/zsh/zshrc ===
 cat > "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Load Extra Completions ===
-if [ -d "/usr/share/zsh/plugins/zsh-completions" ]; then
-    fpath+=("/usr/share/zsh/plugins/zsh-completions")
+if [ -d "/usr/share/zsh/vendor-completions" ]; then
+    fpath+=("/usr/share/zsh/vendor-completions")
 fi
 
 # === History Configuration ===
@@ -181,41 +225,20 @@ SAVEHIST=10000
 HISTFILE=~/.zsh_history
 
 # === Source Zsh Plugins (with error checking) ===
-plugin_locations=(
-    "/usr/share/zsh/plugins"
-    "/usr/share"
-)
-
 # Load autosuggestions and history-substring-search first
-for plugin in "zsh-autosuggestions/zsh-autosuggestions.zsh" "zsh-history-substring-search/zsh-history-substring-search.zsh"; do
-    found=0
-    for location in "${plugin_locations[@]}"; do
-        if [ -f "$location/$plugin" ]; then
-            . "$location/$plugin"
-            found=1
-            break
-        fi
-    done
-    
-    if [ $found -eq 0 ]; then
-        echo "Warning: Plugin not found: $plugin"
-    fi
-done
-
-# === History Substring Search with Arrow Keys ===
-autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-zle -N history-substring-search-up
-zle -N history-substring-search-down
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+if [ -f "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    . "/usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+else
+    echo "Warning: zsh-autosuggestions plugin not found"
+fi
 
 # Load syntax-highlighting last as recommended
-for location in "${plugin_locations[@]}"; do
-    if [ -f "$location/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
-        . "$location/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-        break
-    fi
-done
+if [ -f "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    . "/usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+else
+    echo "Warning: zsh-syntax-highlighting plugin not found"
+fi
+
 # === Custom Zsh Prompt Red ===
 export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red}@%F{cyan}%m%F{red}]─[%F{green}%~%F{red}]
 %F{red}└──╼ %F{cyan}$ %f'
@@ -225,21 +248,23 @@ if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
 EOF
-# Source environment file in both shells
-for config in "$HOME/.config/ash/ashrc" "$HOME/.config/zsh/zshrc"; do
-    mkdir -p "$(dirname "$config")"
-    touch "$config"
-    echo 'if [ -f "$HOME/.config/environment" ]; then
+
+# Source environment file in zsh
+cat >> "$HOME/.config/zsh/zshrc" << 'EOF'
+# === Source environment file ===
+if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
-fi' >> "$config"
-done
+fi
+EOF
+
 # === Ensure ~/.zshrc Sources the New Config ===
 # Create ~/.zshrc if it doesn't exist
 touch "$HOME/.zshrc"
-# Add source line if not already present ## Symlink ciz we dont like cluttering our home
+# Add source line if not already present
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
-grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
+grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells  # Changed path for apt-based
+
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ## Not a router stuff
@@ -271,56 +296,16 @@ EOF
 # Apply settings
 sysctl -p >/dev/null 2>&1
 
-########################################## INFO STUFF
+ufw default deny incoming
+ufw allow out 443/tcp  
 
-## Pre login splash art ## That i stole from the internet. And edit sometimes for fun :D
-cat > /etc/issue << 'EOF'
-##################################################################################################################################################
-                                                                                                                                                  
-                                                       ▒▒▒▓▓▒░░                                                                                    
-                                                      ▓▓  ░░  ░░                                                                                  
-                                                  ▒▒▓▓▓▓    ░░  ▒▒                           #########                                                     
-                                              ░░▓▓▓▓▓▓░░    ░░    ▒▒                         # 8611m #                                                 
-                                           ▓▓█▓▓▓▓▓     ░    ░░    ░░▓▓▒▒█                   #########                                                     
-                                        ▒▒▓▓▓█▓▓█▓▒▒          ▒▒      ▓▓▓█▓▓▒▒               # 1.0.3 #                                                    
-                                        ▓▓▓█▓▓▒▒▓█▓▓          ░░▒▒    ░░▓▓▓▓▓▓░░             #########                                                    
-                                      ░░▓█▓▓▒▒▒▓▓▓▓█▒▒       ░  ▒▒░░    ░░▓▓█▓                                          ▒█▒▓▒▒                    
-                                     █▓█▓▓▓▓▒▒▓▓▓▓█▓▓▓▓▓        ▒▒░░      ▒▒▓▓░░▒▒                                    ▓▓▓▓    ▒▒                  
-                                ▒▒▓▓▓▓▓▓█▓▒▒▒▒▒▓▓▓▓█▓▓▓▓░░    ░░▒▒▒▒   ░    ▓█▓▓  ▒                                 ▓▓▓█▓▓  ░   ░                  
-                          ░░▒▒▓▓▓▓█▓▓█▓▓▒▒▒▒▒░▓▓▓▓█▓▓▓▓▓▒▒    ░░▒▒▒▒░░      ▒▒█▓░░░░ ▒                            ▒▒▓▓▓▓▒▓░░  ░░▒▒                
-                      ▓▓▓▓█▓▓▓▓▓▓▓▓█▒▒▒▒▒▒░▓▓▓▓▓██▓▓▓▓▓▓▓      ▒▒░░▒▒░░      ▓▓█▓▒▒    ░░                      ▓▓▓▓▓▓▓▒▓▓▓▓  ░░  ░░░░            
-                  ▓▓▓▓▓█▓▓▒▒▓█▓▓▒▒▒▒▒▒▒▒▒▒▓▓▓██▓█▓▓▓▓▓▓▓▓▓   ░  ░░▒▒▒▒▒▒   ░  ▒▒█▓▓▓      ▒▒                  ▓▓▓▓▓▓▒▒▓▓▓▓▓▓    ░░  ░ ▓▓          
-                  ▓▓▓▓█▓▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓█▓▓█▓▓▓▓▓▓▓▓▓▓▒▒      ░░▒▒▒▒      ░░▓▓█▓░░   ▒  ░░            ░░▓▓▓█▓▓▒▓▓▓▓▓▓▓▓█    ▒▒    ░  ░         
-                ▓▓█▓█▓▒▒▓▓▒▒▒▒▒▒▒▒▒▒▒▒▒▓█▓▓██▓▓█░▒▓▓▓▓▓▓▓▓▓▓▒▒      ▒▒▒▒     ░  ▓▓█▓▒▒  ░   ░░░░        ▒▒▓▓▓█▓▓▓▓▒▒▓▓▓▓▒█▓▓░   ░░ ░    ▒▒        
-            ▓▓████████▓▓▒▒▓▓▓▓▓▓▓▓▓▓█░███▓████▓░████▓▓▓▓▓▓▓▓▓▓      ░░▒▒▒▒      ░░██▓▓       ▒  ░░▒▒▒▒▓▓▓▓▓█▓▓▓▓▒▒▓▓▓▓▓▒█▓▓▓      ▒▒░░    ░░      
-          ████████████▓▓▓▓▓▓▓▓▓▓█▓░███▓▓████░▓████████▓▓▓▓▓▓▓▓░░▒▒▓▓▒▒▒▒▒▒░░      ▓▓██▒▒░░░░    ░░▒▒▓▓▓████▓▓▓▓▓▓▓▒▒▓▒▓▓████▓▓░░  ▒▒▓▓▒▒░░  ░░▓▓    
-        ▓▓████████▓▓▓▓▓▓▓▓▓▓██▓▓░░██████████████████▓▓▓█▓▒▒▒▓▓▓▓▓▓░▓▓▓▓░▓▓▓▒▒░░░░  ██▓▓▓▓▓▓▓▓▓░▓▓▓▓███▓█████▓▓▒▒▒▒▓▓██▒███████▓▓░░▓▓░▓▓▓▓░▓░▓▓▓▓░░  
-  ▒▒████████████▓▓▓▓██▓▓██████████████▓████████████▓▒▒▓▓███▓▓▓▓▓▓▓▓░▓▓▓▓▓▓▓▓▓░░▓▓░▓▓▓▓░▓▓▓▓░▓▓▓▓▓████▓▓███▓▓▓▓█████████▒███████▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓▓
-███▓██████████▓▓██████████████████████████████████▓█▓▓▓▓██▓▓▓▓▓▓▓▓▓░░▓▓▓▓░▓▓▓▓░▓▓▓▓▓▓▓▓▓▓░▓▓▓▓▓▓████▓███▓▓▓▓▓▓███████████▒██████░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-█▓████████▓▓██████████████████████████████████████████▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓░░▓▓▓▓▓▓▓▓░▓▓▓███▓████▓▓▓▓▓▓█████████████▓▒███████░▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-▓███████▓▓███████████████████████████████████████▓████▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓░▓▓▓░░▓▓▓░▓▓▓▓█▓██████▓▓▓▓▓▓▓▓█████████████████▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-██████▓▓███████████████████████▓████████████████████████▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████▓▓▓▓▓▓▓▓▓█████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-█████████████████████████████████████████████▓██████████▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓▓▓▓▓▓▓████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-██████████████████████████████████████████▓█████████████▓▓▓▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓▓▓▓▓██▓▓██████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓
-████████████████████████████▓█████████████████████████████▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████▓▓▓▓██████████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓
-████████▓█████████▓▓████████████████████████████████████▓▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████▓▓▓▓██████████████████████▓███████████████████▓▓▓▓▓▓
-█████▓████████████▓▓▓▓██████████████████████████████████▓▓▓▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓███████████▓████████████████████████████████████▓▓▓▓
-███▓▓█████████████▓▓▓▓██████████████████████████████████▓▓▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓██▓▓██████████████████████████████████████████▓▓▓▓▓▓▓▓
-█▓████████████████▓▓▓▓▓▓▓▓██████████████████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██████▓▓██████████████████████████████████████████████████▓▓▓▓▓▓
-▓██████████████▓▓██▓▓▓▓▓▓▓▓▓▓██▓▓▓▓███████████████▓██▓▓▓▓██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓▓█████████▓████████████████████████████████████████████▓▓▓▓
-██████████████▓▓████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓█████████▓██████████████▓██████████████████████████▓██████████████████▓▓
-██████████▓▓████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████████▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███████████████████████████▓█████████████████████████████████▓▓███████████
-##################################################################################################################################################
-# Kernel \r on \m #
-
-EOF
-cat > /etc/profile.d/welcome.sh << EOF
-echo -e '\e[1;31mWelcome to Alpine $ALPINE_VERSION K2.\e[0m'
-echo -e '\e[1;31mZsh will be red. \e[1;34m Ash shell will blue.\e[0m'
-EOF
-chmod +x /etc/profile.d/welcome.sh
-################################################################################################################################################### 
-# Source the environment file in the current shell to make commands available
-. "$HOME/.config/environment" 
-echo "All set." 
-echo "K2 SETUP. DONE. Reboot"
+## Examples stolen from the internet # uncomment if using these
+#ufw limit SSH         # open SSH port and protect against brute-force login attacks
+#ufw allow out DNS     # allow outgoing DNS
+#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
+#ufw allow 3389        # remote desktop on xorg
+#ufw allow 21          # ftp
+#ufw allow 22	       # sftp
+#ufw allow 51820/udp   # wireguard
+#ufw allow 1194/udp    # openvpn
+ufw enable
