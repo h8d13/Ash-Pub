@@ -66,14 +66,12 @@ echo "Setting up Micro..."
 # Replace 'doas' with 'sudo' for Debian-based systems
 cat > "$HOME/.config/micro/settings.json" << EOF
 {
-    "sucmd": "sudo",
     "clipboard": "external"
 }
 EOF
 ## Do the same for the user.
 cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
 {
-    "sucmd": "sudo", 
     "clipboard": "external"
 }
 EOF
