@@ -4,3 +4,6 @@ Here we provide versions of the script without system installation. Meant to be 
 
 ## Deb 
 Post install KDE + Deb.
+
+## Arch
+Post isntall KDE + Arch.
