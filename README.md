@@ -176,6 +176,8 @@ You can find here [Wiki RaspB Pi](https://github.com/h8d13/k2-alpine/wiki/Z.-Ras
 And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/standalone/setup_deb.sh)
 This would work with any Debian KDE install using bash tho. 
 
+### Same for arch
+Also within standalone scripts. Simply sets Konsole profiles shortcuts, etc
 
 ---
 Love <3 H8D13
