@@ -169,7 +169,8 @@ Special thanks to user @Calvince for this file:
 
 ![vw398e3twkxe1-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/a8912369-a8cc-49be-af79-80994e8d2ab6)
 
-
+## Standalones
+---
 ### 🤖 For raspi 4+ AARM64 or Debian people!
 We have also included a debian version of the script:
 You can find here [Wiki RaspB Pi](https://github.com/h8d13/k2-alpine/wiki/Z.-Rasp-Pi-4)
@@ -177,7 +178,7 @@ And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/standalo
 This would work with any Debian KDE install using bash tho. 
 
 ### Same for arch
-Also within standalone scripts. Simply sets Konsole profiles shortcuts, etc
+Also within standalone scripts [here](https://github.com/h8d13/k2-alpine/tree/master/standalone). Simply sets Konsole profiles shortcuts, etc
 
 ---
 Love <3 H8D13
