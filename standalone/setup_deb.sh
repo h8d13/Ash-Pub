@@ -184,8 +184,7 @@ echo "Setting up Bash..."
 # === Create ~/.config/bash/bashrc ===
 cat > "$HOME/.config/bash/bashrc" << 'EOF'
 # === Custom Bash Prompt Blue ===
-export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\t\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
-
+export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\A\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
 # === Source common aliases ===
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
