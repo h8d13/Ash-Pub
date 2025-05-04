@@ -177,7 +177,6 @@ alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
 alias orphans="pacman -Qtdq | pacman -Rns -"  # New: remove orphaned packages
-alias aur="yay -S"  # New: for AUR packages (if yay is installed)
 EOF
 
 ########################################## BASH CONFIGURATION
