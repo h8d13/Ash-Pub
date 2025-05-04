@@ -116,18 +116,9 @@ X-KDE-SubstituteUID=false
 X-KDE-Username=
 EOF
 
-########################################## Clone utils only
-echo "Setting up Github/K2..." 
-# Ensure git is installed
-pacman -S --noconfirm git
-git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
-mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
-rm -rf /tmp/k2-alpine
-
 #### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
 echo "Setting up permissions..." 
 chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
-
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
