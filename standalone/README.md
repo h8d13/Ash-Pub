@@ -6,4 +6,4 @@ Here we provide versions of the script without system installations. Meant to be
 Post install KDE + Deb (family).
 
 ## Arch
-Post isntall KDE + Arch (family).
+Post install KDE + Arch (family).
