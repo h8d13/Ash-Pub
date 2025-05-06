@@ -1,6 +1,6 @@
 # Why this project ? 
 
-> My personal KDE/Alpine reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft user-spaces. 
+> My personal KDE reverse engineering project from the user's perspective. The only DE that competes visually with Apple/Microsoft user-spaces. 
 > Ample personalization, widgets, tools, and a rich eco-system. Props to KDE devs, Alpine and more OSS contributors.
 
 Most people hate documention, and even more having to do manual menial tasks. 
