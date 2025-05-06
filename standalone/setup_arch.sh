@@ -3,25 +3,6 @@
 
 TARGET_USER=hadean
 
-########################################## KDE Post 3rd reboot but helps do quick setup
-echo "Setting up KdePost..." 
-mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
-cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
-#!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --General --key launchers "applications:org.kde.konsole.desktop"
-# Set dark theme for menu and taskbar
-plasma-apply-desktoptheme breeze-dark
-# Set dark theme for window styles
-plasma-apply-colorscheme BreezeDark
-sudo reboot
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
-#!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
-
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
@@ -84,33 +65,6 @@ cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 Command=su -l
 Name=$TARGET_USER
 Parent=FALLBACK/
-EOF
-
-########################################## Show K2-Wiki Entry
-cat > /home/$TARGET_USER/Desktop/k2-os/wikik2.desktop << 'EOF'
-[Desktop Entry]
-Icon=alienarena
-Name=wikik2
-Type=Link
-URL[$e]=https://github.com/h8d13/k2-alpine/wiki
-EOF
-
-########################################## Show UserShell
-cat > /home/$TARGET_USER/Desktop/k2-os/usershell.desktop << 'EOF'
-[Desktop Entry]
-Comment=Open a usershell quickly
-Exec=konsole --builtin-profile
-GenericName=UserShell
-Icon=amarok_scripts
-MimeType=
-Name=UserShell
-Path=
-StartupNotify=false
-Terminal=false
-TerminalOptions=
-Type=Application
-X-KDE-SubstituteUID=false
-X-KDE-Username=
 EOF
 
 #### Give everything back to user. IMPORTANT: BELOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
