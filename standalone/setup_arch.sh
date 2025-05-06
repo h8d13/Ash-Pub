@@ -145,7 +145,7 @@ cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
-alias aus="su $TARGET_USER -c" 
+alias aus="su $TARGET_USER" 
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
