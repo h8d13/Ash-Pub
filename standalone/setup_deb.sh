@@ -27,13 +27,6 @@ chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
 
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
-## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
-CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
-TMP_FILE="$(mktemp)"
-echo -e "[General]\nloginMode=emptySession" > "$TMP_FILE"
-cat "$CONFIG_FILE2" >> "$TMP_FILE" 2>/dev/null # ignore not exist error idk 
-mv "$TMP_FILE" "$CONFIG_FILE2"
-# Basically just makes it so that new sessions are fresh
 # Simple override the whole file for 15 min lockout and 5 min password grace. 
 CONFIG_FILE3="/home/$TARGET_USER/.config/kscreenlockerrc"
 cat <<EOF > $CONFIG_FILE3
