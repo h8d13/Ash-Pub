@@ -149,7 +149,7 @@ cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
-alias aus="su $TARGET_USER -c" 
+alias aus="su $TARGET_USER" 
 alias clr="clear"
 alias cls="clr"
 alias ls='ls --color=auto'
@@ -164,7 +164,7 @@ alias logd="tail -f /var/log/syslog"  # Changed from /var/log/messages to syslog
 alias logds="dmesg -r"
 # APT aliases (changed from apk)
 alias updapc="apt update && sudo apt upgrade"
-alias apklean="apt clean"
+alias apklean="apt autoremove --purge"
 alias apka="apt install"
 alias apkd="apt remove"
 alias apks="apt search"
