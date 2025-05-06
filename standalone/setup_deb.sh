@@ -63,7 +63,6 @@ mkdir -p "/home/$TARGET_USER/.local/share/konsole"
 
 ########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
 echo "Setting up Micro..." 
-# Replace 'doas' with 'sudo' for Debian-based systems
 cat > "$HOME/.config/micro/settings.json" << EOF
 {
     "clipboard": "external"
