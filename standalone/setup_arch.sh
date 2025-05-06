@@ -62,7 +62,7 @@ EOF
 # Create the profile file with a .profile extension
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=su -l
+Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
