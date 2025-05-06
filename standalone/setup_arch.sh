@@ -1,8 +1,5 @@
 #!/bin/bash
-## Script made for Rasp4+ (preferably on NVMe SSD if you want a responsive system) # Or really any Arch base using bash shell?
-# Get image for Arch Linux ARM
-# Make sure you created a user, passwords, etc
-# Update upgrade > Then run this script as root "su" to get to root. 
+## This one is more for general admin styling can just type Zsh or Bash for easy access :)
 
 TARGET_USER=hadean
 
