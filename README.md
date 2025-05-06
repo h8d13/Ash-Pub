@@ -130,11 +130,11 @@ With an example script to search through your apps `iapps`: See example above ^^
 ----
 
 ## Standalones
-### 🤖 For raspi 4+ AARM64 or Debian people!
+### 🤖 For raspi 4+ AARM64 or Debian people (+Kubuntu) !
 We have also included a debian version of the script:
 You can find here [Wiki RaspB Pi](https://github.com/h8d13/k2-alpine/wiki/Z.-Rasp-Pi-4)
 And here [Actual Script](https://github.com/h8d13/k2-alpine/blob/master/standalone/setup_deb.sh)
-This would work with any Debian KDE install using bash tho. 
+This would work with any Debian derivative. 
 
 ### Same for arch
 Also within standalone scripts [here](https://github.com/h8d13/k2-alpine/tree/master/standalone). Simply sets Konsole profiles shortcuts, etc
