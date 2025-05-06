@@ -62,10 +62,10 @@ cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
 [Desktop Entry]
 DefaultProfile=$TARGET_USER.profile
 EOF
-# Create the profile file with a .profile extension
+# Create the profile file with a .profile extension can also use "bash" instead of "zsh" 
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=su -l
+Command=su -l -c 'zsh'
 Name=$TARGET_USER
 Parent=FALLBACK/
 EOF
