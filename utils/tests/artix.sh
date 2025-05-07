@@ -1,3 +1,5 @@
+#!/bin/sh
+## Artix RC Implementation for auto install from base rc iso. 
 TARGET_DISK="/dev/sdb"
 TARGET_TIMEZONE="Europe/Paris"
 ROOT_PASSWORD="Everest"
