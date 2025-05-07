@@ -31,13 +31,32 @@ echo "Clearing the partition table on $TARGET_DISK..."
 wipefs -a "$TARGET_DISK"
 dd if=/dev/zero of="$TARGET_DISK" bs=512 count=1
 
-# Partitioning with three partitions: EFI, swap, and root
-echo "Partitioning $TARGET_DISK..."
-parted -s "$TARGET_DISK" mklabel gpt
-parted -s "$TARGET_DISK" mkpart primary fat32 1MiB 513MiB
-parted -s "$TARGET_DISK" set 1 esp on
-parted -s "$TARGET_DISK" mkpart primary linux-swap 513MiB $((513 + ${SWAP_SIZE/G/} * 1024))MiB
-parted -s "$TARGET_DISK" mkpart primary ext4 $((513 + ${SWAP_SIZE/G/} * 1024))MiB 100%
+# Partitioning with fdisk
+echo "Partitioning $TARGET_DISK using fdisk..."
+(
+echo o       # Create a new empty DOS partition table
+echo n       # New partition
+echo p       # Primary partition
+echo 1       # Partition number 1 (EFI)
+echo          # Default: start at beginning of disk
+echo +512M   # Size: 512MB
+echo t       # Change partition type
+echo 1       # Type: EFI System
+echo n       # New partition
+echo p       # Primary partition
+echo 2       # Partition number 2 (Swap)
+echo          # Default: start immediately after previous partition
+echo +$(( ${SWAP_SIZE/G/} * 1024 ))M  # Size: swap size
+echo t       # Change partition type
+echo 2       # Select partition 2
+echo 19      # Type: Linux swap
+echo n       # New partition
+echo p       # Primary partition
+echo 3       # Partition number 3 (Root)
+echo          # Default: start immediately after previous partition
+echo          # Default: extend to end of disk
+echo w       # Write changes
+) | fdisk "$TARGET_DISK"
 
 # Format partitions
 echo "Formatting partitions..."
