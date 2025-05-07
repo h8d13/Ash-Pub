@@ -1,39 +1,39 @@
-TARGET_DISK="/dev/sdb" 
-TARGET_TIMEZONE="Europe/Paris" 
-ROOT_PASSWORD="Everest" 
+TARGET_DISK="/dev/sdb"
+TARGET_TIMEZONE="Europe/Paris"
+ROOT_PASSWORD="Everest"
 KB_LAYOUT="be"
 TARGET_HOSTNAME="kartix"
 TARGET_USER="hadean"
-SWAP_SIZE="4G" 
+SWAP_SIZE="4G"
 TARGET_MOUNT="/mnt"
 
 # Partitioning with three partitions: EFI, swap, and root
 echo "Partitioning $TARGET_DISK..."
-fdisk "$TARGET_DISK" << EOF
-o
-n
-p
-1
-2048
-+512M
-t
-1
-1
-n
-p
-2
-+512M
-+$(echo $SWAP_SIZE | sed 's/G/*1024/')M
-t
-2
-19
-n
-p
-3
-+$(echo $SWAP_SIZE | sed 's/G/*1024/')M+512M
-100%
-w
-EOF
+(
+  echo "o"
+  echo "n"
+  echo "p"
+  echo "1"
+  echo "2048"
+  echo "+512M"
+  echo "t"
+  echo "1"
+  echo "1"
+  echo "n"
+  echo "p"
+  echo "2"
+  echo "+512M"
+  echo "+$(( ${SWAP_SIZE/G/} * 1024 ))M"
+  echo "t"
+  echo "2"
+  echo "19"
+  echo "n"
+  echo "p"
+  echo "3"
+  echo "+$(( ${SWAP_SIZE/G/} * 1024 + 512 ))M"
+  echo ""
+  echo "w"
+) | fdisk "$TARGET_DISK"
 
 # Format partitions
 echo "Formatting partitions..."
@@ -103,3 +103,5 @@ grub-mkconfig -o /boot/grub/grub.cfg
 EOF
 chmod +x "$TARGET_MOUNT/configure.sh"
 chroot "$TARGET_MOUNT" /configure.sh
+
+echo "Done!"
