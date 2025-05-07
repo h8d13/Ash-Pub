@@ -7,44 +7,31 @@ TARGET_USER="hadean"
 SWAP_SIZE="4G"
 TARGET_MOUNT="/mnt"
 
-# Load the disk module
-echo "Loading disk module..."
-modprobe sd_mod
-
-# Scan for disks
-echo "Scanning for disks..."
-echo "- - -" > /sys/class/scsi_host/host0/scan
-
-# Wait for the disk to be recognized
-echo "Waiting for disk to be recognized..."
-sleep 10
-
 # Partitioning with three partitions: EFI, swap, and root
 echo "Partitioning $TARGET_DISK..."
-(
-  echo "o"
-  echo "n"
-  echo "p"
-  echo "1"
-  echo "2048"
-  echo "+512M"
-  echo "t"
-  echo "1"
-  echo "1"
-  echo "n"
-  echo "p"
-  echo "2"
-  echo "+512M"
-  echo "+$(( ${SWAP_SIZE/G/} * 1024 ))M"
-  echo "t"
-  echo "2"
-  echo "19"
-  echo "n"
-  echo "p"
-  echo "3"
-  echo ""
-  echo "w"
-) | fdisk "$TARGET_DISK"
+echo "o" | fdisk "$TARGET_DISK"
+echo "n" | fdisk "$TARGET_DISK"
+echo "p" | fdisk "$TARGET_DISK"
+echo "1" | fdisk "$TARGET_DISK"
+echo "2048" | fdisk "$TARGET_DISK"
+echo "+512M" | fdisk "$TARGET_DISK"
+echo "t" | fdisk "$TARGET_DISK"
+echo "1" | fdisk "$TARGET_DISK"
+echo "1" | fdisk "$TARGET_DISK"
+echo "n" | fdisk "$TARGET_DISK"
+echo "p" | fdisk "$TARGET_DISK"
+echo "2" | fdisk "$TARGET_DISK"
+echo "+512M" | fdisk "$TARGET_DISK"
+echo "+$(( ${SWAP_SIZE/G/} * 1024 ))M" | fdisk "$TARGET_DISK"
+echo "t" | fdisk "$TARGET_DISK"
+echo "2" | fdisk "$TARGET_DISK"
+echo "19" | fdisk "$TARGET_DISK"
+echo "n" | fdisk "$TARGET_DISK"
+echo "p" | fdisk "$TARGET_DISK"
+echo "3" | fdisk "$TARGET_DISK"
+echo "+$(( ${SWAP_SIZE/G/} * 1024 + 512 ))M" | fdisk "$TARGET_DISK"
+echo "" | fdisk "$TARGET_DISK"
+echo "w" | fdisk "$TARGET_DISK"
 
 # Format partitions
 echo "Formatting partitions..."
@@ -106,7 +93,6 @@ echo "Configuring network..."
 pacman -S --noconfirm networkmanager
 rc-service NetworkManager start
 rc-update add NetworkManager default
-
 # Install GRUB to EFI partition
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARTIX --recheck
 # Generate GRUB configuration
