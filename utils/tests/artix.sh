@@ -7,6 +7,18 @@ TARGET_USER="hadean"
 SWAP_SIZE="4G"
 TARGET_MOUNT="/mnt"
 
+# Load the disk module
+echo "Loading disk module..."
+modprobe sd_mod
+
+# Scan for disks
+echo "Scanning for disks..."
+echo "- - -" > /sys/class/scsi_host/host0/scan
+
+# Wait for the disk to be recognized
+echo "Waiting for disk to be recognized..."
+sleep 10
+
 # Partitioning with three partitions: EFI, swap, and root
 echo "Partitioning $TARGET_DISK..."
 (
@@ -30,7 +42,6 @@ echo "Partitioning $TARGET_DISK..."
   echo "n"
   echo "p"
   echo "3"
-  echo "+$(( ${SWAP_SIZE/G/} * 1024 + 512 ))M"
   echo ""
   echo "w"
 ) | fdisk "$TARGET_DISK"
