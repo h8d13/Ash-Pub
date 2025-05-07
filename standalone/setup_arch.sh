@@ -1,5 +1,5 @@
 #!/bin/bash
-## This one is more for general admin styling can just type Zsh or Bash for easy access :)
+## Same for pacman and Arch derivatives
 
 TARGET_USER=hadean
 
