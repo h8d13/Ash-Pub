@@ -83,10 +83,6 @@ mount -t sysfs /sys "$TARGET_MOUNT/sys"
 mount -o bind /dev "$TARGET_MOUNT/dev"
 mount -o bind /dev/pts "$TARGET_MOUNT/dev/pts"
 
-# Initialize pacman
-echo "Initializing pacman..."
-chroot "$TARGET_MOUNT" /bin/bash -c "pacman-key --init && pacman-key --populate artix"
-
 # Generate fstab
 echo "Generating fstab..."
 genfstab -U "$TARGET_MOUNT" > "$TARGET_MOUNT/etc/fstab"
@@ -111,12 +107,15 @@ useradd -m -s /bin/bash -G wheel $TARGET_USER
 echo "$TARGET_USER:$ROOT_PASSWORD" | chpasswd
 sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
-# Install GRUB and essentials
-pacman -S --noconfirm grub grub-efi-x86_64 networkmanager sudo util-linux
+# Install GRUB and OpenRC essentials
+pacman -S --noconfirm grub grub-efi-x86_64 networkmanager openrc util-linux
 
-# Configure network
-echo "Configuring network..."
-rc-service NetworkManager start
+# Configure OpenRC services
+echo "Configuring OpenRC services..."
+rc-update add elogind boot
+rc-update add udev sysinit
+rc-update add dbus default
+rc-update add cronie default
 rc-update add NetworkManager default
 
 # Install GRUB to EFI partition
