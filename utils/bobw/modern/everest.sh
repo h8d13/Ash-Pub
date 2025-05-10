@@ -3,18 +3,25 @@
 #### ALSO GPT / UEFI
 set -e  # Exit on error
 
-
 # Configuration variables
-TARGET_DISK="/dev/sdb" ### VERY CAREFULY LSBLK TO CHECK 
-TARGET_TIMEZONE="Europe/Paris" 
-ROOT_PASSWORD="Everest" ### PLEASE CHANGE ME 
-KB_LAYOUT=$(ls /etc/keymap/*.bmap.gz 2>/dev/null | head -1 | sed 's|/etc/keymap/||' | sed 's|\.bmap\.gz$||') 
-TARGET_HOSTNAME=$(cat /etc/hostname)-arch
-TARGET_USER=$(cat /etc/passwd | grep '/home/' | head -1 | cut -d: -f1)
-SWAP_SIZE="4G" 
+TARGET_DISK="/dev/sda"
+SWAP_SIZE="4GiB" 
+# Configuration variables
+KB_LAYOUT=us
+TARGET_TIMEZONE="Europe/Paris"
+TARGET_HOSTNAME=karch
+TARGET_USER=hadean
+ROOT_PASSWORD="Everest"
+## Host pm for prereqs
+PKG_MAN="apt"
+PKG_MAN_W="install"
+ARG1="-y"
+# prereqs
+PKGS="wget zstd parted arch-install-scripts"
+
 # Install required packages
-echo "Installing required packages in Alpine..."
-apk add wget curl zstd dosfstools arch-install-scripts parted
+echo "Installing required packages in Host..."
+$PKG_MAN $PKG_MAN_W $PKGS $ARG1
 # Clean up previous files if canceled/failed install
 rm -rf /tmp/archlinux-bootstrap*
 # Ensure target mount point exists
@@ -31,8 +38,8 @@ echo "Partitioning $TARGET_DISK..."
 parted -s "$TARGET_DISK" mklabel gpt
 parted -s "$TARGET_DISK" mkpart primary fat32 1MiB 512MiB
 parted -s "$TARGET_DISK" set 1 esp on
-parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB 4.5GiB
-parted -s "$TARGET_DISK" mkpart primary ext4 4.5GiB 100%
+parted -s "$TARGET_DISK" mkpart primary linux-swap 512MiB $SWAP_SIZE
+parted -s "$TARGET_DISK" mkpart primary ext4 $SWAP_SIZE 100%
 # Format partitions
 echo "Formatting partitions..."
 mkfs.fat -F32 "${TARGET_DISK}1"  # EFI partition
@@ -88,13 +95,9 @@ echo "nameserver 8.8.4.4" >> /etc/resolv.conf
 echo "root:$ROOT_PASSWORD" | chpasswd
 useradd -m -s /bin/bash -G wheel $TARGET_USER
 echo "$TARGET_USER:$ROOT_PASSWORD" | chpasswd
-sed -i 's/^# %wheel ALL=(ALL:ALL) ALL/%wheel ALL=(ALL:ALL) ALL/' /etc/sudoers
 
 # Install GRUB and essentials
 pacman -S --noconfirm grub grub-efi-x86_64 networkmanager base-devel sudo util-linux
-
-# Install GRUB to EFI partition
-grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=ARCH --recheck
 # Generate GRUB configuration
 grub-mkconfig -o /boot/grub/grub.cfg
 EOF
