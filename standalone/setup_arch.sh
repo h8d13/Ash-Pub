@@ -109,12 +109,7 @@ alias comms="cat ~/.config/aliases | sed 's/alias//g'"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
-alias clr="clear"
-alias cls="clr"
-alias ls='ls --color=auto'
-alias ll='ls --color=auto -la'
-alias la='ls --color=auto -a'
-alias l='ls --color=auto -CF'
+
 # Utils alias
 alias wztree="du -h / | sort -rh | head -n 30 | less"
 alias wzhere="du -h . | sort -rh | head -n 30 | less"
@@ -127,7 +122,12 @@ alias apklean="pacman -Sc"
 alias apka="pacman -S"
 alias apkd="pacman -R"
 alias apks="pacman -Ss"
-alias orphans="pacman -Qtdq | pacman -Rns -"  # New: remove orphaned packages
+alias clr="clear"
+alias cls="clr"
+alias ls='ls --color=auto'
+alias ll='ls --color=auto -la'
+alias la='ls --color=auto -a'
+alias l='ls --color=auto -CF'
 EOF
 
 ########################################## BASH CONFIGURATION
