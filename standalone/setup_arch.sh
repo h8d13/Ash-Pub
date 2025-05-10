@@ -3,8 +3,19 @@
 
 TARGET_USER=hadean
 
+########################################## MORE Nice to haves
+echo "Setting up Bonuses..." 
+## Update package list first
+pacman -Sy
+## Extended Initial zsh + power profiles (thank me later ;)
+pacman -S --noconfirm zsh micro ufw power-profiles-daemon 
+systemctl enable power-profiles-daemon.service
+ufw default deny incoming
+ufw enable
+
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
+mkdir -p "$HOME/.config"
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
 CONFIG_FILE2="/home/$TARGET_USER/.config/ksmserverrc"
 TMP_FILE="$(mktemp)"
@@ -20,17 +31,16 @@ LockGrace=300
 Timeout=30
 EOF
 
-########################################## MORE Nice to haves
-echo "Setting up Bonuses..." 
-## Update package list first
-pacman -Sy
-## Extended ascii support + Initial zsh (thank me later ;)
-pacman -S --noconfirm zsh micro ufw
-
+CONFIG_FILE4="/home/$TARGET_USER/.config/powerdevilrc"
+cat <<EOF > $CONFIG_FILE4
+[AC][Performance]
+PowerProfile=performance
+[Battery][Performance]
+PowerProfile=performance
+EOF
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
-mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/bash"
 mkdir -p "$HOME/.config/micro/"
