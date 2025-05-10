@@ -1,18 +1,17 @@
 #!/bin/bash
-## Same for pacman and Arch derivatives
-
+## Same for pacman and Arch derivatives 
+#Made to be run as root post basic KDE install. 
 TARGET_USER=hadean
-
+## Only thing to specify is user and wanted packages.
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
 pacman -Sy
-## Extended Initial zsh + power profiles (thank me later ;)
-pacman -S --noconfirm zsh micro ufw power-profiles-daemon 
+## Extended bonuses if you remove, remove corresponding code bellow
+pacman -S --noconfirm zsh micro ufw power-profiles-daemon  
 systemctl enable power-profiles-daemon.service
 ufw default deny incoming
 ufw enable
-
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 mkdir -p "$HOME/.config"
@@ -217,6 +216,19 @@ grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zs
 grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
 
 ########################################## SYSTEM HARDENING
+
+ufw allow out 443/tcp  
+
+#ufw limit SSH         # open SSH port and protect against brute-force login attacks
+#ufw allow out DNS     # allow outgoing DNS
+#ufw allow out 80/tcp  # allow outgoing HTTP/HTTPS traffic
+#ufw allow 3389        # remote desktop on xorg
+#ufw allow 21          # ftp
+#ufw allow 22	       # sftp
+#ufw allow 51820/udp   # wireguard
+#ufw allow 1194/udp    # openvpn
+
+
 echo "Setting up Security fixes..." 
 ## Not a router stuff
 cat > /etc/sysctl.conf << 'EOF'
