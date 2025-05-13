@@ -34,5 +34,5 @@ cp /etc/resolv.conf alpinestein/etc/resolv.conf
 ln -s /sbin/apk alpinestein/bin/apk
 ## this is where it becomes interesting
 
-## now start a shell using chroot
-chroot alpinestein /bin/ash -c "source /root/.profile; exec /bin/ash"
+## now start a shell using chroot and source
+chroot alpinestein /bin/ash -c ". /root/.profile; exec /bin/ash"
