@@ -9,7 +9,7 @@ if [ ! -d "alpinestein" ]; then
     tar xzf tmp.tar.gz -C alpinestein
     rm tmp.tar.gz
 else
-    echo "The alpinestein directory already exists. Skipping download and extraction."
+    echo "Skipping download and extraction."
 fi
 
 ## ash dash stuff
