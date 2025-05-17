@@ -7,3 +7,5 @@ Post install KDE + Deb (family).
 
 ## Arch
 Post install KDE + Arch (family).
+
+[ArchK2](https://github.com/h8d13/KAES-ARCH/)
