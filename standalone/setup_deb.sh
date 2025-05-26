@@ -1,11 +1,17 @@
 #!/bin/bash
-## Script made for Rasp4+ (preferably on NVMe SSD if you want a responsive system) # Or really any deb base using bash shell?
+## Script made for Rasp4+ (preferably on NVMe SSD if you want a responsive system) 
+# Or really any deb base using bash shell?
 # Get image from Raspi imager, Pick Armbian64 > Kde neon
 # Make sure you created a user, pws, etc
 # Update upgrade > Then run this script as root "su" to get to root. 
-
 TARGET_USER=hadean
 
+echo "Checking user..." 
+## Check the target user is correct
+if [ ! -d "/home/$TARGET_USER" ]; then
+    echo "ERROR: Home directory for user '$TARGET_USER' does not exist. Exiting."
+    exit 1
+fi
 ########################################## FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
@@ -26,36 +32,23 @@ EOF
 ########################################## MORE Nice to haves
 echo "Setting up Bonuses..." 
 ## Update package list first
-apt update
-## Extended ascii support + Initial zsh (thank me later ;)
-apt install -y zsh micro ufw
-
+if ! apt update; then
+    echo "ERROR: Failed to update package databases"
+    exit 1
+fi
+## Initial zsh (thank me later ;)
+apt install -y zsh ufw vim
 ########################################## DIRS
 echo "Setting up Directories..." 
 ## Admin
 mkdir -p "$HOME/.config"
 mkdir -p "$HOME/.config/zsh"
 mkdir -p "$HOME/.config/bash"
-mkdir -p "$HOME/.config/micro/"
 mkdir -p "$HOME/.local/bin"
 ## User
-mkdir -p "/home/$TARGET_USER/.config/micro/"
 mkdir -p "/home/$TARGET_USER/.local/share/konsole"
-
-########################################## FRIENDLY EDITOR NEEDS EDITING :D + Alias mc + fixed create config
-echo "Setting up Micro..." 
-cat > "$HOME/.config/micro/settings.json" << EOF
-{
-    "clipboard": "external"
-}
-EOF
-## Do the same for the user.
-cat > "/home/$TARGET_USER/.config/micro/settings.json" << EOF
-{
-    "clipboard": "external"
-}
-EOF
-
+mkdir -p "/home/$TARGET_USER/.config/zsh"
+mkdir -p "/home/$TARGET_USER/.config/bash"
 ########################################## CREATE THE KONSOLE PROFILE 
 echo "Setting up Konsole..." 
 cat > "/home/$TARGET_USER/.config/konsolerc" << EOF
@@ -65,8 +58,16 @@ EOF
 # Create the profile file with a .profile extension can also use "bash" instead of "zsh" 
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=su -l -c 'zsh'
+Command=zsh
 Name=$TARGET_USER
+Parent=FALLBACK/
+EOF
+
+## Root shell profile
+cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
+[General]
+Command=su -l -c 'zsh'  
+Name=root
 Parent=FALLBACK/
 EOF
 
@@ -101,6 +102,9 @@ chmod +x ~/.local/bin/iapps
 echo "Setting up aliases..." 
 cat > "$HOME/.config/aliases" << EOF
 alias comms="cat ~/.config/aliases | sed 's/alias//g'"
+alias ecomms="vim ~/.config/aliases"
+alias syncusr="cp ~/.config/aliases /home/$TARGET_USER/.config/aliases"
+alias srcall=". ~/.config/aliases"
 # Base alias
 alias cdu="cd /home/$TARGET_USER/"
 alias aus="su $TARGET_USER" 
@@ -116,12 +120,15 @@ alias wzhere="du -h . | sort -rh | head -n 30 | less"
 alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="tail -f /var/log/syslog"  # Changed from /var/log/messages to syslog for Debian-based
 alias logds="dmesg -r"
-# APT aliases (changed from apk)
-alias updapc="apt update && sudo apt upgrade"
+alias birth="stat /"
+# APT aliases 
+alias updapc="apt update && apt upgrade"
 alias apklean="apt autoremove --purge"
 alias apka="apt install"
 alias apkd="apt remove"
 alias apks="apt search"
+# Practical alias
+alias sudo='sudo ' # crucial
 EOF
 
 ########################################## BASH CONFIGURATION
@@ -130,14 +137,12 @@ echo "Setting up Bash..."
 cat > "$HOME/.config/bash/bashrc" << 'EOF'
 # === Custom Bash Prompt Blue ===
 export PS1='\[\033[1;34m\]┌──[\[\033[0;36m\]\A\[\033[1;34m\]]─[\[\033[0m\]\u\[\033[1;34m\]@\[\033[0;36m\]\h\[\033[1;34m\]]─[\[\033[0;32m\]\w\[\033[1;34m\]]\n\[\033[1;34m\]└──╼ \[\033[0;36m\]$ \[\033[0m\]'
+
 # === Source common aliases ===
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
-EOF
 
-# Source environment file in bash
-cat >> "$HOME/.config/bash/bashrc" << 'EOF'
 # === Source environment file ===
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
@@ -152,7 +157,6 @@ grep -q "HOME/.config/bash/bashrc" "$HOME/.bashrc" || echo '. "$HOME/.config/bas
 
 ########################################## ZSH 
 echo "Setting up ZSH..." 
-# Install ZSH plugins via package manager instead of git
 apt install -y zsh-autosuggestions \
               zsh-syntax-highlighting
 
@@ -191,10 +195,7 @@ export PROMPT='%F{red}┌──[%F{cyan}%D{%H:%M}%F{red}]─[%F{default}%n%F{red
 if [ -f "$HOME/.config/aliases" ]; then
     . "$HOME/.config/aliases"
 fi
-EOF
 
-# Source environment file in zsh
-cat >> "$HOME/.config/zsh/zshrc" << 'EOF'
 # === Source environment file ===
 if [ -f "$HOME/.config/environment" ]; then
     . "$HOME/.config/environment"
@@ -207,12 +208,38 @@ touch "$HOME/.zshrc"
 # Add source line if not already present
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
-grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells  # Changed path for apt-based
+grep -qxF '/usr/bin/zsh' /etc/shells || echo '/usr/bin/zsh' >> /etc/shells
+
+########################################## USER SHELL SETUP
+echo "Setting up user shell configurations..."
+
+# Copy shell configs to user
+cp "$HOME/.config/zsh/zshrc" "/home/$TARGET_USER/.config/zsh/zshrc"
+cp "$HOME/.config/bash/bashrc" "/home/$TARGET_USER/.config/bash/bashrc"
+cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/aliases"
+cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/environment"
+
+# Create user's shell rc files
+touch "/home/$TARGET_USER/.zshrc"
+echo '. "$HOME/.config/zsh/zshrc"' >> "/home/$TARGET_USER/.zshrc"
+
+touch "/home/$TARGET_USER/.bashrc"
+echo '. "$HOME/.config/bash/bashrc"' >> "/home/$TARGET_USER/.bashrc"
+
+# Set user's default shell to zsh
+chsh -s /usr/bin/zsh $TARGET_USER
+
+# Fix ownership after copying
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
-## Not a router stuff
-cat > /etc/sysctl.conf << 'EOF'
+## Enhanced firewall
+ufw default deny incoming
+ufw enable
+
+## Enhanced system hardening - using sysctl.d for better organization
+cat > /etc/sysctl.d/99-custom-harden.conf << 'EOF'
 # Network performance and security
 net.core.rmem_max = 16777216
 net.core.wmem_max = 16777216
@@ -221,6 +248,10 @@ net.ipv4.tcp_wmem = 4096 65536 16777216
 net.ipv4.tcp_congestion_control = bbr
 net.ipv4.tcp_fastopen = 3
 net.ipv4.tcp_mtu_probing = 1
+net.core.default_qdisc = fq
+net.ipv4.tcp_window_scaling = 1
+net.ipv4.tcp_timestamps = 1
+net.ipv4.tcp_sack = 1
 
 # Security settings
 net.ipv4.conf.all.rp_filter = 1
@@ -235,7 +266,13 @@ net.ipv4.conf.default.secure_redirects = 0
 # Enable IPv6 privacy extensions
 net.ipv6.conf.all.use_tempaddr = 2
 net.ipv6.conf.default.use_tempaddr = 2
+
+# Performance tweaks
+vm.swappiness = 10
+vm.vfs_cache_pressure = 50
+vm.dirty_ratio = 15
+vm.dirty_background_ratio = 5
 EOF
 
 # Apply settings
-sysctl -p >/dev/null 2>&1
+sysctl --system >/dev/null 2>&1
