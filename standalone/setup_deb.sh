@@ -1,9 +1,9 @@
 #!/bin/bash
 ## Script made for Rasp4+ (preferably on NVMe SSD if you want a responsive system) 
-# Or really any deb base using bash shell?
+# Or really any deb base using bash shell? Meant to be run elevated.
 # Get image from Raspi imager, Pick Armbian64 > Kde neon
 # Make sure you created a user, pws, etc
-# Update upgrade > Then run this script as root "su" to get to root. 
+
 TARGET_USER=hadean
 
 echo "Checking user..." 
