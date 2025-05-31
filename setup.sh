@@ -128,13 +128,12 @@ sleep 1
 echo "1..."
 sleep 1
 echo "Go!"
-########################################## FIX LOGIN KB
+########################################## FIX SDDM LOGIN KB
 echo "Setting up Keyboard..." 
-mkdir -p "/usr/share/sddm/scripts/"
-cat >> /usr/share/sddm/scripts/Xsetup << EOF
-setxkbmap "$KB_LAYOUT"
+mkdir -p "/etc"
+cat >> /etc/environment << EOF
+XKB_DEFAULT_LAYOUT=$KB_LAYOUT
 EOF
-chmod +x /usr/share/sddm/scripts/Xsetup
 ########################################## FIX GLOBAL KB
 mkdir -p "/home/$TARGET_USER/.config"
 cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
