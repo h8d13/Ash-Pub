@@ -51,9 +51,9 @@ echo "Repositories added successfully! Ready?"
 apk update && apk upgrade
 ########################################## VIDEO
 echo "Setting up video/drivers..." 
-apk add xf86-video-vesa 
-apk add mesa mesa-gl mesa-va-gallium 
-## mesa-vulkan-layers vulkan-tools mesa-dri-gallium
+#apk add xf86-video-vesa #legacy 
+apk add mesa mesa-gl mesa-va-gallium mesa-dri-gallium
+## mesa-vulkan-layers vulkan-tools
 apk add intel-ucode #amd-ucode
 apk add linux-firmware-intel #-amd
 apk add intel-gmmlib intel-media-driver libva-intel-driver mesa-vulkan-intel
@@ -69,8 +69,7 @@ setup-desktop plasma
 apk del kate kate-common
 ########################################## ESSENTIALS
 echo "Setting up drivers..."
-apk add linux-firmware \
-	linux-lts \
+apk add linux-lts \
   	pciutils \
 	wpa_supplicant \
   	dbus-openrc \
@@ -79,6 +78,7 @@ apk add linux-firmware \
   	ip6tables 
    
 apk add util-linux dolphin wget tar zstd hwinfo lshw usbutils micro bash
+# apk add linux-firmware # extended firmware
 ########################################## OPTIONAL SYSTEM TWEAKS (ADVANCED)
 ## Packages
 #apk add gtkmm3 glibmm gcompat
@@ -147,13 +147,11 @@ echo "Setting up KdePost..."
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 2 --group Applets --group 5 --group Configuration --group General --key launchers "applications:org.kde.konsole.desktop"
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Wallpaper --group org.kde.image --group General --key Image "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
-# Set dark theme for menu and taskbar
+kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Applets --group 3 --group Configuration --group General --key launchers "preferred://filemanager,applications:org.kde.konsole.desktop"
+plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
 plasma-apply-colorscheme BreezeDark
-doas reboot
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
 cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
