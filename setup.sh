@@ -218,8 +218,15 @@ EOF
 # Create the profile file with a .profile extension
 cat > "/home/$TARGET_USER/.local/share/konsole/$TARGET_USER.profile" << EOF
 [General]
-Command=su -l
+Command=zsh
 Name=$TARGET_USER
+Parent=FALLBACK/
+EOF
+
+cat > "/home/$TARGET_USER/.local/share/konsole/root.profile" << EOF
+[General]
+Command=su -l -c zsh
+Name=root
 Parent=FALLBACK/
 EOF
 ########################################## Show K2-Wiki Entry
@@ -252,9 +259,6 @@ echo "Setting up Github/K2..."
 git clone https://github.com/h8d13/k2-alpine /tmp/k2-alpine
 mv /tmp/k2-alpine/utils /home/$TARGET_USER/Desktop/k2-os/
 rm -rf /tmp/k2-alpine
-#### Give everything back to user. IMPORTANT: BELLOW NO MORE USER CHANGES. ##### IMPORTANT IMPORTANT IMPORTANT #######
-echo "Setting up permissions..." 
-chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## LOCAL BIN THE GOAT <3
 echo "Setting up Localbin..." 
 # Add local bin to PATH if it exists
@@ -405,6 +409,25 @@ touch "$HOME/.zshrc"
 grep -q "HOME/.config/zsh/zshrc" "$HOME/.zshrc" || echo '. "$HOME/.config/zsh/zshrc"' >> "$HOME/.zshrc"
 # === Add zsh to /etc/shells if missing ===
 grep -qxF '/bin/zsh' /etc/shells || echo '/bin/zsh' >> /etc/shells
+
+########################################## COPY ROOT SHELL CONFIG TO USER
+echo "Copying root shell configuration to user..." 
+
+# Copy all shell configuration directories from root to user
+cp -r "$HOME/.config/ash" "/home/$TARGET_USER/.config/" 2>/dev/null || true
+cp -r "$HOME/.config/zsh" "/home/$TARGET_USER/.config/" 2>/dev/null || true
+
+# Copy individual config files
+cp "$HOME/.config/aliases" "/home/$TARGET_USER/.config/" 2>/dev/null || true
+cp "$HOME/.config/environment" "/home/$TARGET_USER/.config/" 2>/dev/null || true
+cp "$HOME/.zshrc" "/home/$TARGET_USER/.zshrc" 2>/dev/null || true
+
+# Create user's local bin directory and copy scripts
+mkdir -p "/home/$TARGET_USER/.local/bin"
+cp -r "$HOME/.local/bin/"* "/home/$TARGET_USER/.local/bin/" 2>/dev/null || true
+
+echo "Setting up permissions..." 
+chown -R $TARGET_USER:$TARGET_USER /home/$TARGET_USER/
 ########################################## SYSTEM HARDENING
 echo "Setting up Security fixes..." 
 ## Not a router stuff
