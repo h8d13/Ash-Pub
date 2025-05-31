@@ -141,13 +141,12 @@ cat > "/home/$TARGET_USER/.config/kxkbrc" << EOF
 LayoutList=$KB_LAYOUT
 Use=True
 EOF
-########################################## Kdepost 3rd reboot but helps do quick setup. Can add more kwrites as desired.
-# Mine is black theme, only konsole in taskbar and ofc mountain bg. 
+########################################## Kdepost. Can add more kwrites as desired.
+# Mine is black theme and  mountain bg. 
 echo "Setting up KdePost..." 
 mkdir -p "/home/$TARGET_USER/Desktop/k2-os/etc"
 cat > /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh << EOF
 #!/bin/sh
-kwriteconfig5 --file plasma-org.kde.plasma.desktop-appletsrc --group Containments --group 1 --group Applets --group 3 --group Configuration --group General --key launchers "preferred://filemanager,applications:org.kde.konsole.desktop"
 plasma-apply-wallpaperimage "/usr/share/wallpapers/Mountain/contents/images_dark/5120x2880.png"
 plasma-apply-desktoptheme breeze-dark
 # Set dark theme for window styles
