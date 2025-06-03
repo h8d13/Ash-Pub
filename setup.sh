@@ -298,7 +298,7 @@ alias genpw="head /dev/urandom | tr -dc A-Za-z0-9 | head -c 21; echo"
 alias logd="tail -f /var/log/messages"
 alias logds="dmesg -r"
 # Apk alias
-alias updapc="apk update && doas apk upgrade"
+alias updapc="apk update && apk upgrade"
 alias apklean="apk clean cache"
 alias apka="apk add"
 alias apkd="apk del"
