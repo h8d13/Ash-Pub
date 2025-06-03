@@ -153,11 +153,6 @@ plasma-apply-desktoptheme breeze-dark
 plasma-apply-colorscheme BreezeDark
 EOF
 chmod +x /home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh
-cat > /home/$TARGET_USER/Desktop/k2-os/runme_once.sh << EOF
-#!/bin/sh
-konsole --builtin-profile -e "/home/$TARGET_USER/Desktop/k2-os/etc/kpost.sh"
-EOF
-chmod +x /home/$TARGET_USER/Desktop/k2-os/runme_once.sh
 ######################################### FIX SESSIONS
 echo "Setting up KDE Config..." 
 ## Cool prepend move totally useless file doesnt exist yet but it's cool ya know
